@@ -61,6 +61,9 @@ public class UserFavouriteController {
 
 
         List<UserFavouriteParkingDTO> favourites = userFavouriteService.findParkingByUserUserId(userId);
+        if (favourites.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
         return ResponseEntity.ok(favourites);
     }
 }

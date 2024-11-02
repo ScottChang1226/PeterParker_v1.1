@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<head>
+
+<!-- Basic Page Needs
+================================================== -->
+<title>會員個人資料 | Peter Parker</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<!-- CSS
+================================================== -->
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/main-color.css" id="colors">
+<script type="module" src="scripts/userinfo.js"></script>
+
+</head>
+
+<body>
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Header Container
+================================================== -->
+<header id="header-container" class="fixed fullwidth dashboard">
+
+	<!-- Header -->
+	<div id="header" class="not-sticky">
+		<div class="container">
+			
+			<!-- Left Side Content -->
+			<div class="left-side">
+				
+				<!-- Logo -->
+				<div id="logo">
+					<a href="index.html"><img src="images/logo.png" alt=""></a>
+					<a href="index.html" class="dashboard-logo"><img src="images/logo2.png" alt=""></a>
+				</div>
+
+				<!-- Mobile Navigation -->
+				<div class="mmenu-trigger">
+					<button class="hamburger hamburger--collapse" type="button">
+						<span class="hamburger-box">
+							<span class="hamburger-inner"></span>
+						</span>
+					</button>
+				</div>
+
+				<!-- Main Navigation -->
+				<nav id="navigation" class="style-1">
+					<ul id="responsive">
+
+						<li><a href="index.html">首頁</a>
+						</li>
+
+						<li><a>如何使用</a>
+							<ul>
+								<li><a href="how_to_reserve.html">如何預約車位</a></li>
+								<li><a href="dashboard-messages.html">如何出租車位</a></li>
+							</ul>
+						</li>
+
+						<li><a>最新消息</a>
+							<ul>
+								<li><a href="dashboard.html">Dashboard</a></li>
+								<li><a href="dashboard-messages.html">Messages</a></li>
+								<li><a href="dashboard-bookings.html">Bookings</a></li>
+								<li><a href="dashboard-wallet.html">Wallet</a></li>
+								<li><a href="dashboard-my-listings.html">My Listings</a></li>
+								<li><a href="dashboard-reviews.html">Reviews</a></li>
+								<li><a href="dashboard-bookmarks.html">Bookmarks</a></li>
+								<li><a href="dashboard-add-listing.html">Add Listing</a></li>
+								<li><a href="dashboard-my-profile.html">My Profile</a></li>
+								<li><a href="dashboard-invoice.html">Invoice</a></li>
+							</ul>
+						</li>
+
+						<li><a href="#">聯絡我們</a></li>
+
+						<li><a href="#">業主登入</a></li>
+							
+						
+					</ul>
+				</nav>
+				<div class="clearfix"></div>
+				<!-- Main Navigation / End -->
+				
+			</div>
+			<!-- Left Side Content / End -->
+
+			<!-- Right Side Content / End-->
+			<div class="right-side">
+				<!-- Header Widget -->
+				<div class="header-widget">
+					<!-- User Menu -->
+					<div class="user-menu">
+						<div class="user-name"><span><img id="avatar-preview" src="images/dashboard-avatar.jpg" alt=""></span><p style="display:inline "id="username2"></p></div>
+						<ul>
+							<li><a href="user_center.html"><i class="sl sl-icon-settings"></i>會員中心</a></li>
+							<li><a href="user_profile.html"><i class="sl sl-icon-user"></i>會員個人資料</a></li>
+						</ul>
+					</div>
+					<a href="index.html" id="logout_btn" class="button border with-icon" onclick="localStorage.removeItem('peterParkerToken'); localStorage.removeItem('userId');"></i>會員登出</a>
+					</div>
+				</div>
+				</div>
+				<!-- Header Widget / End -->
+			</div>
+			<!-- Right Side Content / End -->
+
+		</div>
+	</div>
+	<!-- Header / End -->
+
+</header>
+<div class="clearfix"></div>
+<!-- Header Container / End -->
+
+
+<!-- Dashboard -->
+<div id="dashboard">
+
+	<!-- Navigation
+	================================================== -->
+
+	<!-- Responsive Navigation Trigger -->
+	<a href="#" class="dashboard-responsive-nav-trigger"><i class="fa fa-reorder"></i>會員中心功能選單</a>
+	
+	<div class="dashboard-nav">
+		<div class="dashboard-nav-inner">
+
+			<ul>
+				<li><a href="user_center.html"><i class="sl sl-icon-settings"></i>會員中心</a></li>
+				<li class="active"><a href="user_profile.html"><i class="sl sl-icon-user"></i>會員個人資料</a></li>
+				<li><a><i class="sl sl-icon-layers"></i>我的訂單</a>
+					<ul>
+						<li><a href="user_ongoing_reservation.html">未完成訂單</a></li>
+						<li><a href="dashboard-my-listings.html">已完成訂單</a></li>
+						<li>
+					</ul>	
+				</li>
+				<li><a href="user_my_favourites.html"><i class="sl sl-icon-heart"></i> 我的最愛</a></li>
+				<li><a href="user_my_blacklist.html"><i class="sl sl-icon-ban"></i> 我的黑名單</a></li>
+			</ul>	
+
+	</div>
+	</div>
+	<!-- Navigation / End -->
+
+
+	<!-- Content
+	================================================== -->
+	<div class="dashboard-content">
+
+		<!-- Titlebar -->
+		<div id="titlebar">
+			<div class="row">
+				<div class="col-md-12 headline centered margin-top-0">
+					<h2>會員個人資料</h2>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+
+			<!-- Profile -->
+			<div class="col-lg-10 col-md-12 centered">
+				<div class="dashboard-list-box margin-top-0">
+					<h4 class="gray">您的會員詳細資訊如下：</h4>
+					<div class="dashboard-list-box-static">
+						
+						<!-- Avatar -->
+						<div id="errorMessage_profile" style="color: red; text-align: center;"></div>
+						<div class="edit-profile-photo">
+							<img id="profile-preview" src="images/user-avatar.jpg" alt="">
+							<div class="change-photo-btn">
+								<div class="photoUpload">
+								    <span><i class="fa fa-upload"></i>上傳圖片</span>
+								    <input id="file-upload"  type="file" class="upload" />
+								</div>
+							</div>
+						</div>
+						<form id="updateForm" method="post" action="http://localhost:8081/PeterParker/user/update">
+						<!-- Details -->
+						<div class="my-profile">
+
+							<input id="userid" type="hidden"
+							 name="user_id">							
+							<label>您的姓名</label>
+							<input id="username" type="text" name="user_name">
+
+							<label>手機號碼</label>
+							<input id="userphone" type="text" name="user_phone">
+
+							<label>郵件信箱</label>
+							<input id="useraccount" type="email" name="user_account">
+
+							<label>帳號密碼</label>
+							<input id="userpassword" type="text" name="user_password">
+
+							<label>車牌號碼</label>
+							<input id="carnumber" type="text" name="car_number">
+						</div>
+	
+						<button id="update-btn" class="button margin-top-15" type="submit">更改資訊</button>
+
+						</form>
+					</div>
+				</div>
+			</div>
+
+
+			<!-- Copyrights -->
+			<div class="col-md-12">
+				<div class="copyrights">Copyright © 2024 PeterParker | All Rights Reserved</div>
+			</div>
+
+		</div>
+
+	</div>
+	<!-- Content / End -->
+
+
+</div>
+<!-- Dashboard / End -->
+
+
+</div>
+<!-- Wrapper / End -->
+
+
+<!-- Scripts
+================================================== -->
+<script type="text/javascript" src="scripts/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="scripts/jquery-migrate-3.3.2.min.js"></script>
+<script type="text/javascript" src="scripts/mmenu.min.js"></script>
+<script type="text/javascript" src="scripts/chosen.min.js"></script>
+<script type="text/javascript" src="scripts/slick.min.js"></script>
+<script type="text/javascript" src="scripts/rangeslider.min.js"></script>
+<script type="text/javascript" src="scripts/magnific-popup.min.js"></script>
+<script type="text/javascript" src="scripts/waypoints.min.js"></script>
+<script type="text/javascript" src="scripts/counterup.min.js"></script>
+<script type="text/javascript" src="scripts/jquery-ui.min.js"></script>
+<script type="text/javascript" src="scripts/tooltips.min.js"></script>
+<script type="text/javascript" src="scripts/custom.js"></script>
+
+<script> 
+   // Fetch userid from JWT and use API to retrieve user data dn relay the information to the form
+document.addEventListener('DOMContentLoaded', function() {
+    const peterParkerToken = localStorage.getItem('peterParkerToken');
+	let userId; 
+
+    if (!peterParkerToken) {
+        console.error('JWT token not found, redirecting to login');
+        window.location.href = 'index.html';  // Redirect to login if token is missing
+		localStorage.setItem('originalUrl', window.location.href);
+        return;
+    }
+
+    fetch("http://localhost:8081/PeterParkerSpring/user/userinfo", {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${peterParkerToken}`,  // Include JWT in the Authorization header
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json(); // Parse the JSON response
+        } else {
+            return response.json().then(err => {
+                console.error('Error response:', err); // Log error response for debugging
+                throw new Error(err.error || 'User not logged in or token expired');
+            });
+        }
+    })
+    .then(data => {
+        
+		if (data.user_id) document.getElementById('userid').value = data.user_id;
+        if (data.user_account) document.getElementById('useraccount').value = data.user_account;
+        if (data.user_name) document.getElementById('username').value = data.user_name;
+        if (data.user_phone) document.getElementById('userphone').value = data.user_phone;
+        if (data.car_number) document.getElementById('carnumber').value = data.car_number;
+        if (data.user_name) document.getElementById('username2').innerHTML = `${data.user_name} 你好！`;
+		if (data.user_password)document.getElementById('userpassword').value=data.user_password;
+
+
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        if (error.message.includes('token')) {
+            console.log("sorry, the mistake occurs.");
+			console.log('data:',data);
+			console.log('JWT Token:', peterParkerToken);
+        }
+    });
+});
+
+
+// Ajax for update 
+
+document.getElementById('updateForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the form from submitting the traditional way
+
+
+    let jsonData = {
+		userId: document.getElementById('userid').value,
+		userName: document.getElementById('username').value , 
+		userPhone: document.getElementById('userphone').value,
+		userAccount: document.getElementById('useraccount').value ,
+		userPassword: document.getElementById('userpassword').value,
+		carNumber: document.getElementById('carnumber').value 
+	};
+
+	console.log(jsonData);
+
+
+    // Send the AJAX POST request
+    fetch(`http://localhost:8081/PeterParkerSpring/user/update`, {
+		method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(jsonData)
+    })
+    .then(response => {
+        if (response.ok) {
+
+			document.getElementById('errorMessage_profile').innerText = '更改資料成功。';
+            } else if (response.status === 404) {
+			document.getElementById('errorMessage_profile').innerText = '系統忙線中，請稍候再試。';
+            } else {
+                console.error('Unexpected response:', response.status);
+                throw new Error(`Unexpected status code: ${response.status}`);
+            }
+    }) // Parse JSON response
+    .catch(error => {
+        console.error('Error:', error);
+        document.getElementById('errorMessage_profile').innerText = '系統忙線中，請稍候再試。';
+    });
+});
+
+
+
+// Ajax to upload image to the database
+
+document.getElementById('file-upload').addEventListener('change', async function (event) {
+    
+	let userId = document.getElementById('userid').value;
+
+	const file = event.target.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append('userId', userId);
+    formData.append('profilePhoto', file);
+
+    try {
+        const response = await fetch('http://localhost:8081/PeterParkerSpring/user/uploadPhoto', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Accept': 'application/json',
+            },
+        });
+
+        if (response.ok) {
+            const textResponse = await response.text();
+            console.log(textResponse); // Log text response from the backend
+
+            document.getElementById('profile-preview').src = URL.createObjectURL(file);
+        } else {
+            console.error('Failed to upload image');
+        }
+    } catch (error) {
+        console.error('Error uploading image:', error);
+    }
+});
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const peterParkerToken = localStorage.getItem('peterParkerToken');
+
+    if (!peterParkerToken) {
+        console.error('JWT token not found, redirecting to login');
+        window.location.href = 'index.html';
+        localStorage.setItem('originalUrl', window.location.href);
+        return;
+    }
+
+    fetch(`http://localhost:8081/PeterParkerSpring/user/showPhoto`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${peterParkerToken}`
+        }
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.blob(); // Convert the response to a blob
+        } else {
+            throw new Error('Failed to load image');
+        }
+    })
+    .then(blob => {
+        const imgURL = URL.createObjectURL(blob); // Create a local URL for the blob
+		const avatarElement = document.getElementById('avatar-preview');
+		const imgElement = document.getElementById('profile-preview');
+		imgElement.src=imgURL;
+		avatarElement.src = imgURL;
+    })
+    .catch(error => {
+        console.error('Error fetching profile photo:', error);
+    });
+});
+
+
+
+
+
+</script>
+>
+
+
+</body>
+</html>

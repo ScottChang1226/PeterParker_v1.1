@@ -64,6 +64,12 @@ public class UserBlacklistController {
 
 
         List<UserBlacklistParkingDTO> favourites = userBlacklistService.findParkingByUserUserId(userId);
+
+        if (favourites.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
+
         return ResponseEntity.ok(favourites);
     }
 }

@@ -3,21 +3,23 @@
 
 <!-- Basic Page Needs
 ================================================== -->
-<title>如何預約停車位｜Peter Parker</title>
+<title>Peter Parker | 您的預約停車位好幫手</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <!-- CSS
 ================================================== -->
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/style-index.css">
+<link rel="stylesheet" href="css/william.css">
+<link rel="stylesheet" href="css/spinner.css">
 <link rel="stylesheet" href="css/main-color.css" id="colors">
+<script type="module" src="scripts/login.js"></script>
 <script src="https://accounts.google.com/gsi/client" async></script>
 <script type="module" src="scripts/login-header-change.js"></script>
-<script src="scripts/google-login.js"></script>
 
 </head>
 
-<body class="dark-header_">
+<!-- <body class="transparent-header"> -->
 
 <!-- Wrapper -->
 <div id="wrapper">
@@ -25,6 +27,9 @@
 <!-- Header Container
 ================================================== -->
 <header id="header-container" class="fullwidth">
+	<div id="loadingOverlay" class="overlay">
+        <div class="spinner"></div>
+        </div>
 
 	<!-- Header -->
 	<div id="header">
@@ -35,7 +40,7 @@
 				
 				<!-- Logo -->
 				<div id="logo">
-					<a href="index.html"><img src="images/logo.png" alt=""></a>
+					<a href="index.html"><img src="images/logo.png" data-sticky-logo="images/logo.png" alt=""></a>
 				</div>
 
 				<!-- Mobile Navigation -->
@@ -50,15 +55,13 @@
 				<!-- Main Navigation -->
 				<nav id="navigation" class="style-1">
 					<ul id="responsive">
-
-						<li><a href="index.html">首頁</a>
+						<li><a href="index.html">回首頁</a>
 						</li>
 
-						<li><a class="current" href="#">如何使用</a>
+						<li><a>如何使用</a>
 							<ul>
-								<li><a class="current" href="how_to_reserve.html">如何預約停車位</a></li>
+								<li><a href="how_to_reserve.html">如何預約停車位</a></li>
 								<li><a href="#">如何出租停車位</a></li>
-								</li>
 							</ul>
 						</li>
 
@@ -68,8 +71,15 @@
 								<li><a href="dashboard-messages.html">Messages</a></li>
 							</ul>
 						</li>
-						<li><a href="#">聯絡我們</a></li>
-						<li><a href="#">業主登入</a></li>
+
+						<li><a>聯絡我們</a>
+							<ul>
+								<li><a href="dashboard.html">聯絡我們</a></li>
+								<li><a href="dashboard-messages.html">常見問題</a></li>
+							</ul>
+						</li>
+						<li><a href="#">業主登入</a>
+						</li>
 						
 					</ul>
 				</nav>
@@ -84,14 +94,14 @@
 			<div class="right-side">
 				<div class="header-widget">
 					<a href="#sign-in-dialog" class="sign-in popup-with-zoom-anim"><i class="sl sl-icon-login"></i>登入</a>
-					<a href="#sign-in-dialog" class="button border with-icon sign-in popup-with-zoom-anim">創建帳號<i class="sl sl-icon-plus"></i></a>
+					<a href="#sign-in-dialog" class="button border with-icon sign-in popup-with-zoom-anim" >創建帳號<i class="sl sl-icon-plus"></i></a>
 				</div>
 			</div>
 			<!-- Right Side Content / End -->
 
 			<!-- Sign In Popup -->
 			<div id="sign-in-dialog" class="zoom-anim-dialog mfp-hide">
-
+				
 				<div class="small-dialog-header">
 					<h3>會員登入</h3>
 				</div>
@@ -246,87 +256,202 @@
 <!-- Header Container / End -->
 
 
+<!-- Banner
+================================================== -->
+<div class="main-search-container dark-overlay" data-background-image="images/main-search-background-01.jpg">
+	<div class="main-search-inner">
+
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 text-center">
+					<h1 class="big-title" style="color: white !important;">
+						<!-- Typed words can be configured in script settings at the bottom of this HTML file -->
+						<span class="typed-words"></span>
+						等停車位等到生氣？
+					</h1>
+					<p class="white-text">Peter Parker 與優質停車場結合，讓你輕鬆預約停車位，讓出門玩的時間更多更充足。</p><br>
+					<div class="beforeLoginElement">
+					<a href="#sign-in-dialog" class="button-overlay popup-with-zoom-anim"></i>開始預約  <i class="sl sl-icon-arrow-right"></i></a>
+					<a href="#sign-in-dialog" class="button-overlay-transparent with-icon sign-in popup-with-zoom-anim">創建帳號  <i class="sl sl-icon-plus"></i></a>
+					</div>
+					<div style="display:none" id="afterLoginElement">
+						<a href="#" class="button-overlay popup-with-zoom-anim"></i>開始預約  <i class="sl sl-icon-arrow-right"></i></a>
+						<a href="how_to_reserve.html" class="button-overlay-transparent with-icon sign-in popup-with-zoom-anim">如何預約  <i class="sl sl-icon-plus"></i></a>
+					</div>
+				</div>
+			</div>
+			
+			
+		</div>
+
+	</div>
+</div>
+
+
 <!-- Content
 ================================================== -->
-
-
-
-<div class="container margin-top-80 margin-bottom-100">
+<div class="container">
 	<div class="row">
+
 		<div class="col-md-12">
-			<h1 class="headline margin-top-0 margin-bottom-40">
-				<strong class="headline">如何透過 PeterParker 預約停車位?</strong>
-				<span class="black-text">我們的核心服務及開發相關技術，讓使用者隨時隨地享有預約車位服務。以下逐步說明運作方式：</span>
+			<h1 class="headline centered margin-top-75 margin-bottom-40">
+				<strong>如何使用 Peter Parker</strong>
 			</h1>
-		</div>
-		<div class="col-md-12">
-			<a href="#" class="icon-box-v3">
-				<div class="ibv3-icon">
-					<i class="im im-icon-Add-User"></i>
-				</div>
-				<div class="ibv3-content">
-					<span>步驟1</span>
-					<h4>註冊我們的會員</h4>
-					<p>點選左上角「創建帳號」按鈕註冊成爲 PeterParker 的會員；加入我們後，您可以立即享受便捷的車位預訂服務，並隨時掌握最新的活動資訊與專屬優惠。</p>
-				</div>
-			</a>
-			<a href="#" class="icon-box-v3">
-				<div class="ibv3-icon">
-					<i class="im im-icon-Approved-Window"></i>
-				</div>
-				<div class="ibv3-content">
-					<span>步驟2</span>
-					<h4>選擇想要預約的車位和時間</h4>
-					<p>瀏覽並選擇您想要的車位和預訂時間，無論是短期停車還是長期停放，我們都有靈活的選項供您挑選。輕鬆設定您的停車計畫，確保每次出行都有專屬的車位等著您！</p>
-				</div>
-			</a>
-			<a href="#" class="icon-box-v3">
-				<div class="ibv3-icon">
-					<i class="im im-icon-Bird-DeliveringLetter"></i>
-				</div>
-				<div class="ibv3-content">
-					<span>步驟3</span>
-					<h4>系統會將預約資料與專屬 QR code 寄到您的信箱</h4>
-					<p>完成預訂後，我們的系統將自動將您的預約詳情和專屬 QRcode 發送到您的電子信箱。</p>
-				</div>
-			</a>
-			<a href="#" class="icon-box-v3">
-				<div class="ibv3-icon">
-					<i class="im im-icon-Car-3"></i>
-				</div>
-				<div class="ibv3-content">
-					<span>步驟4</span>
-					<h4>進入停車場時，使用指定 QRcode 進場</h4>
-					<p>使用 QRcode 輕鬆掃描進出停車場，快速便利，免去繁瑣手續，享受無縫停車體驗！</p>
-				</div>
-			</a>
-			<a href="#" class="icon-box-v3">
-				<div class="ibv3-icon">
-					<i class="im im-icon-Queen"></i>
-				</div>
-				<div class="ibv3-content">
-					<span>步驟5</span>
-					<h4>停車並享受您的活動</h4>
-					<p>抵達目的地後，輕鬆停車，無需擔心車位問題！安心享受您的活動，讓我們幫您照顧好愛車。</p>
-				</div>
-			</a>
-			<a href="#" class="icon-box-v3">
-				<div class="ibv3-icon">
-					<i class="im im-icon-Clock-Back"></i>
-				</div>
-				<div class="ibv3-content">
-					<span>步驟6</span>
-					<h4>在預約時間到達前離場</h4>
-					<p>請確保在預約時間內順利離場，以便下一位使用者能夠準時使用車位。提前準備，讓停車體驗更加順暢！</p>
-				</div>
-			</a>
 		</div>
 	</div>
 </div>
-<div class="container margin-top-20 margin-bottom-40">
 
+<!-- Content
+================================================== -->
+<div class="container">
+	<div class="row margin-bottom-40">
+		<div class="col-md-12">
+			<div class="row">
+
+				<!-- Listing Item -->
+				<div class="col-lg-6 col-md-6">
+					<a href="how_to_reserve.html" class="listing-item-container compact">
+						<div class="listing-item">
+							<img src="images/listing-item-01.jpg" alt="">
+							<div class="listing-item-content">
+								<h3>如何預約停車位</h3>
+								<p class="white-text">詳細預約停車位的步驟說明</p>
+							</div>
+							
+						</div>
+					</a>
+				</div>
+				<!-- Listing Item / End -->
+
+				<!-- Listing Item -->
+				<div class="col-lg-6 col-md-6">
+					<a href="listings-single-page.html" class="listing-item-container compact">
+						<div class="listing-item">
+							<img src="images/listing-item-02.jpg" alt="">
+							<div class="listing-item-details">
+							</div>
+							<div class="listing-item-content">
+								<h3>如何出租停車位</h3>
+								<p class="white-text">詳細出租停車位的步驟說明</p>
+							</div>
+						</div>
+					</a>
+				</div>
+				<!-- Listing Item / End -->		
+			</div>
+		</div>
+
+	</div>
 </div>
 
+<div class="container margin-top-80">
+	<div class="row align-items-center justify-content-between">
+		<div class="col-md-5">
+				<img src="images/image_placeholder.svg" style="width: 100%;" alt="">
+		</div>
+		<div class="col-md-2"></div>
+		<div class="col-md-5 ">
+			<h1 class="headline margin-top-60 margin-bottom-40">
+				<strong class="headline">隨時隨地就可以預約車位，專心享受出外時間</strong>
+			</h1>
+			<p class="black-text">自由選擇時間和地點，輕鬆預約車位。<br>透過我們的平台找到最適合的停車位，省時又方便。<br></p>
+			<a href="how_to_reserve.html"><button class="button border margin-top-20" style="background-color: black">如何使用</button></a>
+			<a class="beforeLoginElement" href="how_to_reserve.html" class="sign-in popup-with-zoom-anim">已經有帳戶了嗎？登入</a>
+		</div>
+	</div>
+</div>
+
+<div class="container margin-top-40">
+	<div class="row">
+		<div class="col-md-5">
+			<h1 class="headline margin-top-60 margin-bottom-40">
+				<strong class="headline">輕鬆賺取額外收入，讓空閒車位發揮最大價值</strong>
+			</h1>
+			<p class="black-text">靈活設定出租時間和地點，輕鬆管理車位出租。<br>利用我們的平台，快速找到合適租客，方便又可靠。<br></p>
+			<a href="how_to_reserve.html"><button class="button border margin-top-20" style="background-color:black">如何使用</button></a>
+			<a href="#">已經有帳戶了嗎？登入業者</a>
+		</div>
+		<div class="col-md-2"></div>
+		<div class="col-md-5">
+			<img src="images/image_placeholder.svg" style="width: 100%;" alt="">
+	</div>
+	</div>
+</div>
+
+
+<!-- Recent Blog Posts -->
+<section class="fullwidth margin-top-0 padding-top-75 padding-bottom-75" data-background-color="#fff">
+	<div class="container">
+
+		<div class="row">
+			<div class="col-md-12">
+				<h1 class="headline centered margin-bottom-55">
+					<strong class="headline">最新消息</strong>
+				</h1>
+			</div>
+		</div>
+
+		<div class="row">
+			<!-- Blog Post Item -->
+			<div class="col-md-4">
+				<a href="pages-blog-post.html" class="blog-compact-item-container">
+					<div class="blog-compact-item">
+						<img src="images/blog-compact-post-01.jpg" alt="">
+						<div class="blog-compact-item-content">
+							<ul class="blog-post-tags">
+								<li>22 August 2019</li>
+							</ul>
+							<h3>Hotels for All Budgets</h3>
+							<p>Sed sed tristique nibh iam porta volutpat finibus. Donec in aliquet urneget mattis lorem. Pellentesque pellentesque.</p>
+						</div>
+					</div>
+				</a>
+			</div>
+			<!-- Blog post Item / End -->
+
+			<!-- Blog Post Item -->
+			<div class="col-md-4">
+				<a href="pages-blog-post.html" class="blog-compact-item-container">
+					<div class="blog-compact-item">
+						<img src="images/blog-compact-post-02.jpg" alt="">
+						<div class="blog-compact-item-content">
+							<ul class="blog-post-tags">
+								<li>18 August 2019</li>
+							</ul>
+							<h3>The 50 Greatest Street Arts In London</h3>
+							<p>Sed sed tristique nibh iam porta volutpat finibus. Donec in aliquet urneget mattis lorem. Pellentesque pellentesque.</p>
+						</div>
+					</div>
+				</a>
+			</div>
+			<!-- Blog post Item / End -->
+
+			<!-- Blog Post Item -->
+			<div class="col-md-4">
+				<a href="pages-blog-post.html" class="blog-compact-item-container">
+					<div class="blog-compact-item">
+						<img src="images/blog-compact-post-03.jpg" alt="">
+						<div class="blog-compact-item-content">
+							<ul class="blog-post-tags">
+								<li>10 August 2019</li>
+							</ul>
+							<h3>The Best Cofee Shops In Sydney Neighborhoods</h3>
+							<p>Sed sed tristique nibh iam porta volutpat finibus. Donec in aliquet urneget mattis lorem. Pellentesque pellentesque.</p>
+						</div>
+					</div>
+				</a>
+			</div>
+			<!-- Blog post Item / End -->
+
+			<div class="col-md-12 centered-content">
+				<a href="pages-blog.html" class="button border margin-top-10">查看更多</a>
+			</div>
+
+		</div>
+
+	</div>
+</section>
+<!-- Recent Blog Posts / End -->
 
 
 <!-- Footer
@@ -338,10 +463,11 @@
 			<div class="col-md-5 col-sm-6">
 				<img class="footer-logo" src="images/logo2.png" alt="">
 				<br><br>
+			
 			</div>
 
 			<div class="col-md-4 col-sm-6 ">
-				<h4>相關連結</h4>
+				<h4>相關連接</h4>
 				<ul class="footer-links">
 					<li><a href="#">最新消息</a></li>
 					<li><a href="how_to_reserve.html">如何預約停車位</a></li>
@@ -376,7 +502,7 @@
 		<!-- Copyright -->
 		<div class="row">
 			<div class="col-md-12">
-				<div class="copyrights">Copyright© 2024 Peter Parker | All Rights Reserved </div>
+				<div class="copyrights">Copyright © 2024 Peter Parker | All Rights Reserved</div>
 			</div>
 		</div>
 
@@ -421,9 +547,45 @@
 <!-- Leaflet Geocoder + Search Autocomplete // Docs: https://github.com/perliedman/leaflet-control-geocoder -->
 <script src="scripts/leaflet-autocomplete.js"></script>
 <script src="scripts/leaflet-control-geocoder.js"></script>
+
+
+<!-- Typed Script -->
+<script type="text/javascript" src="scripts/typed.js"></script>
 <script>
-	function handleCredentialResponse(response) {
+var typed = new Typed('.typed-words', {
+strings: ["出門旅遊","與朋友約吃飯","家庭旅行","上班快遲到"],
+	typeSpeed: 80,
+	backSpeed: 80,
+	backDelay: 4000,
+	startDelay: 1000,
+	loop: true,
+	showCursor: true
+});
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    let peterParkerToken = localStorage.getItem('peterParkerToken');
+
+    if (peterParkerToken) {
+        let beforeLoginElements = document.querySelectorAll('.beforeLoginElement');
+        beforeLoginElements.forEach(element => {
+            element.style.display = "none";
+        });
+
+        let afterLoginElement = document.getElementById("afterLoginElement");
+        afterLoginElement.style.display = "block";
+        return;
+    }
+});
+
+
+
+function handleCredentialResponse(response) {
     console.log("Google JWT Token: " + response.credential);
+
+	const overlay = document.getElementById('loadingOverlay');
+	overlay.style.display = "block";
 
     // Send the Google credential to your backend for verification
     fetch(`http://localhost:8081/PeterParkerSpring/user/googleLogin`, {
@@ -434,6 +596,7 @@
         body: JSON.stringify({ googleToken: response.credential }),
     })
     .then(response => {
+		console.log(response);
         if (response.status == 200) {
             return response.json(); // Convert the response to JSON
         } else if (response.status == 202){
@@ -456,12 +619,44 @@
     })
     .catch(error => {
         console.error('Error:', error);
-    });
+    })
+	.finally(()=>{
+		overlay.style.display = "none";
+	}
+	
+);
 }
-
 </script>
 
 
+<!-- Style Switcher
+================================================== -->
+<script src="scripts/switcher.js"></script>
 
+<div id="style-switcher">
+	<h2>Color Switcher <a href="#"><i class="sl sl-icon-settings"></i></a></h2>
+	
+	<div>
+		<ul class="colors" id="color1">
+			<li><a href="#" class="main" title="Main"></a></li>
+			<li><a href="#" class="blue" title="Blue"></a></li>
+			<li><a href="#" class="green" title="Green"></a></li>
+			<li><a href="#" class="orange" title="Orange"></a></li>
+			<li><a href="#" class="navy" title="Navy"></a></li>
+			<li><a href="#" class="yellow" title="Yellow"></a></li>
+			<li><a href="#" class="peach" title="Peach"></a></li>
+			<li><a href="#" class="beige" title="Beige"></a></li>
+			<li><a href="#" class="purple" title="Purple"></a></li>
+			<li><a href="#" class="celadon" title="Celadon"></a></li>
+			<li><a href="#" class="red" title="Red"></a></li>
+			<li><a href="#" class="brown" title="Brown"></a></li>
+			<li><a href="#" class="cherry" title="Cherry"></a></li>
+			<li><a href="#" class="cyan" title="Cyan"></a></li>
+			<li><a href="#" class="gray" title="Gray"></a></li>
+			<li><a href="#" class="olive" title="Olive"></a></li>
+		</ul>
+	</div>
+		
+</div>
 </body>
 </html>

@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface UserRepository extends JpaRepository<UserVO, Integer> {
     boolean existsByUserAccount(String userAccount);
@@ -44,13 +46,23 @@ public interface UserRepository extends JpaRepository<UserVO, Integer> {
                          @Param("carNumber") String carNumber,
                          @Param("googleToken") String googleToken);
 
-
     @Modifying
     @Query(value = "UPDATE users SET profilePhoto = :profilePhoto WHERE userId = :userId", nativeQuery = true)
     int updateProfilePhoto(@Param("userId") Integer userId, @Param("profilePhoto") byte[] profilePhoto);
 
     @Query(value = "SELECT profilePhoto FROM users WHERE userId = :userId", nativeQuery = true)
     byte[] getProfilePhoto(Integer userId);
+
+    @Query(value = "SELECT pi.parkingId, pi.parkingName, o.orderId, o.spaceId, o.userId, o.statusId, " +
+            "o.orderStartTime, o.orderEndTime, o.orderTotalIncome, o.userComment, o.orderModified " +
+            "FROM orderinfo o " +
+            "JOIN space s ON o.spaceId = s.spaceId " +
+            "JOIN parkingInfo pi ON s.parkingId = pi.parkingId " +
+            "WHERE o.statusId = :statusId AND o.userId = :userId",
+            nativeQuery = true)
+    List<Object[]> findOrderParkingInfoByStatusIdAndUserId(@Param("statusId") String statusId,
+                                                           @Param("userId") Integer userId);
+
 
 
 }

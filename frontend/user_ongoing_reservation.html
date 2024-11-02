@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<head>
+
+<!-- Basic Page Needs
+================================================== -->
+<title>未完成的訂單 | Peter Parker</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<!-- CSS
+================================================== -->
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/main-color.css" id="colors">
+<script type="module" src="scripts/userinfo.js"></script>
+<script type="module" src="scripts/get_photo.js"></script>
+
+</head>
+
+<body>
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Header Container
+================================================== -->
+<header id="header-container" class="fixed fullwidth dashboard">
+
+	<!-- Header -->
+	<div id="header" class="not-sticky">
+		<div class="container">
+			
+			<!-- Left Side Content -->
+			<div class="left-side">
+				
+				<!-- Logo -->
+				<div id="logo">
+					<a href="index.html"><img src="images/logo.png" alt=""></a>
+					<a href="index.html" class="dashboard-logo"><img src="images/logo2.png" alt=""></a>
+				</div>
+
+				<!-- Mobile Navigation -->
+				<div class="mmenu-trigger">
+					<button class="hamburger hamburger--collapse" type="button">
+						<span class="hamburger-box">
+							<span class="hamburger-inner"></span>
+						</span>
+					</button>
+				</div>
+
+				<!-- Main Navigation -->
+				<nav id="navigation" class="style-1">
+					<ul id="responsive">
+
+						<li><a href="index.html">首頁</a>
+						</li>
+
+						<li><a>如何使用</a>
+							<ul>
+								<li><a href="how_to_reserve.html">如何預約車位</a></li>
+								<li><a href="dashboard-messages.html">如何出租車位</a></li>
+							</ul>
+						</li>
+
+						<li><a>最新消息</a>
+							<ul>
+								<li><a href="dashboard.html">Dashboard</a></li>
+								<li><a href="dashboard-messages.html">Messages</a></li>
+								<li><a href="dashboard-bookings.html">Bookings</a></li>
+								<li><a href="dashboard-wallet.html">Wallet</a></li>
+								<li><a href="dashboard-my-listings.html">My Listings</a></li>
+								<li><a href="dashboard-reviews.html">Reviews</a></li>
+								<li><a href="dashboard-bookmarks.html">Bookmarks</a></li>
+								<li><a href="dashboard-add-listing.html">Add Listing</a></li>
+								<li><a href="dashboard-my-profile.html">My Profile</a></li>
+								<li><a href="dashboard-invoice.html">Invoice</a></li>
+							</ul>
+						</li>
+
+						<li><a href="#">聯絡我們</a></li>
+
+						<li><a href="#">業主登入</a></li>
+							
+						
+					</ul>
+				</nav>
+				<div class="clearfix"></div>
+				<!-- Main Navigation / End -->
+				
+			</div>
+			<!-- Left Side Content / End -->
+
+			<!-- Right Side Content / End -->
+			<div class="right-side">
+				<!-- Header Widget -->
+				<div class="header-widget">
+					
+					<!-- User Menu -->
+					<div class="user-menu">
+						<div class="user-name"><span><img id="avatar-preview" src="images/dashboard-avatar.jpg" alt=""></span><p style="display:inline "id="username2"></p></div>
+						<ul>
+							<li><a href="user_center.html"><i class="sl sl-icon-settings"></i>會員中心</a></li>
+							<li><a href="user_profile.html"><i class="sl sl-icon-user"></i>會員個人資料</a></li>
+						</ul>
+					</div>
+					<a href="index.html" id="logout_btn" class="button border with-icon" onclick="localStorage.removeItem('peterParkerToken'); localStorage.removeItem('userId');"></i>會員登出</a>
+					</div>
+				</div>
+				<!-- Header Widget / End -->
+			</div>
+			<!-- Right Side Content / End -->
+
+		</div>
+	</div>
+	<!-- Header / End -->
+
+</header>
+<div class="clearfix"></div>
+<!-- Header Container / End -->
+
+
+<!-- Dashboard -->
+<div id="dashboard">
+
+	<!-- Navigation
+	================================================== -->
+
+	<!-- Responsive Navigation Trigger -->
+	<a href="#" class="dashboard-responsive-nav-trigger"><i class="fa fa-reorder"></i>會員中心功能選單</a>
+	
+	<div class="dashboard-nav">
+		 <div class="dashboard-nav-inner">
+
+			<ul>
+				<li><a href="user_center.html"><i class="sl sl-icon-settings"></i>會員中心</a></li>
+				<li><a href="user_profile.html"><i class="sl sl-icon-user"></i>會員個人資料</a></li>
+				<li class="active"><a><i class="sl sl-icon-layers"></i>我的訂單</a>
+					<ul>
+						<li><a href="user_ongoing_reservation.html">未完成訂單</a></li>
+						<li><a href="user_completed_reservation.html">已完成訂單</a></li>
+						<li>
+					</ul>	
+				</li>
+				<li><a href="user_my_favourites.html"><i class="sl sl-icon-heart"></i> 我的最愛</a></li>
+				<li><a href="user_my_blacklist.html"><i class="sl sl-icon-ban"></i> 我的黑名單</a></li>
+			</ul>
+	</div>
+	</div>
+	<!-- Navigation / End -->
+
+
+	<!-- Content
+	================================================== -->
+	<div class="dashboard-content">
+
+		<!-- Titlebar -->
+		<div id="titlebar">
+			<div class="row">
+				<div class="col-md-12 headline centered">
+					<h2>未完成的訂單</h2>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			
+			<!-- Listings -->
+			<div class="col-lg-12 col-md-12">
+				<div class="dashboard-list-box margin-top-0">
+					
+
+					<h4>未完成的訂單</h4>
+					<ul id="orderlist">
+						<img src="images/no-order-found.png">
+						<h4>還沒有任何訂單喔，趕快享受快速又便捷的預約服務吧！</h4>
+						
+						
+					</ul>
+				</div>
+			</div>
+
+
+			<!-- Copyrights -->
+			<div class="col-md-12">
+				<div class="copyrights">Copyright © 2024 Peter Parker | All Rights Reserved.</div>
+			</div>
+		</div>
+
+	</div>
+	<!-- Content / End -->
+
+
+</div>
+<!-- Dashboard / End -->
+
+
+</div>
+<!-- Wrapper / End -->
+
+
+<!-- Scripts
+================================================== -->
+<script type="text/javascript" src="scripts/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="scripts/jquery-migrate-3.3.2.min.js"></script>
+<script type="text/javascript" src="scripts/mmenu.min.js"></script>
+<script type="text/javascript" src="scripts/chosen.min.js"></script>
+<script type="text/javascript" src="scripts/slick.min.js"></script>
+<script type="text/javascript" src="scripts/rangeslider.min.js"></script>
+<script type="text/javascript" src="scripts/magnific-popup.min.js"></script>
+<script type="text/javascript" src="scripts/waypoints.min.js"></script>
+<script type="text/javascript" src="scripts/counterup.min.js"></script>
+<script type="text/javascript" src="scripts/jquery-ui.min.js"></script>
+<script type="text/javascript" src="scripts/tooltips.min.js"></script>
+<script type="text/javascript" src="scripts/custom.js"></script>
+
+<!-- Date Range Picker - docs: http://www.daterangepicker.com/ -->
+<script src="scripts/moment.min.js"></script>
+<script src="scripts/daterangepicker.js"></script>
+
+<script>
+$(function() {
+
+    var start = moment().subtract(29, 'days');
+    var end = moment();
+
+    function cb(start, end) {
+        $('#booking-date-range span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+    }
+    cb(start, end);
+    $('#booking-date-range').daterangepicker({
+    	"opens": "left",
+	    "autoUpdateInput": false,
+	    "alwaysShowCalendars": true,
+        startDate: start,
+        endDate: end,
+        ranges: {
+           'Today': [moment(), moment()],
+           'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+           'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+           'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+           'This Month': [moment().startOf('month'), moment().endOf('month')],
+           'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        }
+    }, cb);
+
+    cb(start, end);
+
+});
+
+// Calendar animation and visual settings
+$('#booking-date-range').on('show.daterangepicker', function(ev, picker) {
+	$('.daterangepicker').addClass('calendar-visible calendar-animated bordered-style');
+	$('.daterangepicker').removeClass('calendar-hidden');
+});
+$('#booking-date-range').on('hide.daterangepicker', function(ev, picker) {
+	$('.daterangepicker').removeClass('calendar-visible');
+	$('.daterangepicker').addClass('calendar-hidden');
+});
+</script>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const userId = localStorage.getItem('userId');
+    fetch(`http://localhost:8081/PeterParkerSpring/user/使用中/${userId}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(response => {
+        if (response.status === 204) {
+            console.log("No orders found for this user.");
+            return []; // Return empty array if no content
+        } else if (response.ok) {
+            return response.json();
+        } else {
+            throw new Error('Failed to fetch user orders');
+        }
+    })
+    .then(data => {
+        if (data && data.length > 0) {
+			console.log(data);
+            const orderList = document.getElementById('orderlist');
+            orderList.innerHTML = ""; // Clear existing orders if any
+            data.forEach(order => {
+                let orders = document.createElement('li');
+				orders.classList.add('pending-booking');
+                orders.innerHTML = `
+                    <div class="list-box-listing bookings"">
+						<div style="width:300px;height: 169px;border-radius:20px; overflow:hidden;">
+                         <img style="object-fit: cover;" src="http://localhost:8081/PeterParkerSpring/user/image/${order.parkingId}" alt="Parking Image"/></div>
+                        <div class="list-box-listing-content">
+                            <div class="inner">
+                                <h3>${order.parkingName}<span class="booking-status">${order.statusId}</span></h3>
+                                <div class="inner-booking-list">
+                                    <h5>開始時間：</h5>
+                                    <ul class="booking-list">
+                                        <li class="highlighted">${order.orderStartTime}</li>
+                                    </ul>
+                                </div>
+                                <div class="inner-booking-list">
+                                    <h5>結束時間：</h5>
+                                    <ul class="booking-list">
+                                        <li class="highlighted">${order.orderEndTime}</li>
+                                    </ul>
+                                </div>    
+                                <div class="inner-booking-list">
+                                    <h5>總共金額：</h5>
+                                    <ul class="booking-list">
+                                        <li class="highlighted">$${order.orderTotalIncome}</li>
+                                    </ul>
+                                </div>        
+                                <div class="inner-booking-list">
+                                    <h5>訂單編號：</h5>
+                                    <ul class="booking-list">
+                                        <li>${order.orderId}</li>
+                                    </ul>
+                                </div>
+								<div class="inner-booking-list">
+                                    <h5>車位編號：</h5>
+                                    <ul class="booking-list">
+                                        <li>${order.spaceId}</li>
+                                    </ul>
+                                </div>
+                                <div class="inner-booking-list">
+                                    <h5>您的評價：</h5>
+                                    <ul class="booking-list">
+                                        <li><h3>"${order.userComment}"</h3></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+                orderList.appendChild(orders);
+            });
+        } else {
+            console.log("No orders available.");
+        }
+    })
+    .catch(error => {
+        console.error("Error:", error);
+    });
+});
+
+
+
+
+
+
+
+
+</script>
+
+
+</body>
+</html>

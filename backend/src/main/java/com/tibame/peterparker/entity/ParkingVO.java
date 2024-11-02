@@ -36,6 +36,11 @@ public class ParkingVO implements Serializable {
     @Column(name = "parkingLong", nullable = false)
     private Double parkingLong;
 
+    @Lob
+    @Column(name="parkingImg", columnDefinition = "LONGBLOB")
+    private byte[] parkingImg;
+
+
     // Getters and Setters
     public Integer getParkingId() {
         return parkingId;
@@ -107,5 +112,13 @@ public class ParkingVO implements Serializable {
 
     public void setParkingLong(Double parkingLong) {
         this.parkingLong = parkingLong;
+    }
+
+    public byte[] getParkingImg() {
+        return parkingImg;
+    }
+
+    public void setParkingImg(byte[] parkingImg) {
+        this.parkingImg = parkingImg;
     }
 }

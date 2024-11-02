@@ -3,7 +3,7 @@
 
 <!-- Basic Page Needs
 ================================================== -->
-<title>忘記密碼 ｜ PeterParker</title>
+<title>註冊我們的會員 ｜ PeterParker</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -11,14 +11,14 @@
 ================================================== -->
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/main-color.css" id="colors">
-<link rel="stylesheet" href="css/spinner.css">
+<link rel="stylesheet" href="css/style.css">
 
 </head>
 
 <body class="transparent-header">
     <div id="loadingOverlay" class="overlay">
-        <div class="spinner"></div>
-        </div>
+        <div id="spinner" class="spinner"></div>
+    </div>
 
 <!-- Wrapper -->
 
@@ -26,7 +26,6 @@
 
 <!-- Banner
 ================================================== -->
-
 <div class="main-search-container full-height alt-search-box centered" data-background-image="images/listeo_bg3.jpg">
 	<div id="logo" class="margin-top-20 margin-left-40">
 		<a href="index.html"><img src="images/logo2.png" data-sticky-logo="images/logo.png" alt=""></a>
@@ -39,19 +38,24 @@
 
 					<div class="main-search-input">
 						<h1 class="headline margin-top-0 margin-bottom-10">
-							<strong class="headline">忘記密碼</strong>
-						</h1>    
-						<p class="black-text">忘記密碼了嗎？別擔心，請於以下輸入您註冊的信箱，我們將會寄送密碼重設的</p>
+							<strong class="headline">歡迎你加入 Peter Parker</strong>
+						</h1>
+						<p class="black-text">請填下以下表單完成註冊：</p>
 
-						<div id="errorMessageVerify" style="color: red; display: none; text-align: center;"></div>
+						<div  id="errorMessageVerify" style="color: red; display: none; text-align: center;"></div>
 						<div class="main-search-input-item location">
-							<div>
-								<input id="verification_code_input" type="text" name="code" placeholder="請輸入您註冊的信箱">
-							</div>
+                            <label for="phone">手機電話（必填）
+                                <i class="im im-icon-Phone"></i>
+                                <input type="text" class="input-text" name="user_phone" id="userphone_registry" placeholder="請輸入您的手機(ex:0987654321)" />
+                            </label>
+                            <label for="carnumber">車牌號碼（必填）
+                                <i class="im im-icon-Car-3"></i>
+                                <input class="input-text" type="varnumber" name="car_number" id="carNumber_registry" placeholder="請輸入車牌號碼（ex:ABC-1234）"/>
+                            </label>
 							
 						</div>
 
-						<button type="button" style="background-color: black;" class="button" id="buttonVerify">送出</button>
+						<button style="background-color: black;" type="submit" class="button" id="buttonVerify">送出</button>
 
 					</div>
 				</div>
@@ -85,33 +89,54 @@
 
 <script>
 
-
-
 document.getElementById('buttonVerify').addEventListener('click', function(event) {
     event.preventDefault();
-    
     let isFilled = true;
+
+    function isValidTaiwanPhoneNumber(phoneNumber) {
+        // Regex to match Taiwanese mobile and landline phone numbers
+        const taiwanMobilePattern = /^09\d{8}$/; // Mobile format
+        const taiwanLandlinePattern = /^(0[2-9])\d{7,8}$/; // Landline format
+    
+        return taiwanMobilePattern.test(phoneNumber) || taiwanLandlinePattern.test(phoneNumber);
+    }
+
+
+
+
+    // Get the form element, not the button
+    let formElement = document.getElementById('verification_form'); // Replace 'formId' with your actual form's ID
     let errorMessageVerify = document.getElementById("errorMessageVerify");
 
-    if (document.getElementById("verification_code_input").value.trim() === "") {
+    if (document.getElementById("userphone_registry").value.trim() === "") {
         errorMessageVerify.style.display = "block";
-        errorMessageVerify.innerText = "請輸入您註冊 PeterParker 的信箱。";
+        errorMessageVerify.innerText = "請輸入您的電話號碼。";
         isFilled = false;
+        return;
+    } else if 
+    (document.getElementById("carNumber_registry").value.trim() === ""){
+        errorMessageVerify.style.display = "block";
+        errorMessageVerify.innerText = "請輸入您的車牌號碼。";
+        isFilled = false;
+        return;
+    }  else if (!isValidTaiwanPhoneNumber(document.getElementById("userphone_registry").value)){
+        errorMessageVerify.style.display = "block";
+        errorMessageVerify.innerText = "輸入的電話號碼格式不正確。";
+		isFilled = false;
         return;
     }
 
-    const overlay = document.getElementById('loadingOverlay');
-    overlay.style.display = 'block';
-
-    
-
     if (isFilled) {
+        // Convert FormData to JSON
         let jsonDataVerify = {
-            userAccount: document.getElementById("verification_code_input").value};
+            userPhone: document.getElementById("userphone_registry").value,
+            carNumber: document.getElementById("carNumber_registry").value
+        }
 
-        
+        const overlay = document.getElementById('loadingOverlay');
+        overlay.style.display = 'block';
 
-        fetch("http://localhost:8081/PeterParkerSpring/user/requestPasswordReset", {
+        fetch("http://localhost:8081/PeterParkerSpring/user/googleRegister", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -119,33 +144,20 @@ document.getElementById('buttonVerify').addEventListener('click', function(event
             body: JSON.stringify(jsonDataVerify) // Fixed variable name
         })
         .then(resp => {
+            console.log(resp);
             if (resp.ok) {
-                window.location.href = "user_forget_password_email.html";// SC_OK
-            } else if (resp.status === 400) {
-                console.error("您所填入的信箱尚未註冊，請註冊會員後享受PeterParker的完整服務。");
-                errorMessageVerify.style.display = 'block';
-                errorMessageVerify.innerText = "您所填入的信箱尚未註冊，請註冊會員。";
-            } else if (resp.status === 401) {
-                console.error("Unauthorized");
-                errorMessageVerify.style.display = 'block';
-                errorMessageVerify.innerText = "401。";
-            } else {
-                console.error("Unhandled status: " + resp.status);
-                errorMessageVerify.style.display = 'block';
-                errorMessageVerify.innerText = "error。";
-            }
+                window.location.href = "user_verify_success.html";// SC_OK
+            } 
         })
         .catch(error => {
             console.error("Fetch error: ", error);
             errorMessageVerify.style.display = 'block';
             errorMessageVerify.innerText = "發生錯誤，請稍後再試。";
         })
-        .finally(() => {
-        // Hide spinner when done
-        overlay.style.display = 'none';
-    });
-    }
-});
+        .finally(()=>{
+            overlay.style.display='none';
+        });
+}});
 </script>
 
 </body>

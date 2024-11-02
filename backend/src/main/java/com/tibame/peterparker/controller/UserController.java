@@ -6,13 +6,17 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.gson.Gson;
 import com.tibame.peterparker.dto.*;
+import com.tibame.peterparker.entity.ParkingVO;
 import com.tibame.peterparker.entity.UserVO;
+import com.tibame.peterparker.dao.ParkingRepository;
 import com.tibame.peterparker.service.UserEmailService;
 import com.tibame.peterparker.service.UserForgetPasswordMailService;
 import com.tibame.peterparker.service.UserService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -22,10 +26,7 @@ import redis.clients.jedis.Jedis;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 
 @CrossOrigin(origins = "http://localhost:5500")
@@ -33,17 +34,17 @@ import java.util.Map;
 @RequestMapping("/user")
 public class UserController {
 
-    final UserService userService;
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private ParkingRepository parkingRepository;
 
     public UserController(UserService userService) {
         this.userService = userService;
     }
 
-    @GetMapping("/")
-    public String home() {
-        return "Tomcat runs successfully!";
-    }
-
+    // 使用者用帳號密碼登入，產生JWT
     @PostMapping("/login")
     public ResponseEntity<Map<String, Object>> login(@Valid @RequestBody UserLoginRequestDTO loginRequestDTO) {
         Map<String, Object> response = new HashMap<>();
@@ -81,12 +82,17 @@ public class UserController {
                     .compact();
         }
 
+        String loginUserAccount = userVO.getUserAccount();
+        Integer loginUserId = userVO.getUserId();
+
         response.put("jwtToken", jwtToken);
-        response.put("user_account", userVO.getUserAccount());
+        response.put("user_account", loginUserAccount);
+        response.put("user_id", loginUserId);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    // 已註冊過的Google使用者進行登入，產生JWT
     @PostMapping("/googleLogin")
     public ResponseEntity<?> googleLogin(@RequestBody Map<String, String> googleTokenObject) {
         String googleToken = googleTokenObject.get("googleToken");
@@ -96,6 +102,7 @@ public class UserController {
         final String CLIENT_ID = "690875404460-brvmd1jtk6sfkl5jb2vhsmbc481b4u72.apps.googleusercontent.com";
         String jwtToken = null;
 
+        Integer userId;
         try {
             // Setup Google ID Token verifier
             GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(
@@ -103,7 +110,7 @@ public class UserController {
                     .setAudience(Collections.singletonList(CLIENT_ID)) // Set your client ID here
                     .build();
 
-            if(googleToken == null || googleToken.isBlank()) {
+            if (googleToken == null || googleToken.isBlank()) {
                 response.put("status", "error");
                 response.put("message", "IdToken is empty");
                 return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
@@ -132,9 +139,9 @@ public class UserController {
                 response.put("status", "need more information");
 
                 Jedis jedis = new Jedis();
-                jedis.set("userName",userName);
-                jedis.set("userAccount",userAccount);
-                jedis.set("googleToken",googleToken);
+                jedis.set("userName", userName);
+                jedis.set("userAccount", userAccount);
+                jedis.set("googleToken", googleToken);
 
                 return new ResponseEntity<>(response, HttpStatus.ACCEPTED);
             }
@@ -160,15 +167,22 @@ public class UserController {
                     .signWith(SignatureAlgorithm.HS256, SECRET_KEY.getBytes()) // Signing with byte array
                     .compact();
 
+            userId = existingUser.getUserId();
+
         } catch (GeneralSecurityException | IOException e) {
             response.put("error", "Token verification failed");
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
+
+
         // Return the JWT token to the client
-        return ResponseEntity.ok(Map.of("jwtToken", jwtToken));
+        response.put("jwtToken", jwtToken);
+        response.put("user_id", userId);
+        return new ResponseEntity<>(response,HttpStatus.OK);
     }
 
+    //使用者用google帳號登入後，要求額外資訊去完成註冊
     @PostMapping("/googleRegister")
     public ResponseEntity<?> googleExtra(@RequestBody UserAdditionalGoogleRegistrationDTO userGoogleRegistrationDTO) {
         Map<String, Object> response = new HashMap<>();
@@ -185,6 +199,7 @@ public class UserController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    // 讓使用者註冊，並寄出認證信至使用者的信箱驗證
     @PostMapping("/addUser")
     public ResponseEntity<Map<String, Object>> AddUser(@Valid @RequestBody UserAddDTO userAddDTO) {
         boolean userTaken = userService.isUserAccountTaken(userAddDTO.getUserAccount());
@@ -219,6 +234,7 @@ public class UserController {
 
     }
 
+    // 驗證使用者信箱的驗證碼後，完成使用者的註冊
     @PostMapping("/verifyCode")
     public ResponseEntity<Map<String, Object>> VerifyCode(@Valid @RequestBody UserVerificationCodeDTO verificationCodeDTO) {
         String code;
@@ -260,6 +276,7 @@ public class UserController {
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    // 使用者登入後確保使用者的JWT沒有過期，並用其取得使用者基本資訊
     @GetMapping("/userinfo")
     public ResponseEntity<Map<String, Object>> UserInfo(@RequestHeader(value = "Authorization", required = false) String authHeader){
         Map<String, Object> response = new HashMap<>();
@@ -293,6 +310,7 @@ public class UserController {
 
         return new ResponseEntity<>(response, HttpStatus.OK);}
 
+    // 讓登入後的使用者跟改基本資訊
     @PostMapping("/update")
     public ResponseEntity<Map<String, Object>> UpdateUser(@Valid @RequestBody UserVO userVO) {
         Map<String, Object> response = new HashMap<>();
@@ -301,6 +319,7 @@ public class UserController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    // 接受使用者重設密碼申請，並寄出重設密碼信件至使用者信箱
     @PostMapping("/requestPasswordReset")
     public ResponseEntity<Map<String, Object>> ChangePasswordRequest (@Valid @RequestBody UserChangePasswordRequestDTO changePasswordRequestDTO) {
         Map<String, Object> response = new HashMap<>();
@@ -337,6 +356,7 @@ public class UserController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    // 重設使用者的密碼
     @PostMapping("/updatePassword")
     public ResponseEntity<Map<String, Object>> UpdatePassword(@Valid @RequestBody UserUpdatePasswordDTO updatePasswordDTO) {
         Map<String, Object> response = new HashMap<>();
@@ -345,6 +365,7 @@ public class UserController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    // 使用者上傳圖片
     @PostMapping("/uploadPhoto")
     public ResponseEntity<String> uploadUserProfile(@ModelAttribute UserProfileDTO userProfileDTO) {
         try {
@@ -355,6 +376,7 @@ public class UserController {
         }
     }
 
+    // 讓使用者資料庫的圖片顯示於前端
     @GetMapping("/showPhoto")
     public ResponseEntity<byte[]> showPhoto(@RequestHeader(value = "Authorization", required = false) String authHeader) {
         String jwtToken = authHeader.substring(7);  // Extract JWT token by removing "Bearer "
@@ -384,6 +406,33 @@ public class UserController {
         return ResponseEntity.ok()
                 .contentType(MediaType.IMAGE_JPEG) // Set content type based on the image format stored
                 .body(userPhoto);
+    }
+
+    // 查詢使用者的訂單（依據訂單狀態分類）
+    @GetMapping("/{statusId}/{userId}")
+    public ResponseEntity<List<UserOrderInfoDTO>> getUserOrdersWithParkingInfo(
+            @PathVariable String statusId, @PathVariable Integer userId) {
+
+        List<UserOrderInfoDTO> orders = userService.getOrderParkingInfo(statusId, userId);
+
+        if (orders.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return ResponseEntity.ok(orders);
+    }
+
+    @GetMapping("/image/{parkingId}")
+    public ResponseEntity<ByteArrayResource> getParkingImage(@PathVariable Integer parkingId) {
+        Optional<ParkingVO> parkingLotOptional = parkingRepository.findById(parkingId);
+        if (parkingLotOptional.isPresent()) {
+            ParkingVO parkingVO = parkingLotOptional.get();
+            byte[] imageData = parkingVO.getParkingImg();
+            return ResponseEntity.ok()
+                    .contentType(MediaType.IMAGE_PNG) // or JPEG depending on your image type
+                    .body(new ByteArrayResource(imageData));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }

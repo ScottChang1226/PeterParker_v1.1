@@ -15,6 +15,9 @@ public interface OrderRepository extends JpaRepository<OrderVO, Integer> {
     // 根據狀態查找訂單
     List<OrderVO> findByStatusId(String statusId);
 
+    //根據用戶ID和狀態找訂單
+    List<OrderVO> findByStatusIdAndUser_UserId(String statusId, String userId);
+
     // 根據用戶 ID 查找所有訂單（修改方法名稱以符合命名規則）
     List<OrderVO> findByUser_UserId(Integer userId);
 

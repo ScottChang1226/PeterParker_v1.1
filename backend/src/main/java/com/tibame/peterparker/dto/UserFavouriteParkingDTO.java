@@ -124,8 +124,8 @@ public class UserFavouriteParkingDTO {
         this.ownerNo = ownerNo;
     }
 
-    public UserFavouriteParkingDTO(Integer userFavouriteId, Integer parkingId, Integer capacity, String parkingName, String parkingRegion, String parkingLocation, Double parkingLong, Double parkingLat, Integer holidayHourlyRate, Integer workdayHourlyRate, Integer ownerNo) {
-        this.userFavouriteId = userFavouriteId;
+    public UserFavouriteParkingDTO(Integer user_favourite_id, Integer parkingId, Integer capacity, String parkingName, String parkingRegion, String parkingLocation, Double parkingLong, Double parkingLat, Integer holidayHourlyRate, Integer workdayHourlyRate, Integer ownerNo) {
+        this.userFavouriteId = user_favourite_id;
         this.parkingId = parkingId;
         this.capacity = capacity;
         this.parkingName = parkingName;

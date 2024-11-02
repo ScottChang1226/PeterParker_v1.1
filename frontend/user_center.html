@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<head>
+
+<!-- Basic Page Needs
+================================================== -->
+<title>會員中心 | Peter Parker</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<!-- CSS
+================================================== -->
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/main-color.css" id="colors">
+<script type="module" src="scripts/userinfo.js"></script>
+<script type="module" src="scripts/get_photo.js"></script>
+
+</head>
+
+<body>
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Header Container
+================================================== -->
+<header id="header-container" class="fullwidth dashboard">
+
+	<!-- Header -->
+	<div id="header" class="not-sticky">
+		<div class="container">
+			
+			<!-- Left Side Content -->
+			<div class="left-side">
+				
+				<!-- Logo -->
+				<div id="logo">
+					<a href="index.html"><img src="images/logo.png" alt=""></a>
+					<a href="index.html" class="dashboard-logo"><img src="images/logo2.png" alt=""></a>
+				</div>
+
+				<!-- Mobile Navigation -->
+				<div class="mmenu-trigger">
+					<button class="hamburger hamburger--collapse" type="button">
+						<span class="hamburger-box">
+							<span class="hamburger-inner"></span>
+						</span>
+					</button>
+				</div>
+
+				<!-- Main Navigation -->
+				<nav id="navigation" class="style-1">
+					<ul id="responsive">
+
+						<li><a href="index.html">首頁</a>
+						</li>
+
+						<li><a>如何使用</a>
+							<ul>
+								<li><a href="how_to_reserve.html">如何預約車位</a></li>
+								<li><a href="dashboard-messages.html">如何出租車位</a></li>
+							</ul>
+						</li>
+
+						<li><a>最新消息</a>
+							<ul>
+								<li><a href="dashboard.html">Dashboard</a></li>
+								<li><a href="dashboard-messages.html">Messages</a></li>
+								<li><a href="dashboard-bookings.html">Bookings</a></li>
+								<li><a href="dashboard-wallet.html">Wallet</a></li>
+								<li><a href="dashboard-my-listings.html">My Listings</a></li>
+								<li><a href="dashboard-reviews.html">Reviews</a></li>
+								<li><a href="dashboard-bookmarks.html">Bookmarks</a></li>
+								<li><a href="dashboard-add-listing.html">Add Listing</a></li>
+								<li><a href="dashboard-my-profile.html">My Profile</a></li>
+								<li><a href="dashboard-invoice.html">Invoice</a></li>
+							</ul>
+						</li>
+
+						<li><a href="#">聯絡我們</a></li>
+
+						<li><a href="#">業主登入</a></li>
+							
+						
+					</ul>
+				</nav>
+				<div class="clearfix"></div>
+				<!-- Main Navigation / End -->
+				
+			</div>
+			<!-- Left Side Content / End -->
+
+			<!-- Right Side Content / End-->
+			<div class="right-side">
+				<!-- Header Widget -->
+				<div class="header-widget">
+					<!-- User Menu -->
+					<div class="user-menu">
+						<div class="user-name"><span><img id="avatar-preview" src="images/dashboard-avatar.jpg" alt=""></span><p style="display:inline "id="username2"></p></div>
+						<ul>
+							<li><a href="user_center.html"><i class="sl sl-icon-settings"></i>會員中心</a></li>
+							<li><a href="user_profile.html"><i class="sl sl-icon-user"></i>會員個人資料</a></li>
+						</ul>
+					</div>
+					<a href="index.html" id="logout_btn" class="button border with-icon" onclick="localStorage.removeItem('peterParkerToken'); localStorage.removeItem('userId');"></i>會員登出</a>
+					</div>
+				</div>
+				</div>
+				<!-- Header Widget / End -->
+			</div>
+			<!-- Right Side Content / End -->
+
+		</div>
+	</div>
+	<!-- Header / End -->
+
+</header>
+<div class="clearfix"></div>
+<!-- Header Container / End -->
+
+
+<!-- Titlebar
+================================================== -->
+<div id="titlebar" class="gradient headline centered margin-top-0 margin-bottom-20">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12"> 
+				<h2>歡迎來到會員中心</h2>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- Content
+================================================== -->
+<div class="container">
+	<div class="row margin-bottom-40">
+		<div class="col-md-12">
+			<div class="row">
+
+				<!-- Listing Item -->
+				<div class="col-lg-4 col-md-6">
+					<a href="user_profile.html" class="listing-item-container compact">
+						<div class="listing-item">
+							<img src="images/listing-item-01.jpg" alt="">
+							<div class="listing-item-content">
+								<h3>會員個人資料</h3>
+								<span>更改與管理您的會員資料（地址, 姓名）。</span>
+							</div>
+							
+						</div>
+					</a>
+				</div>
+				<!-- Listing Item / End -->
+
+				<!-- Listing Item -->
+				<div class="col-lg-4 col-md-6">
+					<a href="listings-single-page.html" class="listing-item-container compact">
+						<div class="listing-item">
+							<img src="images/listing-item-02.jpg" alt="">
+							<div class="listing-item-details">
+							</div>
+							<div class="listing-item-content">
+								<h3>開始預約</h3>
+								<span>立即開始預約並使用 PeterParker 的預約系統。</span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<!-- Listing Item / End -->		
+
+				<!-- Listing Item -->
+				<div class="col-lg-4 col-md-6">
+					<a href="user_ongoing_reservation.html" class="listing-item-container compact">
+						<div class="listing-item">
+							<img src="images/listing-item-03.jpg" alt="">
+							<div class="listing-item-details">
+							</div>
+							<div class="listing-item-content">
+								<h3>未完成的訂單</h3>
+								<span>查詢現在正在進行中的預約。</span>
+							</div>
+						</div>
+
+					</a>
+				</div>
+				<!-- Listing Item / End -->
+
+				<!-- Listing Item -->
+				<div class="col-lg-4 col-md-6">
+					<a href="user_completed_reservation.html" class="listing-item-container compact">
+						<div class="listing-item">
+							<img src="images/listing-item-03.jpg" alt="">
+							<div class="listing-item-details">
+							</div>
+							<div class="listing-item-content">
+								<h3>已完成的訂單</h3>
+								<span>查詢過往已完成以及未完成的歷史訂單。</span>
+							</div>
+						</div>
+				
+				</a>
+				</div>
+				<!-- Listing Item / End -->
+
+				<!-- Listing Item -->
+				<div class="col-lg-4 col-md-6">
+					<a href="user_my_favourites.html" class="listing-item-container compact">
+						<div class="listing-item">
+							<img src="images/listing-item-04.jpg" alt="">
+							<div class="listing-item-content">
+								<h3>我的最愛</h3>
+								<span>查詢您設為最愛的停車場，跟改您的最愛名單。</span>
+							</div>
+							
+						</div>
+					</a>
+				</div>
+				<!-- Listing Item / End -->
+
+				<!-- Listing Item -->
+				<div class="col-lg-4 col-md-6">
+					<a href="user_my_blacklist.html" class="listing-item-container compact">
+						<div class="listing-item">
+							<img src="images/listing-item-05.jpg" alt="">
+							<div class="listing-item-content">
+								<h3>我的黑名單</h3>
+								<span>查詢您設為黑名單的停車場，跟改您的黑名單。</span>
+							</div>
+							
+						</div>
+					</a>
+				</div>
+				<!-- Listing Item / End -->
+
+			</div>
+		</div>
+
+	</div>
+</div>
+
+
+<!-- Footer
+================================================== -->
+<div id="footer" class="dark">
+	<!-- Main -->
+	<div class="container">
+		<div class="row">
+			<div class="col-md-5 col-sm-6">
+				<img class="footer-logo" src="images/logo2.png" alt="">
+				<br><br>
+			</div>
+
+			<div class="col-md-4 col-sm-6 ">
+				<h4>相關連結</h4>
+				<ul class="footer-links">
+					<li><a href="#">最新消息</a></li>
+					<li><a href="how_to_reserve.html">如何預約停車位</a></li>
+					<li><a href="#">如何出租停車位</a></li>
+				</ul>
+
+				<ul class="footer-links">
+					<li><a href="#">業主登入</a></li>
+					<li><a href="#">聯絡我們</a></li>
+					<li><a href="#">常見問題</a></li>
+				</ul>
+				<div class="clearfix"></div>
+			</div>		
+
+			<div class="col-md-3  col-sm-12">
+				<h4>聯絡我們</h4>
+				<div class="text-widget">
+					E-Mail:<span> <a href="#">liuheng0320@gmail.com</a> </span><br>
+				</div>
+
+				<ul class="social-icons margin-top-20">
+					<li><a class="facebook" href="#"><i class="icon-facebook"></i></a></li>
+					<li><a class="twitter" href="#"><i class="icon-twitter"></i></a></li>
+					<li><a class="gplus" href="#"><i class="icon-gplus"></i></a></li>
+					<li><a class="vimeo" href="#"><i class="icon-vimeo"></i></a></li>
+				</ul>
+
+			</div>
+
+		</div>
+		
+		<!-- Copyright -->
+		<div class="row">
+			<div class="col-md-12">
+				<div class="copyrights">Copyright© 2024 Peter Parker | All Rights Reserved </div>
+			</div>
+		</div>
+
+	</div>
+
+</div>
+<!-- Footer / End -->
+
+
+<!-- Back To Top Button -->
+<div id="backtotop"><a href="#"></a></div>
+
+
+</div>
+<!-- Wrapper / End -->
+
+
+
+<!-- Scripts
+================================================== -->
+<script type="text/javascript" src="scripts/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="scripts/jquery-migrate-3.3.2.min.js"></script>
+<script type="text/javascript" src="scripts/mmenu.min.js"></script>
+<script type="text/javascript" src="scripts/chosen.min.js"></script>
+<script type="text/javascript" src="scripts/slick.min.js"></script>
+<script type="text/javascript" src="scripts/rangeslider.min.js"></script>
+<script type="text/javascript" src="scripts/magnific-popup.min.js"></script>
+<script type="text/javascript" src="scripts/waypoints.min.js"></script>
+<script type="text/javascript" src="scripts/counterup.min.js"></script>
+<script type="text/javascript" src="scripts/jquery-ui.min.js"></script>
+<script type="text/javascript" src="scripts/tooltips.min.js"></script>
+<script type="text/javascript" src="scripts/custom.js"></script>
+
+<!-- Google Autocomplete -->
+<script>
+  function initAutocomplete() {
+    var input = document.getElementById('autocomplete-input');
+    var autocomplete = new google.maps.places.Autocomplete(input);
+
+    autocomplete.addListener('place_changed', function() {
+      var place = autocomplete.getPlace();
+      if (!place.geometry) {
+        return;
+      }
+    });
+
+	if ($('.main-search-input-item')[0]) {
+	    setTimeout(function(){ 
+	        $(".pac-container").prependTo("#autocomplete-container");
+	    }, 300);
+	}
+}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?libraries=places&callback=initAutocomplete"></script>
+<script>
+	window.onload = function() {
+    // Check if the jwt_token exists in localStorage
+    let token = localStorage.getItem('peterParkerToken');
+
+    // If no token is found, redirect to index.html
+    if (!token) {
+        window.location.href = 'index.html';
+    }
+
+    // Optionally, you can also check if the token has a valid format or expiration time
+    // if your application uses such validation on the client-side.
+};
+</script>
+</script>
+
+
+</script>
+
+
+<!-- Style Switcher
+================================================== -->
+<script src="scripts/switcher.js"></script>
+
+
+<div id="style-switcher">
+	<h2>Color Switcher <a href="#"><i class="sl sl-icon-settings"></i></a></h2>
+	
+	<div>
+		<ul class="colors" id="color1">
+			<li><a href="#" class="main" title="Main"></a></li>
+			<li><a href="#" class="blue" title="Blue"></a></li>
+			<li><a href="#" class="green" title="Green"></a></li>
+			<li><a href="#" class="orange" title="Orange"></a></li>
+			<li><a href="#" class="navy" title="Navy"></a></li>
+			<li><a href="#" class="yellow" title="Yellow"></a></li>
+			<li><a href="#" class="peach" title="Peach"></a></li>
+			<li><a href="#" class="beige" title="Beige"></a></li>
+			<li><a href="#" class="purple" title="Purple"></a></li>
+			<li><a href="#" class="celadon" title="Celadon"></a></li>
+			<li><a href="#" class="red" title="Red"></a></li>
+			<li><a href="#" class="brown" title="Brown"></a></li>
+			<li><a href="#" class="cherry" title="Cherry"></a></li>
+			<li><a href="#" class="cyan" title="Cyan"></a></li>
+			<li><a href="#" class="gray" title="Gray"></a></li>
+			<li><a href="#" class="olive" title="Olive"></a></li>
+		</ul>
+	</div>
+		
+</div>
+<!-- Style Switcher / End -->
+
+
+</body>
+</html>

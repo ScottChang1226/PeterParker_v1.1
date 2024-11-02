@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
+import com.tibame.peterparker.dto.FilterRequest;
+import com.tibame.peterparker.dto.ParkingDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
@@ -103,7 +105,7 @@ public class OrderController {
     @Lazy
     public ResponseEntity<?> getNearbyParking(@RequestParam Double latitude, @RequestParam Double longitude) {
         try {
-            List<Map<String, Object>> nearbyParking = parkingService.findNearbyParking(latitude, longitude);
+            List<ParkingDTO> nearbyParking = parkingService.findNearbyParking(latitude, longitude);
             return new ResponseEntity<>(nearbyParking, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("Error finding nearby parking: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -115,7 +117,7 @@ public class OrderController {
     @Lazy
     public ResponseEntity<?> searchParking(@RequestParam String keyword) {
         try {
-            List<Map<String, Object>> parkingResults = parkingService.searchParkingByKeyword(keyword);
+            List<ParkingDTO> parkingResults = parkingService.searchParkingByKeyword(keyword);
             return new ResponseEntity<>(parkingResults, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("Error searching parking: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -131,6 +133,18 @@ public class OrderController {
             return new ResponseEntity<>(Map.of("availableSpaces", availableSpaces), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("Error retrieving available spaces: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    // 篩選停車場列表
+    @PostMapping("/getFilteredParkingListings")
+    @Lazy
+    public ResponseEntity<?> getFilteredParkingListings(@RequestBody FilterRequest filterRequest) {
+        try {
+            List<ParkingDTO> filteredParkings = parkingService.getFilteredParkingListings(filterRequest);
+            return new ResponseEntity<>(filteredParkings, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error fetching filtered parking listings: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
