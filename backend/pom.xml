@@ -1,117 +1,163 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.14</version>
-        <relativePath /> <!-- lookup parent from repository -->
-    </parent>
-    <groupId>com.tibame</groupId>
-    <artifactId>Peterparker</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>PeterParker_v1.1</name>
-    <description>PeterParker_v1.1</description>
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-    <properties>
-        <java.version>17</java.version>
-        <spring-cloud.version>2023.0.3</spring-cloud.version>
-        <spring-modulith.version>1.2.4</spring-modulith.version>
-    </properties>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.7.13</version> <!-- 使用 Spring Boot 2.x 版本 -->
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
 
-    <distributionManagement>
-        <repository>
-            <id>myrepository</id>
-            <url>file:./repository/</url>
-        </repository>
-    </distributionManagement>
+	<groupId>TIA103_PeterParker</groupId>
+	<artifactId>Admin</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+	<name>Admin</name>
+	<description>Admin</description>
+	<url />
 
+	<licenses>
+		<license />
+	</licenses>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-batch</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.mysql</groupId>
-            <artifactId>mysql-connector-j</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.mail</groupId>
-            <artifactId>javax.mail</artifactId>
-            <version>1.6.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
-            <version>20240205</version>
-        </dependency>
-        <dependency>
-            <groupId>redis.clients</groupId>
-            <artifactId>jedis</artifactId>
-        </dependency>
+	<developers>
+		<developer />
+	</developers>
 
-        <!-- Google API 客戶端 -->
-        <dependency>
-            <groupId>com.google.api-client</groupId>
-            <artifactId>google-api-client</artifactId>
-            <version>1.33.0</version>
-        </dependency>
+	<scm>
+		<connection />
+		<developerConnection />
+		<tag />
+		<url />
+	</scm>
 
-        <!-- Google OAuth 客戶端 -->
-        <dependency>
-            <groupId>com.google.oauth-client</groupId>
-            <artifactId>google-oauth-client-jetty</artifactId>
-            <version>1.33.1</version>
-        </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-api</artifactId>
-            <version>0.11.5</version>
-        </dependency>
+	<properties>
+		<java.version>17</java.version>	<!-- 確保與你的 JDK 版本一致 -->
+	</properties>
 
-        <!-- https://mvnrepository.com/artifact/com.google.apis/google-api-services-calendar -->
-        <dependency>
-            <groupId>com.google.apis</groupId>
-            <artifactId>google-api-services-calendar</artifactId>
-            <version>v3-rev411-1.25.0</version>
-        </dependency>
+	<dependencies>
 
-        <!-- Jackson JSON 工廠 -->
-        <dependency>
-            <groupId>com.google.http-client</groupId>
-            <artifactId>google-http-client-jackson2</artifactId>
-            <version>1.41.4</version>
-        </dependency>
+		<!-- Hybernate -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<!-- 使用對應的版本號 -->
+		</dependency>
 
-        <!-- https://mvnrepository.com/artifact/javax.validation/validation-api -->
-        <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
-        </dependency>
+		<!-- MySQL Driver -->
+		<dependency>
+			<groupId>com.mysql</groupId>
+			<artifactId>mysql-connector-j</artifactId>
+			<version>8.0.32</version>
+		</dependency>
 
-        <!-- okhttp3 -->
-        <dependency>
-            <groupId>com.squareup.okhttp3</groupId>
-            <artifactId>okhttp</artifactId>
-            <version>4.4.0</version>
-        </dependency>
+		<!-- Spring Boot Web Starter for Spring MVC -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<!-- Spring Boot Starter for JPA (Hibernate) -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+		<!-- Spring Security -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency> 
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-crypto</artifactId>
+		</dependency>
+		
+		<!-- Test dependencies -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
 
-    </dependencies>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+		
+		<!-- JWT -->
+		<dependency>
+	        <groupId>io.jsonwebtoken</groupId>
+	        <artifactId>jjwt</artifactId>
+	        <version>0.9.1</version>
+    	</dependency>
+	    <dependency>
+	        <groupId>io.jsonwebtoken</groupId>
+	        <artifactId>jjwt-api</artifactId>
+	        <version>0.11.2</version>
+	    </dependency>
+	    <dependency>
+	        <groupId>io.jsonwebtoken</groupId>
+	        <artifactId>jjwt-impl</artifactId>
+	        <version>0.11.2</version>
+	    </dependency>
+	    <dependency>
+	        <groupId>io.jsonwebtoken</groupId>
+	        <artifactId>jjwt-jackson</artifactId>
+	        <version>0.11.2</version>
+	    </dependency>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>

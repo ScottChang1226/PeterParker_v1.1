@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -21,6 +22,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 import com.tibame.peterparker.filter.AuthRequestFilter;
 import com.tibame.peterparker.config.AppConfig;
@@ -67,7 +69,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:8080", "http://localhost:8081"));
+        config.setAllowedOrigins(List.of("http://localhost:8080", "http://localhost:8081","http://127.0.0.1:5500"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
         config.setAllowCredentials(true);
         config.setAllowedHeaders(List.of("*"));
@@ -90,7 +92,7 @@ public class SecurityConfig {
 
         // 控制 api 使用權限
         http.authorizeRequests(authorize -> {
-            authorize.antMatchers("/adminlogin").permitAll();
+            authorize.antMatchers("/user/**","/user/userinfo").permitAll();
             authorize.antMatchers("/official/**").permitAll();
             authorize.antMatchers("/geocode").permitAll();//放行/geocode相關以進行測試
             authorize.antMatchers("/api/**").hasAnyRole("ADMIN");
@@ -101,6 +103,37 @@ public class SecurityConfig {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         return http.build();
+    }
+    
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http.cors() // 啟用CORS
+            .and()
+            .csrf().disable() // 關閉 CSRF 保護
+            .authorizeRequests()
+            .antMatchers("/api/admin/**", "/api/user/**","/api/orders/**","/api/owner/**", "/api/statistics/**","/api/parking/**").permitAll() // 允許不需驗證的路徑
+            .anyRequest().authenticated() // 其他路徑需驗證
+            .and()
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS); // 無狀態的 Session
+
+        return http.build();
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
+        return http.getSharedObject(AuthenticationManagerBuilder.class).build();
+    }
+    
+    @Bean
+    public CorsFilter corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(true); // 允許發送憑證
+        config.addAllowedOriginPattern("*"); // 允許所有的來源
+        config.addAllowedHeader("*"); // 允許所有的請求標頭
+        config.addAllowedMethod("*"); // 允許所有的請求方法
+        source.registerCorsConfiguration("/**", config); // 將此配置應用於所有路徑
+        return new CorsFilter(source);
     }
 
 

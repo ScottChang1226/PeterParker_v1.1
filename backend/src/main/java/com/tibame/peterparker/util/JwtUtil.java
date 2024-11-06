@@ -1,80 +1,48 @@
 package com.tibame.peterparker.util;
 
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.stereotype.Component;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Function;
-
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
-
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
-
-import javax.crypto.SecretKey;
 
 @Component
 public class JwtUtil {
 
-    // 初始化 SECRET_KEY
-    private SecretKey SECRET_KEY;
+    private String SECRET_KEY = "your_secret_key";
 
-    // 從配置檔案中注入 SECRET_KEY
-    @Value("${jwt.secret-key}")
-    public void setSecretKey(String secretKey) {
-        this.SECRET_KEY = Keys.hmacShaKeyFor(secretKey.getBytes());
-    }
-
-    // 從 token 中提取用戶名
-    public String extractUsername(String token) {
-        return extractClaim(token, Claims::getSubject);
-    }
-
-    // 從 token 中提取過期時間
-    public Date extractExpiration(String token) {
-        return extractClaim(token, Claims::getExpiration);
-    }
-
-    // 泛型方法，用於從 token 中提取特定的 claim
-    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
-        final Claims claims = extractAllClaims(token);
-        return claimsResolver.apply(claims);
-    }
-
-    // 從 token 中提取所有的 claims
-    private Claims extractAllClaims(String token) {
-        return Jwts
-                .parserBuilder()
-                .setSigningKey(SECRET_KEY)
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
-    }
-
-    // 檢查 token 是否已過期
-    private boolean isTokenExpired(String token) {
-        return extractExpiration(token).before(new Date());
-    }
-
-    // 生成 token
-    public String generateToken(UserDetails userDetails) {
+    // 生成 JWT Token
+    public String generateToken(String username) {
         Map<String, Object> claims = new HashMap<>();
-        return createToken(claims, userDetails.getUsername());
+        return Jwts.builder()
+                .setClaims(claims)
+                .setSubject(username)
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) // Token 有效時間 10 小時
+                .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
+                .compact();
     }
 
-    // 創建一個新的 token
-    private String createToken(Map<String, Object> claims, String subject) {
-        return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
-                .signWith(SECRET_KEY, SignatureAlgorithm.HS256).compact();
+    // 從 Token 中提取用戶名
+    public String extractUsername(String token) {
+        return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody().getSubject();
+        // 這個方法負責解析 JWT Token，並提取出 Token 中的 主體（Subject），也就是我們在 generateToken 中存入的用戶名。
     }
 
-    // 驗證 token 的有效性
-    public boolean validateToken(String token, UserDetails userDetails) {
-        final String username = extractUsername(token);
-        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+    // 驗證 JWT Token 的有效性
+    public boolean validateToken(String token, String username) {
+        return (username.equals(extractUsername(token)) && !isTokenExpired(token));
+        // username.equals(extractUsername(token))：先驗證從 Token 中提取的用戶名是否與當前請求的用戶名匹配。
+        // !isTokenExpired(token)：再驗證 Token 是否已經過期。如果 Token 還未過期且用戶名正確，那麼這個 Token 是有效的。
+    }
+
+    // 檢查 Token 是否過期
+    private boolean isTokenExpired(String token) {
+        return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody().getExpiration().before(new Date());
+        // 這個方法會檢查 Token 中的過期時間，並確認該時間是否已經早於當前時間。如果 Token 已經過期，則返回 true，否則返回 false。
     }
 }
+
+
