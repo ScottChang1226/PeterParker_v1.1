@@ -250,7 +250,7 @@
 			}
 
 			// 定義 API URL
-			const apiUrl = `http://localhost:8080/api/user/${userId}`;
+			const apiUrl = `http://localhost:8081/api/user/${userId}`;
 
 			// 發送 GET 請求，根據 userId 獲取會員資料
 			fetch(apiUrl)
@@ -288,7 +288,7 @@
 				};
 
 				// 發送 PUT 請求來更新會員資料
-				fetch(`http://localhost:8080/api/user/${userId}`, {
+				fetch(`http://localhost:8081/api/user/${userId}`, {
 					method: 'PUT',
 					headers: {
 						'Content-Type': 'application/json',

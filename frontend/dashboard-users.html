@@ -432,7 +432,7 @@
 
 				// 使用 fetch 請求後端 API 獲取會員資料
 				const fetchUsers = () => {
-					fetch('http://localhost:8080/api/user/all', {
+					fetch('http://localhost:8081/api/user/all', {
 						method: 'GET',
 						headers: {
 							'Content-Type': 'application/json'
@@ -500,7 +500,7 @@
 
 				// 刪除用戶
 				const deleteUser = (userId) => {
-					fetch(`http://localhost:8080/api/user/${userId}`, {
+					fetch(`http://localhost:8081/api/user/${userId}`, {
 						method: 'DELETE'
 					})
 						.then(response => {

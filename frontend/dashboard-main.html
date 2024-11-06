@@ -237,7 +237,7 @@
 			console.log("JWT Token:", localStorage.getItem('token'));
 		
 			// 取得統計數據
-			fetch(`http://localhost:8080/api/statistics/counts?cacheBust=${Date.now()}`, {
+			fetch(`http://localhost:8081/api/statistics/counts?cacheBust=${Date.now()}`, {
 				method: 'GET',
 				headers: {
 					'Cache-Control': 'no-store',

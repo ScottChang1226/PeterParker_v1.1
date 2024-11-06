@@ -296,7 +296,7 @@
 		document.addEventListener('DOMContentLoaded', function () {
 			const params = new URLSearchParams(window.location.search);
 			const orderId = params.get('orderId');
-			const apiUrl = `http://localhost:8080/api/orders/${orderId}`;
+			const apiUrl = `http://localhost:8081/api/orders/${orderId}`;
 
 			if (!orderId) {
 				alert('無法找到 orderId');

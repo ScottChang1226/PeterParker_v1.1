@@ -518,7 +518,7 @@
 
 				// 使用 fetch 請求後端 API 獲取會員資料
 				const fetchUsers = () => {
-					fetch('http://localhost:8080/api/admin/all', {
+					fetch('http://localhost:8081/api/admin/all', {
 						method: 'GET',
 						headers: {
 							'Content-Type': 'application/json'
@@ -547,7 +547,7 @@
 				const createRow = (admin) => {
 					const row = document.createElement('tr');
 					const maskedPassword = '*'.repeat(admin.adminPassword.length);
-					const profileImgSrc = `http://localhost:8080/api/admin/image/${admin.adminId}`;
+					const profileImgSrc = `http://localhost:8081/api/admin/image/${admin.adminId}`;
 
 					row.innerHTML = `
 						<td>${admin.adminId}</td>
@@ -587,7 +587,7 @@
 
 				// 刪除管理員
 				const deleteAdmin = (adminId) => {
-					fetch(`http://localhost:8080/api/admin/${adminId}`, {
+					fetch(`http://localhost:8081/api/admin/${adminId}`, {
 						method: 'DELETE'
 					})
 						.then(response => {

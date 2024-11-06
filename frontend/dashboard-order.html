@@ -467,7 +467,7 @@
 				};
 
 				const fetchOrders = () => {
-					fetch('http://localhost:8080/api/orders/all', {
+					fetch('http://localhost:8081/api/orders/all', {
 						method: 'GET',
 						headers: {
 							'Content-Type': 'application/json'
@@ -553,7 +553,7 @@
 
 				// 刪除訂單
 				const deleteOrder = (orderId) => {
-					fetch(`http://localhost:8080/api/orders/${orderId}`, {
+					fetch(`http://localhost:8081/api/orders/${orderId}`, {
 						method: 'DELETE'
 					})
 						.then(response => {

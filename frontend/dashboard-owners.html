@@ -429,7 +429,7 @@
 
 				// 使用 fetch 請求後端 API 獲取業主資料
 				const fetchOwners = () => {
-					fetch('http://localhost:8080/api/owner/all', {
+					fetch('http://localhost:8081/api/owner/all', {
 						method: 'GET',
 						headers: {
 							'Content-Type': 'application/json'
@@ -496,7 +496,7 @@
 
 				// 刪除業主
 				const deleteOwner = (ownerNo) => {
-					fetch(`http://localhost:8080/api/owner/${ownerNo}`, {
+					fetch(`http://localhost:8081/api/owner/${ownerNo}`, {
 						method: 'DELETE'
 					})
 						.then(response => {
