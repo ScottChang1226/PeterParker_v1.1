@@ -411,25 +411,23 @@
 		<script src="scripts/search-user.js"></script>
 
 		<script>
-			// dashboard-user.js
-
 			document.addEventListener('DOMContentLoaded', function () {
-				const table = document.querySelector('.data-table tbody');  // 選擇表格主體
-				let rows = [];  // 儲存顯示的資料行
-				let allRows = [];  // 儲存所有資料的副本，用於查詢功能
-				let rowsPerPage = 10;  // 每頁顯示的資料數量
-				let currentPage = 1;  // 當前頁數
-
-				const resultsInfoDiv = document.querySelector('.results-info');  // 顯示結果資訊的區域
-				const resultsPerPageSelect = document.getElementById('resultsPerPage');  // 每頁顯示筆數的下拉選單
-
+				const table = document.querySelector('.data-table tbody');
+				let rows = [];
+				let allRows = [];
+				let rowsPerPage = 10;
+				let currentPage = 1;
+		
+				const resultsInfoDiv = document.querySelector('.results-info');
+				const resultsPerPageSelect = document.getElementById('resultsPerPage');
+		
 				// 更新顯示的範圍和總筆數
 				const updateResultsInfo = () => {
 					const startResult = (currentPage - 1) * rowsPerPage + 1;
 					const endResult = Math.min(currentPage * rowsPerPage, allRows.length);
 					resultsInfoDiv.innerHTML = `顯示第 ${startResult} 至 ${endResult} 筆結果，共 <span style="color:red; font-weight:bold;">${allRows.length}</span> 筆`;
 				};
-
+		
 				// 使用 fetch 請求後端 API 獲取會員資料
 				const fetchUsers = () => {
 					fetch('http://localhost:8081/api/user/all', {
@@ -445,102 +443,68 @@
 							return response.json();
 						})
 						.then(data => {
-							rows = data.map(user => createRow(user));  // 將每個用戶資料轉換為表格行
-							allRows = [...rows];  // 將所有資料的副本保存到 allRows
-							displayRows(currentPage);  // 顯示當前頁的資料
-							setupPagination();  // 設定分頁邏輯
-							updateResultsInfo();  // 更新顯示筆數範圍
-							setUserRows(allRows);  // 設定查詢功能的所有行數據
+							rows = data.map(user => createRow(user));
+							allRows = [...rows];
+							displayRows(currentPage);
+							setupPagination();
+							updateResultsInfo();
 						})
 						.catch(error => {
 							console.error('無法獲取會員資料:', error);
 						});
 				};
-
+		
 				// 將每個用戶轉換為一行表格
 				const createRow = (user) => {
 					const row = document.createElement('tr');
 					const maskedPassword = '*'.repeat(user.userPassword.length);
-
+		
 					row.innerHTML = `
-            <td>${user.userId}</td>
-            <td>${user.userName}</td>
-            <td>${user.userAccount}</td>
-            <td>${maskedPassword}</td>
-            <td>${user.userPhone}</td>
-            <td>${user.carNumber}</td>
-            <td>
-                <a href="dashboard-users-inner.html?userId=${user.userId}" class="edit-link">修改</a> |
-                <a href="#" class="delete-link" data-id="${user.userId}">刪除</a>
-            </td>
-        `;
+						<td>${user.userId}</td>
+						<td>${user.userName}</td>
+						<td>${user.userAccount}</td>
+						<td>${maskedPassword}</td>
+						<td>${user.userPhone}</td>
+						<td>${user.carNumber}</td>
+						<td>
+							<a href="dashboard-users-inner.html?userId=${user.userId}" class="edit-link">修改</a>
+						</td>
+					`;
 					return row;
 				};
-
+		
 				// 顯示當前頁的資料行
 				const displayRows = (page) => {
-					table.innerHTML = '';  // 清空表格顯示
+					table.innerHTML = '';
 					rows.slice((page - 1) * rowsPerPage, page * rowsPerPage).forEach(row => table.appendChild(row));
-					updateResultsInfo();  // 每次顯示新頁面時更新顯示筆數範圍
-					bindDeleteButtons();  // 綁定刪除按鈕的事件
+					updateResultsInfo();
 				};
-
-				// 綁定刪除按鈕的事件
-				const bindDeleteButtons = () => {
-					document.querySelectorAll('.delete-link').forEach(button => {
-						button.onclick = (e) => {
-							e.preventDefault();
-							const userId = e.target.getAttribute('data-id');
-							if (confirm('你確定要刪除這筆資料嗎？')) {
-								deleteUser(userId);
-							}
-						};
-					});
-				};
-
-				// 刪除用戶
-				const deleteUser = (userId) => {
-					fetch(`http://localhost:8081/api/user/${userId}`, {
-						method: 'DELETE'
-					})
-						.then(response => {
-							if (!response.ok) {
-								throw new Error('Network response was not ok ' + response.statusText);
-							}
-							rows = rows.filter(row => row.querySelector('.delete-link').getAttribute('data-id') !== userId);
-							allRows = allRows.filter(row => row.querySelector('.delete-link').getAttribute('data-id') !== userId);
-							displayRows(currentPage);
-							setupPagination();
-						})
-						.catch(error => {
-							console.error('刪除失敗:', error);
-						});
-				};
-
+		
 				// 每頁顯示筆數的變更事件
 				resultsPerPageSelect.addEventListener('change', (event) => {
 					rowsPerPage = parseInt(event.target.value);
-					displayRows(currentPage = 1);  // 回到第一頁並重新顯示
-					setupPagination();  // 更新分頁
-					updateResultsInfo();  // 更新顯示筆數範圍
+					currentPage = 1;
+					displayRows(currentPage);
+					setupPagination();
+					updateResultsInfo();
 				});
-
+		
 				// 初始化分頁邏輯
 				const setupPagination = () => {
 					const totalPages = Math.ceil(allRows.length / rowsPerPage);
 					const paginationInfoDiv = document.querySelector('.pagination-info');
 					const paginationButtonsDiv = document.querySelector('.pagination-buttons');
-
+		
 					paginationInfoDiv.innerHTML = '';
 					paginationButtonsDiv.innerHTML = '';
-
+		
 					const prevButton = createButton('上一頁', currentPage === 1, () => {
 						currentPage--;
 						displayRows(currentPage);
 						setupPagination();
 					});
 					paginationButtonsDiv.appendChild(prevButton);
-
+		
 					for (let i = 1; i <= totalPages; i++) {
 						const pageButton = createButton(i, i === currentPage, () => {
 							currentPage = i;
@@ -550,7 +514,7 @@
 						pageButton.classList.toggle("active", i === currentPage);
 						paginationButtonsDiv.appendChild(pageButton);
 					}
-
+		
 					const nextButton = createButton('下一頁', currentPage === totalPages, () => {
 						currentPage++;
 						displayRows(currentPage);
@@ -558,7 +522,7 @@
 					});
 					paginationButtonsDiv.appendChild(nextButton);
 				};
-
+		
 				const createButton = (text, disabled, onClick) => {
 					const btn = document.createElement('button');
 					btn.innerText = text;
@@ -566,12 +530,10 @@
 					btn.onclick = onClick;
 					return btn;
 				};
-
+		
 				fetchUsers();  // 初始化顯示
 			});
-
-		</script>
-
+		</script>		
 
 </body>
 
