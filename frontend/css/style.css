@@ -683,6 +683,9 @@ body #navigation ul ul {
 
 /* Menu
 ------------------------------------- */
+
+
+
 #navigation.style-1 .current {
 	background-color: transparent;
 	color: #66676b;
@@ -6192,11 +6195,6 @@ button.panel-cancel:active { transform: translateY(-2px); }
 	margin-top: 13px;
 }
 
-.order-buttons{
-	width: 100%;
-	margin-right:unset ;
-}
-
 /* Float Right */
 .panel-dropdown.float-right {
 	float: right;
@@ -9006,7 +9004,7 @@ input#date-picker:hover {
 
 #booking-date-range i {
 	color: #999;
-	background-color:unset;
+	background-color: 
 }
 
 /* Booking Requests Filter / End */
@@ -9517,6 +9515,26 @@ a.send-message-to-owner.button {
 	padding-right: 0;
 }
 
+/* Peter add */
+td {
+	padding: 10px;
+}
+
+.text-cell {
+	text-align: left; /* Align text to the left */
+	width: 90%; /* Give most of the space to the text */
+}
+
+.checkbox-cell {
+	text-align: right; /* Align checkbox to the right */
+	width: 10%; /* Minimal space for checkbox */
+}
+
+input[type="checkbox"] {
+	margin-left: 10px;
+	cursor: pointer;
+	transform: scale(1.2); /* Makes the checkbox slightly larger */
+}
 
 /* Property Map */
 #singleListingMap {
@@ -18849,7 +18867,13 @@ button.mfp-close {
 	transform: translate(-50%,0%);
 }
 
+#owner-registerok-dialog, .mfp-close
+#owner-register-dialog, .mfp-close{
+	color: black;
+}
+
 #small-dialog .mfp-close,
+#owner-sign-in-dialog, .mfp-close,
 #sign-in-dialog, .mfp-close,
 .mfp-close:hover {
 	color: #fff;
@@ -18857,6 +18881,8 @@ button.mfp-close {
 
 
 /* Popup close button*/
+
+#owner-sign-in-dialog .mfp-close,
 #sign-in-dialog .mfp-close,
 #small-dialog .mfp-close {
 	color: #666;
@@ -18868,6 +18894,8 @@ button.mfp-close {
     height: 40px;
 }
 
+
+#owner-sign-in-dialog .mfp-close:hover,
 #sign-in-dialog .mfp-close:hover,
 #small-dialog .mfp-close:hover {
 	color: #fff;
@@ -18875,6 +18903,9 @@ button.mfp-close {
 	background-color: #66676b;
 }
 
+
+#owner-sign-in-dialog .mfp-close::after,
+#owner-sign-in-dialog .mfp-close::before,
 #sign-in-dialog .mfp-close::after,
 #sign-in-dialog .mfp-close::before,
 #small-dialog .mfp-close::after,
@@ -18998,6 +19029,46 @@ button.mfp-close {
 	height: 100%;
 	box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
 	background: black;
+}
+
+/* owner Popup */
+#owner-registerok-dialog,
+#owner-register-dialog,
+#owner-sign-in-dialog,
+#small-dialog {
+	background: #fff;
+	padding: 40px;
+	padding-top: 0;
+	text-align: left;
+	max-width: 610px;
+	margin: 40px auto;
+	position: relative;
+	box-sizing:border-box;
+	border-radius: 4px;
+}
+
+#owner-registerok-dialog,
+#owner-register-dialog,
+#owner-sign-in-dialog {
+	max-width: 500px;
+}
+
+#owner-registerok-dialog span.line,
+#owner-register-dialog span.line,
+#owner-sign-in-dialog span.line,
+#small-dialog span.line {padding-top: 0;}
+
+.my-mfp-zoom-in .zoom-anim-dialog {
+	opacity: 0;
+	-webkit-transition: all 0.2s ease-in-out;
+	-moz-transition: all 0.2s ease-in-out;
+	-o-transition: all 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
+	-webkit-transform: scale(0.8);
+	-moz-transform: scale(0.8);
+	-ms-transform: scale(0.8);
+	-o-transform: scale(0.8);
+	transform: scale(0.8);
 }
 
 /* Popup */
@@ -20793,7 +20864,20 @@ body .category-box-btn:hover {
 		padding-top: 0;
     }
 
+	#owner-registerok-dialog, #owner-sign-in-dialog, #owner-register-dialog {
+		background: #fff;
+		padding: 30px;
+		padding-top: 0;
+    }
+
 	#sign-in-dialog .mfp-close, #small-dialog .mfp-close {
+	    top: 24px;
+	    right: 30px;
+	    width: 40px;
+	    height: 40px;
+	}
+
+	#owner-sign-in-dialog .mfp-close, #owner-register-dialog .mfp-close, #owner-registerok-dialog .mfp-close {
 	    top: 24px;
 	    right: 30px;
 	    width: 40px;
@@ -20858,6 +20942,10 @@ body .category-box-btn:hover {
 	}
 
 	#sign-in-dialog, #small-dialog {
+	    max-width: 75vw;
+	}
+
+	#owner-registerok-dialog, #owner-sign-in-dialog, #owner-register-dialog {
 	    max-width: 75vw;
 	}
 
@@ -21110,125 +21198,3 @@ body .category-box-btn:hover {
 	@media only screen and (max-width: 1024px) {#style-switcher {display: none;}}
 
 	#style-switcher { display: none; }
-
-
-
-	/* 追加code */
-
-	.steps {
-		display: flex;
-		justify-content: space-between;
-		margin: 20px 0;
-	}
-	.steps div {
-		flex: 1;
-		text-align: center;
-	}
-	.steps div.active {
-		font-weight: bold;
-		color: darkorange;
-	}
-
-	.parking-info {
-		margin: 20px 0;
-	}
-
-	.address, .fees {
-		margin: 10px 0;
-	}
-	.note {
-		/* color: red; */
-		font-weight: bold;
-	}
-	.reserve-button {
-		display: block;
-		width: 100%;
-		background-color: #3578e5;
-		color: #fff;
-		padding: 15px;
-		border: none;
-		cursor: pointer;
-		font-size: 16px;
-	}
-	.free-cancel {
-		text-align: center;
-		margin: 20px 0;
-		color: #f77e1c;
-	}
-
-	.select-container {
-		display: flex;
-		gap: 10px;
-		margin: 20px 0;
-	}
-	.select-container select {
-		width: 100%;
-		padding: 10px;
-		border: 1px solid #ddd;
-		font-size: 14px;
-	}
-	.order_type{
-		font-size: larger;
-		font-style: inherit;
-	}
-
-	.steps {
-		display: flex;
-		justify-content: space-between;
-		margin: 20px 0;
-	}
-	.steps div {
-		flex: 1;
-		text-align: center;
-		padding: 10px 0;
-		border-bottom: 2px solid #ddd;
-	}
-	.steps div.active {
-		border-bottom: 2px solid #f77e1c;
-		font-weight: bold;
-		color: #f77e1c;
-	}
-	.parking-info {
-		margin: 20px 0;
-	}
-	.parking-info h2 {
-		color: #f77e1c;
-		display: inline;
-	}
-	.address, .fees {
-		margin: 10px 0;
-	}
-	.select-container {
-		display: flex;
-		gap: 10px;
-		margin: 20px 0;
-	}
-	.select-container select {
-		width: 100%;
-		padding: 10px;
-		border: 1px solid #ddd;
-		font-size: 14px;
-	}
-	.note {
-		color: #999;
-	}
-	.next-button {
-		display: block;
-		width: 100%;
-		background-color: #3578e5;
-		color: #fff;
-		padding: 15px;
-		border: none;
-		cursor: pointer;
-		font-size: 16px;
-		margin-top: 20px;
-	}
-
-	.time-display {
-		text-align: center;
-		font-size: 20px;
-		color: #333;
-		margin-top: 40px;
-		font-weight: bold;
-	}
-	

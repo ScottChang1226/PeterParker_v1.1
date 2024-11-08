@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+
+<head>
+
+	<!-- Basic Page Needs
+================================================== -->
+	<title>Peter Parker | 您的預約停車位好幫手</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+================================================== -->
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/main-color.css" id="colors">
+
+</head>
+
+<!-- <body class="transparent-header"> -->
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+	<!-- Header Container
+================================================== -->
+	<header id="header-container" class="fullwidth">
+
+		<!-- Header -->
+		<div id="header">
+			<div class="container">
+
+				<!-- Left Side Content -->
+				<div class="left-side">
+
+					<!-- Logo -->
+					<div id="logo">
+						<a href="index.html"><img src="images/logo.png" data-sticky-logo="images/logo.png" alt=""></a>
+					</div>
+
+					<!-- Mobile Navigation -->
+					<div class="mmenu-trigger">
+						<button class="hamburger hamburger--collapse" type="button">
+							<span class="hamburger-box">
+								<span class="hamburger-inner"></span>
+							</span>
+						</button>
+					</div>
+
+					<!-- Main Navigation -->
+					<nav id="navigation" class="style-1">
+						<ul id="responsive">
+							<li><a href="index.html">回首頁</a>
+							</li>
+
+							<li><a>如何使用</a>
+								<ul>
+									<li><a href="how-to-reserve.html">如何預約停車位</a></li>
+									<li><a href="#">如何出租停車位</a></li>
+								</ul>
+							</li>
+
+							<li><a href="#">最新消息</a>
+								<ul>
+									<li><a href="dashboard.html">Dashboard</a></li>
+									<li><a href="dashboard-messages.html">Messages</a></li>
+								</ul>
+							</li>
+
+							<li><a>聯絡我們</a>
+								<ul>
+									<li><a href="dashboard.html">聯絡我們</a></li>
+									<li><a href="dashboard-messages.html">常見問題</a></li>
+								</ul>
+							</li>
+							<li><a href="#owner-sign-in-dialog" class="sign-in popup-with-zoom-anim"><i
+										class="sl sl-icon-login"></i>業主登入</a>
+							</li>
+
+						</ul>
+					</nav>
+					<div class="clearfix"></div>
+					<!-- Main Navigation / End -->
+
+				</div>
+				<!-- Left Side Content / End -->
+
+
+
+				<!-- Owner Log In Popup -->
+				<div id="owner-sign-in-dialog" class="zoom-anim-dialog mfp-hide">
+
+					<div class="small-dialog-header">
+						<h3>業主登入</h3>
+					</div>
+
+					<!--Tabs -->
+					<div class="sign-in-form style-1">
+
+						<ul class="tabs-nav">
+							<li class=""><a href="#tab1">登入</a></li>
+							<li><a href="#tab2">創建帳號</a></li>
+						</ul>
+
+						<div class="tabs-container alt">
+
+							<!--Login -->
+
+							<div class="tab-content" id="tab1" style="display: none;">
+								<form id="loginForm" class="login">
+									<p class="form-row form-row-wide">
+										<label for="username">會員帳號
+											<i class="im im-icon-Mail"></i>
+											<input type="text" class="input-text" name="username" id="username" value=""
+												placeholder="請輸入您的帳號" required />
+										</label>
+									</p>
+
+									<p class="form-row form-row-wide">
+										<label for="password">會員密碼
+											<i class="im im-icon-Lock-2"></i>
+											<input class="input-text" type="password" name="password" id="password"
+												placeholder="請輸入您的密碼" required />
+										</label>
+										<span class="lost_password">
+											<a href="#">忘記密碼?</a>
+										</span>
+									</p>
+
+
+
+									<!-- <div class="tab-content" id="tab1" style="display: none;">
+								<form method="post" class="login">
+
+									<p class="form-row form-row-wide">
+										<label for="username">會員帳號
+											<i class="im im-icon-Mail"></i>
+											<input type="text" class="input-text" name="username" id="username" value=""
+												placeholder="請輸入您的帳號" />
+										</label>
+									</p>
+
+									<p class="form-row form-row-wide">
+										<label for="password">會員密碼
+											<i class="im im-icon-Lock-2"></i>
+											<input class="input-text" type="password" name="password" id="password"
+												placeholder="請輸入您的密碼" />
+										</label>
+										<span class="lost_password">
+											<a href="#">忘記密碼?</a>
+										</span>
+									</p> -->
+
+
+									<div class="form-row">
+										<button type="submit" class="button border margin-top-5"
+											name="login">登入</button>
+										<button type="button" class="button border margin-top-5"
+											name="loginGoogle">用Google帳號登入</button>
+										<div class="checkboxes margin-top-10">
+											<input id="remember-me" type="checkbox" name="check">
+											<label for="remember-me">記住帳號</label>
+										</div>
+									</div>
+
+									<!-- <div class="form-row">
+										<input type="submit" class="button border margin-top-5" name="login"
+											value="登入" />
+										<input type="submit" class="button border margin-top-5" name="login"
+											value="用Google帳號登入" />
+										<div class="checkboxes margin-top-10">
+											<input id="remember-me" type="checkbox" name="check">
+											<label for="remember-me">記住帳號</label>
+										</div>
+									</div> -->
+									<p id="errorMessage" style="color: red; display: none;"></p>
+								</form>
+							</div>
+
+
+							<!-- </form>
+							</div>  -->
+
+
+
+							<!-- Register -->
+							<div class="tab-content" id="tab2" style="display: none;">
+
+								<form method="post" class="register">
+
+									<p class="form-row form-row-wide">
+										<label for="username">姓名
+											<i class="im im-icon-Male"></i>
+											<input type="text" class="input-text" name="username" id="username2"
+												value="" placeholder="請輸入您的姓名" />
+										</label>
+									</p>
+
+									<p class="form-row form-row-wide">
+										<label for="phone">手機電話
+											<i class="im im-icon-Phone"></i>
+											<input type="text" class="input-text" name="email" id="phone"
+												placeholder="請輸入您的手機(ex:0987654321)" />
+										</label>
+									</p>
+
+									<p class="form-row form-row-wide">
+										<label for="email2">業主帳號
+											<i class="im im-icon-Mail"></i>
+											<input type="text" class="input-text" name="email" id="email2"
+												placeholder="請輸入您的帳號" />
+										</label>
+									</p>
+
+									<p class="form-row form-row-wide">
+										<label for="password1">業主密碼
+											<i class="im im-icon-Lock-2"></i>
+											<input class="input-text" type="password" name="password1" id="password1"
+												placeholder="請輸入您的密碼" />
+										</label>
+									</p>
+
+
+									<a href="#owner-register-dialog" class="sign-in popup-with-zoom-anim"><input
+											type="button" id="saveDataButton" name="register" value="繼續" /></a>
+									<input type="button" class="button border fw margin-top-10" name="register"
+										value="用Google帳號登入" />
+
+								</form>
+							</div>
+
+						</div>
+					</div>
+				</div>
+				<!-- Owner Log In Popup / End -->
+
+				<!-- Owner Register Popup  -->
+				<div id="owner-register-dialog" class="zoom-anim-dialog mfp-hide">
+
+					<div class="small-dialog-header">
+						<h3>接受PeterParker的條款並查看隱私權申明</h3>
+					</div>
+
+
+					<!-- Content -->
+
+
+					<p>選取下方的勾選欄，即表示本人已檢視並同意使用條款，亦已閱讀隱私權聲明。本人已年滿 18 歲。</p>
+					<table>
+						<tr>
+							<td>我同意</td>
+							<td><input type="checkbox" id="agree"></td>
+						</tr>
+					</table>
+					<div href="#owner-registerok-dialog" class="sign-in popup-with-zoom-anim"><input input type="button" id="submitFormButton"
+							name="register" value="繼續" /></div>
+
+
+
+
+				</div>
+
+				<!-- Owner Register Popup / End -->
+
+
+
+
+
+				<!-- Left Side Content / End -->
+
+
+				<!-- Right Side Content / End -->
+				<div class="right-side">
+					<div class="header-widget">
+						<a href="#sign-in-dialog" class="sign-in popup-with-zoom-anim"><i
+								class="sl sl-icon-login"></i>登入</a>
+						<a href="#sign-in-dialog" class="button border with-icon sign-in popup-with-zoom-anim">創建帳號<i
+								class="sl sl-icon-plus"></i></a>
+					</div>
+				</div>
+				<!-- Right Side Content / End -->
+
+				<!-- Sign In Popup -->
+				<div id="sign-in-dialog" class="zoom-anim-dialog mfp-hide">
+
+					<div class="small-dialog-header">
+						<h3>會員登入</h3>
+					</div>
+
+					<!--Tabs -->
+					<div class="sign-in-form style-1">
+
+						<ul class="tabs-nav">
+							<li class=""><a href="#tab1">登入</a></li>
+							<li><a href="#tab2">創建帳號</a></li>
+						</ul>
+
+						<div class="tabs-container alt">
+
+							<!-- Login -->
+							<div class="tab-content" id="tab1" style="display: none;">
+								<form method="post" class="login">
+
+									<p class="form-row form-row-wide">
+										<label for="username">郵件信箱
+											<i class="im im-icon-Mail"></i>
+											<input type="text" class="input-text" name="username" id="username" value=""
+												placeholder="請輸入您的信箱" />
+										</label>
+									</p>
+
+									<p class="form-row form-row-wide">
+										<label for="password">會員密碼
+											<i class="im im-icon-Lock-2"></i>
+											<input class="input-text" type="password" name="password" id="password"
+												placeholder="請輸入您的密碼" />
+										</label>
+										<span class="lost_password">
+											<a href="#">忘記密碼?</a>
+										</span>
+									</p>
+
+									<div class="form-row">
+										<input type="submit" class="button border margin-top-5" name="login"
+											value="登入" />
+										<input type="submit" class="button border margin-top-5" name="login"
+											value="用Google帳號登入" />
+										<div class="checkboxes margin-top-10">
+											<input id="remember-me" type="checkbox" name="check">
+											<label for="remember-me">記住帳號</label>
+										</div>
+									</div>
+
+								</form>
+							</div>
+
+							<!-- Register -->
+							<div class="tab-content" id="tab2" style="display: none;">
+
+								<form method="post" class="register">
+
+									<p class="form-row form-row-wide">
+										<label for="username">姓名
+											<i class="im im-icon-Male"></i>
+											<input type="text" class="input-text" name="username" id="username2"
+												value="" placeholder="請輸入您的姓名" />
+										</label>
+									</p>
+
+									<p class="form-row form-row-wide">
+										<label for="phone">手機電話
+											<i class="im im-icon-Phone"></i>
+											<input type="text" class="input-text" name="email" id="phone"
+												placeholder="請輸入您的手機(ex:0987654321)" />
+										</label>
+									</p>
+
+									<p class="form-row form-row-wide">
+										<label for="email2">郵件信箱
+											<i class="im im-icon-Mail"></i>
+											<input type="text" class="input-text" name="email" id="email2"
+												placeholder="請輸入您的信箱" />
+										</label>
+									</p>
+
+									<p class="form-row form-row-wide">
+										<label for="password1">會員密碼
+											<i class="im im-icon-Lock-2"></i>
+											<input class="input-text" type="password" name="password1" id="password1"
+												placeholder="請輸入您的密碼" />
+										</label>
+									</p>
+
+
+									<input type="submit" class="button border fw margin-top-10" name="register"
+										value="繼續" />
+									<input type="submit" class="button border fw margin-top-10" name="register"
+										value="用Google帳號登入" />
+
+								</form>
+							</div>
+
+						</div>
+					</div>
+				</div>
+				<!-- Sign In Popup / End -->
+
+
+
+			</div>
+		</div>
+		<!-- Header / End -->
+
+	</header>
+	<div class="clearfix"></div>
+	<!-- Header Container / End -->
+
+
+	<!-- Banner
+================================================== -->
+	<div class="main-search-container dark-overlay" data-background-image="images/main-search-background-01.jpg">
+		<div class="main-search-inner">
+
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12 text-center">
+						<h1 class="big-title">
+							<!-- Typed words can be configured in script settings at the bottom of this HTML file -->
+							<span class="typed-words"></span>
+							等停車位等到生氣？
+						</h1>
+						<p class="white-text">Peter Parker 與優質停車場結合，讓你輕鬆預約停車位，讓出門玩的時間更多更充足。</p><br>
+						<a href="#sign-in-dialog" class="button-overlay popup-with-zoom-anim"></i>開始預約 <i
+								class="sl sl-icon-arrow-right"></i></a>
+						<a href="#sign-in-dialog"
+							class="button-overlay-transparent with-icon sign-in popup-with-zoom-anim">創建帳號 <i
+								class="sl sl-icon-plus"></i></a>
+					</div>
+				</div>
+
+
+			</div>
+
+		</div>
+	</div>
+
+
+	<!-- Content
+================================================== -->
+	<div class="container">
+		<div class="row">
+
+			<div class="col-md-12">
+				<h1 class="headline centered margin-top-75 margin-bottom-40">
+					<strong>如何使用 Peter Parker</strong>
+				</h1>
+			</div>
+		</div>
+	</div>
+
+	<!-- Content
+================================================== -->
+	<div class="container">
+		<div class="row margin-bottom-40">
+			<div class="col-md-12">
+				<div class="row">
+
+					<!-- Listing Item -->
+					<div class="col-lg-6 col-md-6">
+						<a href="how-to-reserve.html" class="listing-item-container compact">
+							<div class="listing-item">
+								<img src="images/listing-item-01.jpg" alt="">
+								<div class="listing-item-content">
+									<h3>如何預約停車位</h3>
+									<p class="white-text">詳細預約停車位的步驟說明</p>
+								</div>
+
+							</div>
+						</a>
+					</div>
+					<!-- Listing Item / End -->
+
+					<!-- Listing Item -->
+					<div class="col-lg-6 col-md-6">
+						<a href="listings-single-page.html" class="listing-item-container compact">
+							<div class="listing-item">
+								<img src="images/listing-item-02.jpg" alt="">
+								<div class="listing-item-details">
+								</div>
+								<div class="listing-item-content">
+									<h3>如何出租停車位</h3>
+									<p class="white-text">詳細出租停車位的步驟說明</p>
+								</div>
+							</div>
+						</a>
+					</div>
+					<!-- Listing Item / End -->
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<div class="container margin-top-80">
+		<div class="row align-items-center justify-content-between">
+			<div class="col-md-5">
+				<img src="images/image_placeholder.svg" style="width: 100%;" alt="">
+			</div>
+			<div class="col-md-2"></div>
+			<div class="col-md-5 ">
+				<h1 class="headline margin-top-60 margin-bottom-40">
+					<strong class="headline">隨時隨地就可以預約車位，專心享受出外時間</strong>
+				</h1>
+				<p class="black-text">自由選擇時間和地點，輕鬆預約車位。<br>透過我們的平台找到最適合的停車位，省時又方便。<br></p>
+				<a href="how-to-reserve.html"><button class="button border margin-top-20">如何使用</button></a>
+				<a href="#sign-in-dialog" class="sign-in popup-with-zoom-anim">已經有帳戶了嗎？登入</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="container margin-top-40">
+		<div class="row">
+			<div class="col-md-5">
+				<h1 class="headline margin-top-60 margin-bottom-40">
+					<strong class="headline">輕鬆賺取額外收入，讓空閒車位發揮最大價值</strong>
+				</h1>
+				<p class="black-text">靈活設定出租時間和地點，輕鬆管理車位出租。<br>利用我們的平台，快速找到合適租客，方便又可靠。<br></p>
+				<a href="how-to-reserve.html"><button class="button border margin-top-20">如何使用</button></a>
+				<a href="#">已經有帳戶了嗎？登入業者</a>
+			</div>
+			<div class="col-md-2"></div>
+			<div class="col-md-5">
+				<img src="images/image_placeholder.svg" style="width: 100%;" alt="">
+			</div>
+		</div>
+	</div>
+
+
+	<!-- Recent Blog Posts -->
+	<section class="fullwidth margin-top-0 padding-top-75 padding-bottom-75" data-background-color="#fff">
+		<div class="container">
+
+			<div class="row">
+				<div class="col-md-12">
+					<h1 class="headline centered margin-bottom-55">
+						<strong class="headline">最新消息</strong>
+					</h1>
+				</div>
+			</div>
+
+			<div class="row">
+				<!-- Blog Post Item -->
+				<div class="col-md-4">
+					<a href="pages-blog-post.html" class="blog-compact-item-container">
+						<div class="blog-compact-item">
+							<img src="images/blog-compact-post-01.jpg" alt="">
+							<div class="blog-compact-item-content">
+								<ul class="blog-post-tags">
+									<li>22 August 2019</li>
+								</ul>
+								<h3>Hotels for All Budgets</h3>
+								<p>Sed sed tristique nibh iam porta volutpat finibus. Donec in aliquet urneget mattis
+									lorem. Pellentesque pellentesque.</p>
+							</div>
+						</div>
+					</a>
+				</div>
+				<!-- Blog post Item / End -->
+
+				<!-- Blog Post Item -->
+				<div class="col-md-4">
+					<a href="pages-blog-post.html" class="blog-compact-item-container">
+						<div class="blog-compact-item">
+							<img src="images/blog-compact-post-02.jpg" alt="">
+							<div class="blog-compact-item-content">
+								<ul class="blog-post-tags">
+									<li>18 August 2019</li>
+								</ul>
+								<h3>The 50 Greatest Street Arts In London</h3>
+								<p>Sed sed tristique nibh iam porta volutpat finibus. Donec in aliquet urneget mattis
+									lorem. Pellentesque pellentesque.</p>
+							</div>
+						</div>
+					</a>
+				</div>
+				<!-- Blog post Item / End -->
+
+				<!-- Blog Post Item -->
+				<div class="col-md-4">
+					<a href="pages-blog-post.html" class="blog-compact-item-container">
+						<div class="blog-compact-item">
+							<img src="images/blog-compact-post-03.jpg" alt="">
+							<div class="blog-compact-item-content">
+								<ul class="blog-post-tags">
+									<li>10 August 2019</li>
+								</ul>
+								<h3>The Best Cofee Shops In Sydney Neighborhoods</h3>
+								<p>Sed sed tristique nibh iam porta volutpat finibus. Donec in aliquet urneget mattis
+									lorem. Pellentesque pellentesque.</p>
+							</div>
+						</div>
+					</a>
+				</div>
+				<!-- Blog post Item / End -->
+
+				<div class="col-md-12 centered-content">
+					<a href="pages-blog.html" class="button border margin-top-10">查看更多</a>
+				</div>
+
+			</div>
+
+		</div>
+	</section>
+	<!-- Recent Blog Posts / End -->
+
+
+	<!-- Footer
+================================================== -->
+	<div id="footer" class="dark">
+		<!-- Main -->
+		<div class="container">
+			<div class="row">
+				<div class="col-md-5 col-sm-6">
+					<img class="footer-logo" src="images/logo2.png" alt="">
+					<br><br>
+
+				</div>
+
+				<div class="col-md-4 col-sm-6 ">
+					<h4>相關連接</h4>
+					<ul class="footer-links">
+						<li><a href="#">最新消息</a></li>
+						<li><a href="how-to-reserve.html">如何預約停車位</a></li>
+						<li><a href="#">如何出租停車位</a></li>
+					</ul>
+
+					<ul class="footer-links">
+						<li><a href="#">業主登入</a></li>
+						<li><a href="#">聯絡我們</a></li>
+						<li><a href="#">常見問題</a></li>
+					</ul>
+					<div class="clearfix"></div>
+				</div>
+
+				<div class="col-md-3  col-sm-12">
+					<h4>聯絡我們</h4>
+					<div class="text-widget">
+						E-Mail:<span> <a href="#">liuheng0320@gmail.com</a> </span><br>
+					</div>
+
+					<ul class="social-icons margin-top-20">
+						<li><a class="facebook" href="#"><i class="icon-facebook"></i></a></li>
+						<li><a class="twitter" href="#"><i class="icon-twitter"></i></a></li>
+						<li><a class="gplus" href="#"><i class="icon-gplus"></i></a></li>
+						<li><a class="vimeo" href="#"><i class="icon-vimeo"></i></a></li>
+					</ul>
+
+				</div>
+
+			</div>
+
+			<!-- Copyright -->
+			<div class="row">
+				<div class="col-md-12">
+					<div class="copyrights">Copyright © 2024 Peter Parker | All Rights Reserved</div>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+	<!-- Footer / End -->
+
+
+	<!-- Back To Top Button -->
+	<div id="backtotop"><a href="#"></a></div>
+
+
+</div>
+<!-- Wrapper / End -->
+
+
+<!-- Scripts
+================================================== -->
+<script type="text/javascript" src="scripts/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="scripts/jquery-migrate-3.3.2.min.js"></script>
+<script type="text/javascript" src="scripts/mmenu.min.js"></script>
+<script type="text/javascript" src="scripts/chosen.min.js"></script>
+<script type="text/javascript" src="scripts/slick.min.js"></script>
+<script type="text/javascript" src="scripts/rangeslider.min.js"></script>
+<script type="text/javascript" src="scripts/magnific-popup.min.js"></script>
+<script type="text/javascript" src="scripts/waypoints.min.js"></script>
+<script type="text/javascript" src="scripts/counterup.min.js"></script>
+<script type="text/javascript" src="scripts/jquery-ui.min.js"></script>
+<script type="text/javascript" src="scripts/tooltips.min.js"></script>
+<script type="text/javascript" src="scripts/custom.js"></script>
+
+
+<!-- Leaflet // Docs: https://leafletjs.com/ -->
+<script src="scripts/leaflet.min.js"></script>
+
+<!-- Leaflet Maps Scripts -->
+<script src="scripts/leaflet-markercluster.min.js"></script>
+<script src="scripts/leaflet-gesture-handling.min.js"></script>
+<script src="scripts/leaflet-listeo.js"></script>
+
+<!-- Leaflet Geocoder + Search Autocomplete // Docs: https://github.com/perliedman/leaflet-control-geocoder -->
+<script src="scripts/leaflet-autocomplete.js"></script>
+<script src="scripts/leaflet-control-geocoder.js"></script>
+
+
+<!-- Typed Script -->
+<script type="text/javascript" src="scripts/typed.js"></script>
+<script>
+	var typed = new Typed('.typed-words', {
+		strings: ["出門旅遊", "與朋友約吃飯", "家庭旅行", "上班快遲到"],
+		typeSpeed: 80,
+		backSpeed: 80,
+		backDelay: 4000,
+		startDelay: 1000,
+		loop: true,
+		showCursor: true
+	});
+</script>
+
+<!-- Log in -->
+
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		const loginForm = document.getElementById("loginForm");
+		const errorMessage = document.getElementById("errorMessage");
+	
+		loginForm.addEventListener("submit", function (event) {
+			event.preventDefault(); // 阻止表單的默認提交行為
+	
+			// 獲取用戶輸入的帳號和密碼
+			const ownerAccount = document.getElementById("username").value;
+			const ownerPassword = document.getElementById("password").value;
+	
+			// 發送 AJAX 請求到後端登入 API
+			fetch("http://localhost:8080/owner/login", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json"
+				},
+				body: JSON.stringify({
+					ownerAccount: ownerAccount,
+					ownerPassword: ownerPassword
+				}),
+				credentials: "include" // 攜帶憑證
+			})
+			.then(response => {
+				if (!response.ok) {
+					return response.text().then(message => {
+						throw new Error(message || "身份驗證失敗");
+					});
+				}
+				return response.text(); // 登錄成功時返回的消息
+			})
+			.then(message => {
+				console.log("登入成功訊息:", message); // 顯示成功訊息
+	
+
+	
+				// 若成功保存 JSESSIONID，導向到其他頁面
+				window.location.href = "http://localhost:5500/HTML/dashboard-messages.html";
+			})
+			.catch(error => {
+				console.error("Error:", error.message); // 顯示錯誤訊息
+				errorMessage.textContent = error.message;
+				errorMessage.style.display = "block";
+			});
+		});
+	
+		// 工具函數：從 Cookies 中讀取指定的 Cookie 值
+		function getCookie(name) {
+			const value = `; ${document.cookie}`;
+			const parts = value.split(`; ${name}=`);
+			if (parts.length === 2) return parts.pop().split(';').shift();
+		}
+	});
+	</script>
+	
+
+
+
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			// 取得「繼續」按鈕和表單
+			const continueButton = document.querySelector('a[href="#owner-register-dialog"] input[type="submit"][name="register"]');
+	
+			// 點擊事件監聽
+			continueButton.addEventListener('click', function(event) {
+				// 阻止按鈕的預設行為
+				event.preventDefault();
+	
+				// 取得四個欄位的值
+				const username = document.getElementById('username2').value.trim();
+				const phone = document.getElementById('phone').value.trim();
+				const email = document.getElementById('email2').value.trim();
+				const password = document.getElementById('password1').value.trim();
+	
+				// 檢查是否有未填寫的欄位
+				if (!username || !phone || !email || !password) {
+					alert('請確保所有欄位都已填寫');
+				} else {
+					// 如果所有欄位都已填寫，則執行「繼續」的點擊動作
+					window.location.href = "#owner-register-dialog";
+				}
+			});
+		});
+	</script>
+	
+	<script>
+		// 設定後端 API 基礎網址
+		var apiUrl = "http://localhost:8080"; // 替換為你的後端 API 網址
+	
+		// 第一次點選 "繼續" 按鈕時保存資料
+		document.getElementById("saveDataButton").addEventListener("click", function(event) {
+			event.preventDefault(); // 防止表單提交
+	
+			// 獲取表單數據並分別對應欄位
+			const ownerName = document.getElementById("username2").value;
+			const ownerPhone = document.getElementById("phone").value;
+			const ownerAccount = document.getElementById("email2").value;
+			const ownerPassword = document.getElementById("password1").value;
+	
+			// 將數據保存到 localStorage
+			localStorage.setItem("ownerName", ownerName);
+			localStorage.setItem("ownerPhone", ownerPhone);
+			localStorage.setItem("ownerAccount", ownerAccount);
+			localStorage.setItem("ownerPassword", ownerPassword);
+	
+			// 打開下一步彈窗
+			window.location.href = "#owner-register-dialog";
+		});
+	
+		// 第二次點選 "繼續" 按鈕時提交資料到後端
+		document.getElementById("submitFormButton").addEventListener("click", function(event) {
+			event.preventDefault(); // 防止表單提交
+	
+			// 檢查是否同意條款
+			const isAgreed = document.getElementById("agree").checked;
+			if (!isAgreed) {
+				alert("請先同意條款");
+				return;
+			}
+	
+			// 從 localStorage 中讀取數據
+			const ownerName = localStorage.getItem("ownerName");
+			const ownerPhone = localStorage.getItem("ownerPhone");
+			const ownerAccount = localStorage.getItem("ownerAccount");
+			const ownerPassword = localStorage.getItem("ownerPassword");
+	
+			// 調用後端 API
+			fetch(apiUrl + "/owner/createowner", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json"
+				},
+				body: JSON.stringify({
+					ownerName: ownerName,
+					ownerPhone: ownerPhone,
+					ownerAccount: ownerAccount,
+					ownerPassword: ownerPassword
+				})
+			})
+			.then(response => {
+				if (response.ok) {
+					alert("會員創建成功！");
+					localStorage.clear(); // 清除保存的數據
+					window.location.href = "#owner-registerok-dialog";
+				} else {
+					// response.text().then(errorMessage => alert("會員創建失敗: " + errorMessage));
+				}
+			})
+			.catch(error => {
+				console.error("Error:", error);
+				// alert("會員創建失敗，請稍後再試");
+			});
+		});
+	</script>
+	
+	
+	
+	
+
+
+
+
+
+<!-- Style Switcher
+================================================== -->
+<script src="scripts/switcher.js"></script>
+
+<div id="style-switcher">
+	<h2>Color Switcher <a href="#"><i class="sl sl-icon-settings"></i></a></h2>
+
+	<div>
+		<ul class="colors" id="color1">
+			<li><a href="#" class="main" title="Main"></a></li>
+			<li><a href="#" class="blue" title="Blue"></a></li>
+			<li><a href="#" class="green" title="Green"></a></li>
+			<li><a href="#" class="orange" title="Orange"></a></li>
+			<li><a href="#" class="navy" title="Navy"></a></li>
+			<li><a href="#" class="yellow" title="Yellow"></a></li>
+			<li><a href="#" class="peach" title="Peach"></a></li>
+			<li><a href="#" class="beige" title="Beige"></a></li>
+			<li><a href="#" class="purple" title="Purple"></a></li>
+			<li><a href="#" class="celadon" title="Celadon"></a></li>
+			<li><a href="#" class="red" title="Red"></a></li>
+			<li><a href="#" class="brown" title="Brown"></a></li>
+			<li><a href="#" class="cherry" title="Cherry"></a></li>
+			<li><a href="#" class="cyan" title="Cyan"></a></li>
+			<li><a href="#" class="gray" title="Gray"></a></li>
+			<li><a href="#" class="olive" title="Olive"></a></li>
+		</ul>
+	</div>
+
+</div>
+<!-- Style Switcher / End -->
+
+
+</body>
+
+</html>

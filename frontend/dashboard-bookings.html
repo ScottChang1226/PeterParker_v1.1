@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<head>
+
+<!-- Basic Page Needs
+================================================== -->
+<title>Listeo</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<!-- CSS
+================================================== -->
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/main-color.css" id="colors">
+
+<style>
+/* 設定所有顯示訂單資訊的容器背景為白色 */
+.order-item {
+    background-color: white; /* 背景顏色設為白色 */
+    padding: 15px;           /* 添加內間距 */
+    margin-bottom: 10px;     /* 各訂單間距 */
+    border-radius: 5px;      /* 圓角效果 */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* 淡淡陰影效果 */
+}
+
+.add-blacklist-btn {
+    background-color: #ff4d4d;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+	</style>
+
+
+
+</head>
+
+<body>
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Header Container
+================================================== -->
+<header id="header-container" class="fixed fullwidth dashboard">
+
+	<!-- Header -->
+	<div id="header" class="not-sticky">
+		<div class="container">
+			
+			<!-- Left Side Content -->
+			<div class="left-side">
+				
+				<!-- Logo -->
+				<div id="logo">
+					<a href="index.html"><img src="images/logo.png" alt=""></a>
+					<a href="index.html" class="dashboard-logo"><img src="images/logo2.png" alt=""></a>
+				</div>
+
+				<!-- Mobile Navigation -->
+				<div class="mmenu-trigger">
+					<button class="hamburger hamburger--collapse" type="button">
+						<span class="hamburger-box">
+							<span class="hamburger-inner"></span>
+						</span>
+					</button>
+				</div>
+
+				<!-- Main Navigation -->
+				<nav id="navigation" class="style-1">
+					<ul id="responsive">
+
+						<li><a href="#">Home</a>
+							<ul>
+								<li><a href="index.html">Home 1 (Modern)</a></li>
+								<li><a href="index-2.html">Home 2 (Default)</a></li>
+								<li><a href="index-3.html">Home 3 (Airbnb)</a></li>
+								<li><a href="index-4.html">Home 4 (Creative)</a></li>
+								<li><a href="index-5.html">Home 5 (Slider)</a></li>
+								<li><a href="index-6.html">Home 6 (Map)</a></li>
+								<li><a href="index-7.html">Home 7 (Video)</a></li>
+								<li><a href="index-8.html">Home 8 (Classic)</a></li>
+							</ul>
+						</li>
+
+						<li><a href="#">Listings</a>
+							<ul>
+								<li><a href="#">List Layout</a>
+									<ul>
+										<li><a href="listings-list-with-sidebar.html">With Sidebar</a></li>
+										<li><a href="listings-list-full-width.html">Full Width</a></li>
+										<li><a href="listings-list-full-width-with-map.html">Full Width + Map</a></li>
+									</ul>
+								</li>
+								<li><a href="#">Grid Layout</a>
+									<ul>
+										<li><a href="listings-grid-with-sidebar-1.html">With Sidebar 1</a></li>
+										<li><a href="listings-grid-with-sidebar-2.html">With Sidebar 2</a></li>
+										<li><a href="listings-grid-full-width.html">Full Width</a></li>
+										<li><a href="listings-grid-full-width-with-map.html">Full Width + Map</a></li>
+									</ul>
+								</li>
+								<li><a href="#">Half Screen Map</a>
+									<ul>
+										<li><a href="listings-half-screen-map-list.html">List Layout</a></li>
+										<li><a href="listings-half-screen-map-grid-1.html">Grid Layout 1</a></li>
+										<li><a href="listings-half-screen-map-grid-2.html">Grid Layout 2</a></li>
+									</ul>
+								</li>
+								<li><a href="#">Single Listings</a>
+									<ul>
+										<li><a href="listings-single-page.html">Single Listing 1</a></li>
+										<li><a href="listings-single-page-2.html">Single Listing 2</a></li>
+										<li><a href="listings-single-page-3.html">Single Listing 3</a></li>
+									</ul>
+								</li>
+								<li><a href="#">Open Street Map</a>
+									<ul>
+										<li><a href="listings-half-screen-map-list-OpenStreetMap.html">Half Screen Map List Layout</a></li>
+										<li><a href="listings-half-screen-map-grid-1-OpenStreetMap.html">Half Screen Map Grid Layout 1</a></li>
+										<li><a href="listings-half-screen-map-grid-2-OpenStreetMap.html">Half Screen Map Grid Layout 2</a></li>
+										<li><a href="listings-list-full-width-with-map-OpenStreetMap.html">Full Width List</a></li>
+										<li><a href="listings-grid-full-width-with-map-OpenStreetMap.html">Full Width Grid</a></li>
+										<li><a href="listings-single-page-OpenStreetMap.html">Single Listing</a></li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+
+						<li><a class="current" href="#">User Panel</a>
+							<ul>
+								<li><a href="dashboard.html">Dashboard</a></li>
+								<li><a href="dashboard-messages.html">Messages</a></li>
+								<li><a href="dashboard-bookings.html">Bookings</a></li>
+								<li><a href="dashboard-wallet.html">Wallet</a></li>
+								<li><a href="dashboard-my-listings.html">My Listings</a></li>
+								<li><a href="dashboard-reviews.html">Reviews</a></li>
+								<li><a href="dashboard-bookmarks.html">Bookmarks</a></li>
+								<li><a href="dashboard-add-listing.html">Add Listing</a></li>
+								<li><a href="dashboard-my-profile.html">My Profile</a></li>
+								<li><a href="dashboard-invoice.html">Invoice</a></li>
+							</ul>
+						</li>
+
+						<li><a href="#">Pages</a>
+							<div class="mega-menu mobile-styles three-columns">
+
+									<div class="mega-menu-section">
+										<ul>
+											<li class="mega-menu-headline">Pages #1</li>
+											<li><a href="pages-user-profile.html"><i class="sl sl-icon-user"></i> User Profile</a></li>
+											<li><a href="pages-booking.html"><i class="sl sl-icon-check"></i> Booking Page</a></li>
+											<li><a href="pages-add-listing.html"><i class="sl sl-icon-plus"></i> Add Listing</a></li>
+											<li><a href="pages-blog.html"><i class="sl sl-icon-docs"></i> Blog</a></li>
+										</ul>
+									</div>
+		
+									<div class="mega-menu-section">
+										<ul>
+											<li class="mega-menu-headline">Pages #2</li>
+											<li><a href="pages-contact.html"><i class="sl sl-icon-envelope-open"></i> Contact</a></li>
+											<li><a href="pages-coming-soon.html"><i class="sl sl-icon-hourglass"></i> Coming Soon</a></li>
+											<li><a href="pages-404.html"><i class="sl sl-icon-close"></i> 404 Page</a></li>
+											<li><a href="pages-masonry-filtering.html"><i class="sl sl-icon-equalizer"></i> Masonry Filtering</a></li>
+										</ul>
+									</div>
+
+									<div class="mega-menu-section">
+										<ul>
+											<li class="mega-menu-headline">Other</li>
+											<li><a href="pages-elements.html"><i class="sl sl-icon-settings"></i> Elements</a></li>
+											<li><a href="pages-pricing-tables.html"><i class="sl sl-icon-tag"></i> Pricing Tables</a></li>
+											<li><a href="pages-typography.html"><i class="sl sl-icon-pencil"></i> Typography</a></li>
+											<li><a href="pages-icons.html"><i class="sl sl-icon-diamond"></i> Icons</a></li>
+										</ul>
+									</div>
+									
+							</div>
+						</li>
+						
+					</ul>
+				</nav>
+				<div class="clearfix"></div>
+				<!-- Main Navigation / End -->
+				
+			</div>
+			<!-- Left Side Content / End -->
+
+			<!-- Right Side Content / End -->
+			<div class="right-side">
+				<!-- Header Widget -->
+				<div class="header-widget">
+					
+					<!-- User Menu -->
+					<div class="user-menu">
+						<div class="user-name"><span><img src="images/dashboard-avatar.jpg" alt=""></span>Hi, Tom!</div>
+						<ul>
+							<li><a href="dashboard.html"><i class="sl sl-icon-settings"></i> Dashboard</a></li>
+							<li><a href="dashboard-messages.html"><i class="sl sl-icon-envelope-open"></i> Messages</a></li>
+							<li><a href="dashboard-bookings.html"><i class="fa fa-calendar-check-o"></i> Bookings</a></li>
+							<li><a href="index.html"><i class="sl sl-icon-power"></i> Logout</a></li>
+						</ul>
+					</div>
+
+					<a href="dashboard-add-listing.html" class="button border with-icon">Add Listing <i class="sl sl-icon-plus"></i></a>
+				</div>
+				<!-- Header Widget / End -->
+			</div>
+			<!-- Right Side Content / End -->
+
+		</div>
+	</div>
+	<!-- Header / End -->
+
+</header>
+<div class="clearfix"></div>
+<!-- Header Container / End -->
+
+
+<!-- Dashboard -->
+<div id="dashboard">
+
+	<!-- Navigation
+	================================================== -->
+
+	<!-- Responsive Navigation Trigger -->
+	<a href="#" class="dashboard-responsive-nav-trigger"><i class="fa fa-reorder"></i> Dashboard Navigation</a>
+	
+	<div class="dashboard-nav">
+		<div class="dashboard-nav-inner">
+
+			<ul data-submenu-title="Main">
+				<li><a href="dashboard.html"><i class="sl sl-icon-settings"></i> 首頁</a></li>
+				<li class="active"><a href="dashboard-messages.html"><i class="sl sl-icon-envelope-open"></i> 最新消息 <span class="nav-tag messages">2</span></a></li>
+				<li><a href="dashboard-bookings.html"><i class="fa fa-calendar-check-o"></i> 訂單管理</a></li>
+				<li><a href="dashboard-wallet.html"><i class="sl sl-icon-wallet"></i> 本月收益</a></li>
+			</ul>
+			
+			<ul data-submenu-title="Listings">
+				<li><a><i class="sl sl-icon-layers"></i> 我的停車場</a>
+					<ul>
+						<li><a href="dashboard-my-listings.html">Active <span class="nav-tag green">6</span></a></li>
+						<li><a href="dashboard-my-listings.html">Pending <span class="nav-tag yellow">1</span></a></li>
+						<li><a href="dashboard-my-listings.html">Expired <span class="nav-tag red">2</span></a></li>
+					</ul>	
+				</li>
+				<li><a href="dashboard-bookmarks.html"><i class="sl sl-icon-heart"></i> 我的黑名單</a></li>
+				<li><a href="dashboard-add-listing.html"><i class="sl sl-icon-plus"></i> 新增停車場</a></li>
+			</ul>	
+
+			<ul data-submenu-title="Account">
+				<li><a href="dashboard-my-profile.html"><i class="sl sl-icon-user"></i> 個人檔案</a></li>
+				<li><a href="index.html"><i class="sl sl-icon-power"></i> 登出</a></li>
+			</ul>
+		</div>
+	</div>
+	<!-- Navigation / End -->
+
+
+	<!-- Content
+	================================================== -->
+	<div class="dashboard-content">
+
+		<!-- Titlebar -->
+		<div id="titlebar">
+			<div class="row">
+				<div class="col-md-12">
+					<h2>訂單管理</h2>
+					<!-- Breadcrumbs -->
+					<nav id="breadcrumbs">
+						<ul>
+							<li><a href="#">Home</a></li>
+							<li><a href="#">Dashboard</a></li>
+							<li>My Listings</li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			
+			<!-- Listings -->
+
+<!-- HTML 部分 -->
+<select id="parkingSelect">
+    <option>載入中...</option>
+</select>
+
+<div id="orderDetails">
+    <!-- 顯示所有車位的訂單詳細信息 -->
+</div>
+
+
+
+			<!-- Copyrights -->
+			<div class="col-md-12">
+				<div class="copyrights">© 2021 Listeo. All Rights Reserved.</div>
+			</div>
+		</div>
+
+	</div>
+	<!-- Content / End -->
+
+
+</div>
+<!-- Dashboard / End -->
+
+
+</div>
+<!-- Wrapper / End -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        var apiUrl = "http://localhost:8080"; // 替換為你的後端 API 網址
+        var ownerNo;
+
+        // 先取得 session 中的 ownerNo
+        $.ajax({
+            url: apiUrl + "/owner/ownerNo",
+            method: "GET",
+            xhrFields: { withCredentials: true },
+            success: function(response) {
+                ownerNo = response;
+
+                // 使用 ownerNo 發送停車場列表請求
+                $.ajax({
+                    url: apiUrl + "/owner/owners/" + ownerNo + "/parkingInfo",
+                    method: "GET",
+                    xhrFields: { withCredentials: true },
+                    success: function(parkingInfos) {
+                        if (parkingInfos.length > 0) {
+                            $('#parkingSelect').empty();
+                            $('#parkingSelect').append('<option value="">選擇停車場</option>');
+
+                            parkingInfos.forEach(function(info) {
+                                if (info.parkingId) {
+                                    var parkingName = info.parkingName || "無名稱";
+                                    $('#parkingSelect').append(`<option value="${info.parkingId}">${parkingName}</option>`);
+                                }
+                            });
+                        } else {
+                            $('#parkingSelect').append('<option>沒有停車場信息可用</option>');
+                        }
+                    },
+                    error: function() {
+                        alert('無法獲取停車場信息');
+                    }
+                });
+            },
+            error: function() {
+                alert('無法獲取業主編號，請登入後重試');
+            }
+        });
+
+        // 當選擇停車場後，獲取該停車場的所有車位及其未來訂單
+        $('#parkingSelect').change(function() {
+            var parkingId = $(this).val();
+            $('#orderDetails').empty();
+            if (parkingId) {
+                $.ajax({
+                    url: apiUrl + "/owner/owners/" + ownerNo + "/parkingInfo/" + parkingId + "/spaces",
+                    method: "GET",
+                    xhrFields: { withCredentials: true },
+                    success: function(spaces) {
+                        if (spaces.length > 0) {
+                            spaces.forEach(function(space) {
+                                $.ajax({
+                                    url: apiUrl + "/owner/owners/" + ownerNo + "/parkingInfo/" + parkingId + "/spaces/" + space.spaceId + "/upcoming-orders",
+                                    method: "GET",
+                                    xhrFields: { withCredentials: true },
+                                    success: function(orders) {
+                                        if (orders.length > 0) {
+                                            orders.forEach(function(order) {
+                                                var orderDetail = `
+                                                    <div class="order-item">
+                                                        <p><span class="label">車位編號:</span> ${space.spaceNo}</p>
+                                                        <p><span class="label">使用者ID:</span> ${order.userId}</p>
+                                                        <p><span class="label">狀態ID:</span> ${order.statusId}</p>
+                                                        <p><span class="label">使用者評論:</span> ${order.userComment}</p>
+                                                        <p><span class="label">訂單開始時間:</span> ${order.orderStartTime}</p>
+                                                        <p><span class="label">訂單結束時間:</span> ${order.orderEndTime}</p>
+                                                        <p><span class="label">訂單總收入:</span> ${order.orderTotalIncome} 元</p>
+                                                        <button class="add-blacklist-btn" data-user-id="${order.userId}">加入黑名單</button>
+                                                    </div>
+                                                    <hr>
+                                                `;
+                                                $('#orderDetails').append(orderDetail);
+                                            });
+
+                                            // 綁定"加入黑名單"按鈕點擊事件
+                                            $('.add-blacklist-btn').off('click').on('click', function() {
+                                                var userId = $(this).data('user-id');
+                                                addToBlacklist(userId);
+                                            });
+                                        }
+                                    },
+                                    error: function() {
+                                        console.log(`無法獲取車位編號 ${space.spaceNo} 的訂單信息`);
+                                    }
+                                });
+                            });
+                        } else {
+                            $('#orderDetails').append('<p>該停車場沒有車位</p>');
+                        }
+                    },
+                    error: function() {
+                        $('#orderDetails').append('<p>無法獲取車位信息</p>');
+                    }
+                });
+            }
+        });
+
+        // "加入黑名單"功能
+        function addToBlacklist(userId) {
+            var blacklistEntry = {
+                ownerNo: ownerNo,
+                userId: userId
+            };
+
+            $.ajax({
+                url: apiUrl + "/owner/owners/" + ownerNo + "/blacklist",
+                method: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(blacklistEntry),
+                xhrFields: { withCredentials: true },
+                success: function() {
+                    alert(`使用者ID ${userId} 已成功加入黑名單`);
+                },
+                error: function() {
+                    alert(`無法將使用者ID ${userId} 加入黑名單`);
+                }
+            });
+        }
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<!-- Scripts
+================================================== -->
+<script type="text/javascript" src="scripts/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="scripts/jquery-migrate-3.3.2.min.js"></script>
+<script type="text/javascript" src="scripts/mmenu.min.js"></script>
+<script type="text/javascript" src="scripts/chosen.min.js"></script>
+<script type="text/javascript" src="scripts/slick.min.js"></script>
+<script type="text/javascript" src="scripts/rangeslider.min.js"></script>
+<script type="text/javascript" src="scripts/magnific-popup.min.js"></script>
+<script type="text/javascript" src="scripts/waypoints.min.js"></script>
+<script type="text/javascript" src="scripts/counterup.min.js"></script>
+<script type="text/javascript" src="scripts/jquery-ui.min.js"></script>
+<script type="text/javascript" src="scripts/tooltips.min.js"></script>
+<script type="text/javascript" src="scripts/custom.js"></script>
+
+
+</body>
+</html>
