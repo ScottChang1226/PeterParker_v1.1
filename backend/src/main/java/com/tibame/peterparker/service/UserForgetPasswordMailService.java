@@ -45,7 +45,7 @@ public class UserForgetPasswordMailService {
             // 設定信中的主旨
             message.setSubject("[Peter Parker] 密碼重設");
 
-            String resetLink = "http://localhost:5500/HTML/user_update_password.html?token=" + passwordResetCode;
+            String resetLink = "http://localhost:5500/user_update_password.html?token=" + passwordResetCode;
 
             // 設定信中的內容
             message.setText("忘記密碼不要擔心！請點選以下的連接前往重設您的帳號(30分鐘後失效)：\n" + resetLink );

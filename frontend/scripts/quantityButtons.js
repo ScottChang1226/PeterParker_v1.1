@@ -5,58 +5,76 @@
 /*  Version: 1.0
 /*----------------------------------------------------*/
 
-function qtySum(){
-    var arr = document.getElementsByName('qtyInput');
-    var tot=0;
-    for(var i=0;i<arr.length;i++){
-        if(parseInt(arr[i].value))
-            tot += parseInt(arr[i].value);
-    }
+// 總計數量計算函數
+function qtySum() {
+   var arr = document.getElementsByName('qtyInput');
+   var tot = 0;
 
-    var cardQty = document.querySelector(".qtyTotal");
-    cardQty.innerHTML = tot;
-} 
-qtySum();
+   for (var i = 0; i < arr.length; i++) {
+       if (parseInt(arr[i].value)) {
+           tot += parseInt(arr[i].value);
+       }
+   }
 
-$(function() {
+   var cardQty = document.querySelector(".qtyTotal");
+   if (cardQty) {
+       cardQty.innerHTML = tot;
+   }
+}
 
-   $(".qtyButtons input").after('<div class="qtyInc"></div>');
-   $(".qtyButtons input").before('<div class="qtyDec"></div>');
+document.addEventListener('DOMContentLoaded', function() {
+   qtySum();
 
-   $(".qtyDec, .qtyInc").on("click", function() {
+   // 增加數量加減按鈕
+   const qtyButtons = document.querySelectorAll(".qtyButtons input");
 
-      var $button = $(this);
-      var oldValue = $button.parent().find("input").val();
-
-      if ($button.hasClass('qtyInc')) {
-         var newVal = parseFloat(oldValue) + 1;
-      } else {
-         // don't allow decrementing below zero
-         if (oldValue > 0) {
-            var newVal = parseFloat(oldValue) - 1;
-         } else {
-            newVal = 0;
-         }
-      }
-
-      $button.parent().find("input").val(newVal);
-      qtySum();
-      $(".qtyTotal").addClass("rotate-x");
-
+   qtyButtons.forEach(input => {
+       input.insertAdjacentHTML('afterend', '<div class="qtyInc"></div>');
+       input.insertAdjacentHTML('beforebegin', '<div class="qtyDec"></div>');
    });
 
-   // Total Value Counter Animation
-   function removeAnimation() { $(".qtyTotal").removeClass("rotate-x"); }
+   // 監聽加減按鈕事件
+   document.querySelectorAll(".qtyDec, .qtyInc").forEach(button => {
+       button.addEventListener("click", function() {
+           var $button = button;
+           var input = $button.parentElement.querySelector("input");
+           var oldValue = parseFloat(input.value);
 
+           var newVal;
+           if ($button.classList.contains('qtyInc')) {
+               newVal = oldValue + 1;
+           } else {
+               newVal = oldValue > 0 ? oldValue - 1 : 0;
+           }
+
+           input.value = newVal;
+           qtySum();
+
+           var qtyTotal = document.querySelector(".qtyTotal");
+           if (qtyTotal) {
+               qtyTotal.classList.add("rotate-x");
+           }
+       });
+   });
+
+   // 總計數量動畫結束時移除動畫類
    const counter = document.querySelector(".qtyTotal");
-   counter.addEventListener("animationend", removeAnimation);
-
+   if (counter) {
+       counter.addEventListener("animationend", function() {
+           counter.classList.remove("rotate-x");
+       });
+   }
 });
 
-// Adjusting Panel Dropdown Width
-$(window).on('load resize', function() {
-   var panelTrigger = $('.booking-widget .panel-dropdown a');
-   $('.booking-widget .panel-dropdown .panel-dropdown-content').css({
-      'width' : panelTrigger.outerWidth()
-   });
-});
+// 調整 Panel Dropdown 寬度
+window.addEventListener('load', adjustPanelDropdownWidth);
+window.addEventListener('resize', adjustPanelDropdownWidth);
+
+function adjustPanelDropdownWidth() {
+   var panelTrigger = document.querySelector('.booking-widget .panel-dropdown a');
+   var panelContent = document.querySelector('.booking-widget .panel-dropdown .panel-dropdown-content');
+
+   if (panelTrigger && panelContent) {
+       panelContent.style.width = `${panelTrigger.offsetWidth}px`;
+   }
+}

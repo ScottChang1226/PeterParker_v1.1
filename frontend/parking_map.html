@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<head>
+
+    <!-- Basic Page Needs
+    ================================================== -->
+    <title>PETER.PARKER</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <!-- CSS
+        ================================================== -->
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/main-color.css" id="colors">
+        <script type="module" src="scripts/userinfo.js"></script>
+    <!--	<script type="module" src="scripts/get_photo.js"></script>-->
+    
+    </head>
+
+<body>
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+	<!-- Header Container
+    ================================================== -->
+	<header id="header-container" class="fullwidth dashboard">
+
+		<!-- Header -->
+		<div id="header" class="not-sticky">
+			<div class="container">
+
+				<!-- Left Side Content -->
+				<div class="left-side">
+
+					<!-- Logo -->
+					<div id="logo">
+						<a href="index.html"><img src="images/logo.png" alt=""></a>
+						<a href="index.html" class="dashboard-logo"><img src="images/logo2.png" alt=""></a>
+					</div>
+
+					<!-- Mobile Navigation -->
+					<div class="mmenu-trigger">
+						<button class="hamburger hamburger--collapse" type="button">
+						<span class="hamburger-box">
+							<span class="hamburger-inner"></span>
+						</span>
+						</button>
+					</div>
+
+					<!-- Main Navigation -->
+					<nav id="navigation" class="style-1">
+						<ul id="responsive">
+
+							<li><a href="index.html">首頁</a>
+							</li>
+
+							<li><a>如何使用</a>
+								<ul>
+									<li><a href="how_to_reserve.html">如何預約車位</a></li>
+									<li><a href="dashboard-messages.html">如何出租車位</a></li>
+								</ul>
+							</li>
+
+							<li><a>最新消息</a>
+							</li>
+
+							<li><a href="#">聯絡我們</a></li>
+
+							<li><a href="#">業主登入</a></li>
+
+
+						</ul>
+					</nav>
+					<div class="clearfix"></div>
+					<!-- Main Navigation / End -->
+
+				</div>
+				<!-- Left Side Content / End -->
+
+				<!-- Right Side Content / End-->
+				<div class="right-side">
+					<!-- Header Widget -->
+					<div class="header-widget">
+						<!-- User Menu -->
+						<div class="user-menu">
+							<div class="user-name"><span><img id="avatar-preview" src="images/dashboard-avatar.jpg" alt=""></span><p style="display:inline "id="username2"></p></div>
+							<ul>
+								<li><a href="user_center.html"><i class="sl sl-icon-settings"></i>會員中心</a></li>
+								<li><a href="user_profile.html"><i class="sl sl-icon-user"></i>會員個人資料</a></li>
+							</ul>
+						</div>
+						<a href="index.html" id="logout_btn" class="button border with-icon" onclick="localStorage.removeItem('peterParkerToken'); localStorage.removeItem('userId');"></i>會員登出</a>
+					</div>
+				</div>
+			</div>
+			<!-- Header Widget / End -->
+		</div>
+		<!-- Right Side Content / End -->
+
+</header>
+<!-- Header / End -->
+<div class="clearfix"></div>
+<!-- Header Container / End -->
+
+
+
+<!-- Content
+================================================== -->
+<div class="fs-container">
+
+	<div class="fs-inner-container content">
+		<div class="fs-content">
+
+			<!-- Search -->
+			<section class="search">
+
+				<div class="row">
+					<div class="col-md-12">
+
+							<!-- Row With Forms -->
+							<div class="row with-forms">
+
+								<!-- Main Search Input -->
+								<div class="col-fs-6">
+									<div class="input-with-icon">
+										<i class="sl sl-icon-magnifier"></i>
+										<input id="search-parking" type="text" placeholder="你想尋找哪個停車場？">
+									</div>
+                                    <!-- 搜索按鈕，觸發搜索事件 -->
+										<a href="#" id="search-button"><i class="fa fa-search"></i></a>
+								</div>
+
+								<!-- Main Search Input -->
+								<div class="col-fs-6">
+									<div class="input-with-icon location">
+										<div id="autocomplete-container">
+											<input id="autocomplete-input" type="text" placeholder="地區">
+										</div>
+										<a href="#"><i class="fa fa-map-marker"></i></a>
+									</div>
+								</div>
+						
+
+								<!-- Filters -->
+								<div class="col-fs-12">
+
+									<!-- Panel Dropdown / End -->
+									<!-- More Filters Dropdown -->
+									<div class="panel-dropdown wide">
+										<a href="#">車位</a>
+										<div class="panel-dropdown-content checkboxes">
+											<!-- Checkboxes -->
+											<div class="row">
+												<div class="col-md-6">
+													<input id="check-a" type="checkbox" name="check" checked class="all">
+													<label for="check-a">全部</label>
+
+													<input id="check-b" type="checkbox" name="check">
+													<label for="check-b">目前剩餘車位超過10</label>
+
+													<input id="check-c" type="checkbox" name="check">
+													<label for="check-c">目前剩餘車位少於10</label>
+												</div>
+											</div>
+											<!-- Buttons -->
+											<div class="panel-buttons">
+												<button class="panel-cancel">取消</button>
+												<button class="panel-apply">接受</button>
+											</div>
+										</div>
+									</div>
+									<!-- Panel Dropdown / End -->
+
+									<!-- Distance Filter Dropdown -->
+									<div class="panel-dropdown">
+										<a href="#">距離</a>
+										<div class="panel-dropdown-content">
+											<input class="distance-radius" type="range" min="1" max="100" step="1" value="50" data-title="顯示所在位置半徑距離內的停車場">
+											<div class="panel-buttons">
+												<button class="panel-cancel">取消</button>
+												<button class="panel-apply">接受</button>
+											</div>
+										</div>
+									</div>
+									<!-- Panel Dropdown / End -->
+								</div>
+								<!-- Filters / End -->
+							</div>
+							<!-- Row With Forms / End -->
+						</div>
+					</div>
+				</section>
+				<!-- Search / End -->
+
+
+
+
+            <!-- Listings Container -->
+				<section class="listings-container margin-top-30">
+					<!-- Sorting / Layout Switcher -->
+					<div class="row fs-switcher">
+						<div class="col-md-6">
+							<!-- Showing Results -->
+							<p id="showing-results" class="showing-results">共找到0個結果</p>
+						</div>
+					</div>
+
+			<!-- Listings -->
+            <div id="listing-results" class="row fs-listings">
+					
+                <!-- 搜索結果會被插入到這個容器中 -->
+            </div>
+            <!-- Listings Container / End -->
+
+
+			<!-- Pagination Container -->
+			<div class="row fs-listings">
+				<div class="col-md-12">
+
+					<!-- Pagination -->
+					<div class="clearfix"></div>
+					<div class="row">
+						<div class="col-md-12">
+							<!-- Pagination -->
+							<div class="pagination-container margin-top-15 margin-bottom-40">
+								<nav class="pagination">
+									<ul>
+										<li><a href="#" class="current-page">1</a></li>
+										<li><a href="#">2</a></li>
+										<li><a href="#">3</a></li>
+										<li><a href="#"><i class="sl sl-icon-arrow-right"></i></a></li>
+									</ul>
+								</nav>
+							</div>
+						</div>
+					</div>
+					<div class="clearfix"></div>
+					<!-- Pagination / End -->
+					
+					<!-- Copyrights -->
+					<div class="copyrights margin-top-0">© 2024 Peter Parker. All Rights Reserved.</div>
+
+				</div>
+			</div>
+			<!-- Pagination Container / End -->
+		</section>
+
+		</div>
+	</div>
+	<div class="fs-inner-container map-fixed">
+
+		<!-- Map -->
+		<div id="map-container">
+		    <div id="map" data-map-zoom="9" data-map-scroll="true" style="height: 100%; width: 100%;">
+		        <!-- map goes here -->
+		    </div>
+		</div>
+
+	</div>
+</div>
+
+
+</div>
+<!-- Wrapper / End -->
+
+<!-- Scripts
+================================================== -->
+<script type="text/javascript" src="scripts/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="scripts/jquery-migrate-3.3.2.min.js"></script>
+<script type="text/javascript" src="scripts/mmenu.min.js"></script>
+<script type="text/javascript" src="scripts/chosen.min.js"></script>
+<script type="text/javascript" src="scripts/slick.min.js"></script>
+<script type="text/javascript" src="scripts/rangeslider.min.js"></script>
+<script type="text/javascript" src="scripts/magnific-popup.min.js"></script>
+<script type="text/javascript" src="scripts/waypoints.min.js"></script>
+<script type="text/javascript" src="scripts/counterup.min.js"></script>
+<script type="text/javascript" src="scripts/jquery-ui.min.js"></script>
+<script type="text/javascript" src="scripts/tooltips.min.js"></script>
+<script type="text/javascript" src="scripts/custom.js"></script>
+<script type="module" src="scripts/orderlist.js"></script>
+<script src="scripts/parkingorder.js"></script>
+
+
+<!-- Google Autocomplete -->
+<script>
+  function initAutocomplete() {
+    var input = document.getElementById('autocomplete-input');
+    var autocomplete = new google.maps.places.Autocomplete(input);
+
+    autocomplete.addListener('place_changed', function() {
+      var place = autocomplete.getPlace();
+      if (!place.geometry) {
+        return;
+      }
+    });
+
+	if ($('.main-search-input-item')[0]) {
+	    setTimeout(function(){ 
+	        $(".pac-container").prependTo("#autocomplete-container");
+	    }, 300);
+	}
+}
+</script>
+
+<!-- Maps -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDm8zpLXPf2UtxecZZmABNScrbKfa31AIQ&libraries=places&callback=initAutocomplete"></script>
+<script type="text/javascript" src="scripts/infobox.min.js"></script>
+<script type="text/javascript" src="scripts/markerclusterer.js"></script>
+<script type="text/javascript" src="scripts/maps.js"></script>
+
+
+</body>
+</html>

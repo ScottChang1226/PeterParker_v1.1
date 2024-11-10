@@ -11,7 +11,7 @@
     ================================================== -->
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/main-color.css" id="colors">
-<!--	<script type="module" src="scripts/userinfo.js"></script>-->
+	<script type="module" src="scripts/userinfo.js"></script>
 <!--	<script type="module" src="scripts/get_photo.js"></script>-->
 
 </head>
@@ -62,18 +62,6 @@
 							</li>
 
 							<li><a>最新消息</a>
-								<ul>
-									<li><a href="dashboard.html">Dashboard</a></li>
-									<li><a href="dashboard-messages.html">Messages</a></li>
-									<li><a href="dashboard-bookings.html">Bookings</a></li>
-									<li><a href="dashboard-wallet.html">Wallet</a></li>
-									<li><a href="dashboard-my-listings.html">My Listings</a></li>
-									<li><a href="dashboard-reviews.html">Reviews</a></li>
-									<li><a href="dashboard-bookmarks.html">Bookmarks</a></li>
-									<li><a href="dashboard-add-listing.html">Add Listing</a></li>
-									<li><a href="dashboard-my-profile.html">My Profile</a></li>
-									<li><a href="dashboard-invoice.html">Invoice</a></li>
-								</ul>
 							</li>
 
 							<li><a href="#">聯絡我們</a></li>
@@ -143,11 +131,11 @@
 								<!-- Filters -->
 								<div class="col-fs-12">
 									<!-- Panel Dropdown -->
-									<div class="panel-dropdown">
+								<!--	<div class="panel-dropdown">
 										<a href="#">類型</a>
-										<div class="panel-dropdown-content checkboxes categories">
+										<div class="panel-dropdown-content checkboxes categories"> -->
 											<!-- Checkboxes -->
-											<div class="row">
+									<!--	<div class="row">
 												<div class="col-md-6">
 													<input id="check-1" type="checkbox" name="check" checked class="all">
 													<label for="check-1">全部</label>
@@ -161,19 +149,19 @@
 													<input id="check-4" type="checkbox" name="check">
 													<label for="check-4">地下停車場</label>
 												</div>
-											</div>
+											</div> -->
 											<!-- Buttons -->
-											<div class="panel-buttons">
+									<!--	<div class="panel-buttons">
 												<button class="panel-cancel">取消</button>
 												<button class="panel-apply">接受</button>
 											</div>
 										</div>
-									</div>
+									</div> -->
 									<!-- Panel Dropdown / End -->
 
 									<!-- More Filters Dropdown -->
 									<div class="panel-dropdown wide">
-										<a href="#">更多</a>
+										<a href="#">車位</a>
 										<div class="panel-dropdown-content checkboxes">
 											<!-- Checkboxes -->
 											<div class="row">
@@ -230,40 +218,7 @@
 
 					<!-- Listings -->
 					<div id="listing-results" class="row fs-listings">
-						<!-- Listing Item -->
-						<div class="col-lg-12 col-md-12">
-							<div class="listing-item-container list-layout" data-marker-id="1">
-								<a href="parking_booking_1.html" class="listing-item">
-
-									<!-- Image -->
-									<div class="listing-item-image">
-										<img src="images/Parking_pic/螢幕擷取畫面 2024-09-30 184944.jpg" alt="">
-										<span class="tag">地下停車場</span>
-									</div>
-
-									<!-- Content -->
-									<div class="listing-item-content">
-										<div class="listing-badge now-open">24小時共享</div>
-
-										<div class="listing-item-inner">
-											<h3>CITY PARKING 城市車旅停車場 國泰南京商業大樓站 <i class="verified-icon"></i></h3>
-											<h4>50元
-												<span>/小時</span>
-											</h4>
-											<span>(限小車)(非低底盤)</span>
-											<div class="star-rating" data-rating="3.5">
-												<div class="rating-counter">(12 則評論)</div>
-											</div>
-										</div>
-
-
-										<span class="like-icon"></span>
-									</div>
-								</a>
-
-							</div>
-						</div>
-						<!-- Listing Item / End -->
+					
 						<!-- 搜索結果會被插入到這個容器中 -->
 					</div>
 					<!-- Listings Container / End -->
@@ -321,14 +276,14 @@
 <!-- Google Autocomplete -->
 <script src="scripts/parkingorder.js"></script>
 <script async defer
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDm8zpLXPf2UtxecZZmABNScrbKfa31AIQ&libraries=places,marker&callback=initMap">
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDm8zpLXPf2UtxecZZmABNScrbKfa31AIQ&libraries=places&callback=initMap">
 </script>
 
 
 <!-- Load Google Maps -->
-<!--<script type="text/javascript" src="scripts/infobox.min.js"></script>-->
+<script type="text/javascript" src="scripts/infobox.min.js"></script>
 <script type="text/javascript" src="scripts/markerclusterer.js"></script>
-<!--<script type="text/javascript" src="scripts/maps.js"></script>-->
+<script type="text/javascript" src="scripts/maps.js"></script>
 
 
 <script type="module" src="scripts/orderlist.js"></script>

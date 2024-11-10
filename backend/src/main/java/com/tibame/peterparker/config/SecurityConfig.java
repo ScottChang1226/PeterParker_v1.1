@@ -67,7 +67,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:8080", "http://localhost:8081","http://localhost:5500"));
+        config.setAllowedOrigins(List.of("http://localhost:8080", "http://localhost:8081","http://localhost:5500","http://127.0.0.1:5500"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE","OPTIONS"));//增加以確保包含OPTIONS方法
         config.setAllowCredentials(true);
         config.setAllowedHeaders(List.of("*"));
@@ -91,6 +91,7 @@ public class SecurityConfig {
         // 控制 api 使用權限
         http.authorizeRequests(authorize -> {
             authorize.antMatchers("/adminlogin","/user/**","/order/**").permitAll();
+            authorize.antMatchers("/api/admin/**", "/api/user/**", "/api/orders/**", "/api/owner/**", "/api/statistics/**", "/api/parking/**").permitAll();
             authorize.antMatchers("/official/**").permitAll();
             authorize.antMatchers("/geocode").permitAll();//放行/geocode相關以進行測試
             authorize.antMatchers("/api/**").hasAnyRole("ADMIN");

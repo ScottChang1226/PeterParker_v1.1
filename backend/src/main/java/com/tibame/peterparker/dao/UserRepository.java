@@ -65,6 +65,10 @@ public interface UserRepository extends JpaRepository<UserVO, Integer> {
                                                            @Param("userId") Integer userId);
 
 
+    @Modifying
+    @Query(value= "UPDATE orderinfo o SET o.userComment = :userComment WHERE o.orderId = :orderId", nativeQuery=true)
+    public int updateOrderComment(@Param("userComment")String userComment, @Param("orderId")Integer orderId);
+
     //獲取userAccount作為寄信mail
     Optional<UserVO> findById(Integer userId);
 

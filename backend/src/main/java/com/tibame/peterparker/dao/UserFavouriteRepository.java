@@ -24,4 +24,5 @@ public interface UserFavouriteRepository extends JpaRepository <UserFavouriteVO,
         Integer findByUserIdAndParkingId(@Param("userId") Integer userId, @Param("parkingId") Integer parkingId);
 
         void deleteByUserFavouriteId(Integer userFavouriteId);
+
 }

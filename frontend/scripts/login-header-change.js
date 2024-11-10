@@ -70,7 +70,8 @@ document.addEventListener("DOMContentLoaded", function () {
 						<div class="user-name"><span><img id="avatar-preview" src="images/dashboard-avatar.jpg" alt=""></span><p style="display:inline "id="username2"></p></div>
 						<ul>
 							<li><a href="user_center.html"><i class="sl sl-icon-settings"></i>會員中心</a></li>
-							<li><a href="user_profile.html"><i class="sl sl-icon-user"></i>會員個人資料</a></li>
+							<li><a href="user_profile.html"><i class="sl sl-icon-user"></i>個人資料</a></li>
+							<li><a href="parking_map_order.html"><i class="sl sl-icon-control-play"></i>開始預約</a></li>
 						</ul>
 					</div>
 					<a href="index.html" id="logout_btn" class="button border with-icon" onclick="localStorage.removeItem('peterParkerToken'); localStorage.removeItem('userId');"></i>會員登出</a>

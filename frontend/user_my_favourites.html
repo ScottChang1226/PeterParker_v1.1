@@ -17,6 +17,9 @@
 </head>
 
 <body>
+	<div id="loadingOverlay" class="overlay">
+        <div class="spinner"></div>
+        </div>
 
 <!-- Wrapper -->
 <div id="wrapper">
@@ -87,7 +90,8 @@
 						<div class="user-name"><span><img id="avatar-preview" src="images/dashboard-avatar.jpg" alt=""></span><p style="display:inline " id="username2"> 你好！</p></div>
 						<ul>
 							<li><a href="user_center.html"><i class="sl sl-icon-settings"></i>會員中心</a></li>
-							<li><a href="user_profile.html"><i class="sl sl-icon-user"></i>會員個人資料</a></li>
+							<li><a href="user_profile.html"><i class="sl sl-icon-user"></i>個人資料</a></li>
+							<li><a href="parking_map.html"><i class="sl sl-icon-control-play"></i>開始預約</a></li>
 						</ul>
 					</div>
 					<a href="index.html" id="logout_btn" class="button border with-icon" onclick="localStorage.removeItem('peterParkerToken'); localStorage.removeItem('userId');"></i>會員登出</a>
@@ -120,7 +124,8 @@
 
 			<ul>
 				<li><a href="user_center.html"><i class="sl sl-icon-settings"></i>會員中心</a></li>
-				<li><a href="user_profile.html"><i class="sl sl-icon-user"></i>會員個人資料</a></li>
+				<li><a href="user_profile.html"><i class="sl sl-icon-user"></i>個人資料</a></li>
+				<li><a href="parking_map_order.html"><i class="sl sl-icon-control-play"></i>開始預約</a></li>
 				<li><a><i class="sl sl-icon-layers"></i>我的訂單</a>
 					<ul>
 						<li><a href="user_ongoing_reservation.html">未完成訂單</a></li>
@@ -128,8 +133,8 @@
 						<li>
 					</ul>	
 				</li>
-				<li class="active"><a href="user_my_favourites.html"><i class="sl sl-icon-heart"></i> 我的最愛</a></li>
-				<li><a href="user_my_blacklist.html"><i class="sl sl-icon-ban"></i> 我的黑名單</a></li>
+				<li class="active"><a href="user_my_favourites.html"><i class="sl sl-icon-heart"></i>我的最愛</a></li>
+				<li><a href="user_my_blacklist.html"><i class="sl sl-icon-ban"></i>我的黑名單</a></li>
 			</ul>	
 
 	</div>
@@ -279,6 +284,9 @@ function removeFavourite(favouriteId) {
 		userFavouriteId: favouriteId
 	};
 
+	const overlay = document.getElementById('loadingOverlay');
+   	overlay.style.display = 'block';
+
 
     fetch(`http://localhost:8081/user/deleteFavourite`, {
         method: 'DELETE',
@@ -296,7 +304,10 @@ function removeFavourite(favouriteId) {
     })
     .catch(error => {
         console.error('Error removing favourite:', error);
-    });
+    })
+	.finally(()=>{
+		overlay.style.display = "none";
+	});
 }
 
 

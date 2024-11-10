@@ -444,4 +444,18 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PostMapping("/updateUserComment")
+    public ResponseEntity<Map<String,String>> updateUserComment (@RequestBody UserCommentDTO userCommentDTO){
+        Map response = new HashMap<>();
+        String userComment = userCommentDTO.getUserComment();
+        Integer orderId = userCommentDTO.getOrderId();
+
+
+        userService.updateUserComment(userComment,orderId);
+
+        response.put("status", "success");
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
 }

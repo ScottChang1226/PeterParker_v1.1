@@ -28,7 +28,7 @@ import javax.servlet.http.HttpSession;
 
 import java.sql.Date;
 
-@CrossOrigin(origins = "*") //本地端佈署用來允許所有跨域
+//@CrossOrigin(origins = "http://localhost:5500") //本地端佈署用來允許所有跨域
 @RestController
 @RequestMapping(path = "/order")
 public class OrderController {
@@ -65,16 +65,16 @@ public class OrderController {
     // 創建訂單
     @PostMapping("/create")
     public ResponseEntity<?> createOrder(@RequestBody OrderDTO orderDTO, HttpSession session) {
-        Integer loginUserId = (Integer) session.getAttribute("loginUserId");
+        Integer loginUserId = Integer.parseInt( (String)session.getAttribute("loginUserId"));
         //使用者未登入則阻止成立
-//        if (loginUserId == null) {
-//            return new ResponseEntity<>("使用者未登入", HttpStatus.UNAUTHORIZED);
-//        }
+        if (loginUserId == null) {
+            return new ResponseEntity<>("使用者未登入", HttpStatus.UNAUTHORIZED);
+        }
 
         // 如果用戶未登入，使用預設 ID 999
-        if (loginUserId == null) {
-            loginUserId = 1; // 預設的未登入用戶 ID
-        }
+//        if (loginUserId == null) {
+//            loginUserId = 1; // 預設的未登入用戶 ID
+//        }
 
         orderDTO.setUserId(loginUserId);
 
@@ -84,7 +84,7 @@ public class OrderController {
             Integer orderId = orderService.createOrder(orderDTO);
 
             // 獲取用戶的 email（userAccount）
-            String userEmail = orderService.getUserAccountByUserId(loginUserId); // 假設 userService 中有此方法
+            String userEmail = orderService.getUserAccountByUserId(loginUserId);
 
             // 發送訂單完成郵件
             OrderMailService orderMailService = new OrderMailService();
@@ -141,16 +141,34 @@ public class OrderController {
     @PostMapping("/nearbyParking")
     public ResponseEntity<?> getNearbyParking(@RequestBody Map<String, Object> request) {
         try {
-            Double latitude = (Double) request.get("latitude");
-            Double longitude = (Double) request.get("longitude");
-            Double radius = (Double) request.get("radius");
+            // 嘗試將 latitude, longitude, radius 從請求中獲取，並轉換為 Double 類型
+            Double latitude = null;
+            Double longitude = null;
+            Double radius = null;
 
+            if (request.get("latitude") instanceof Number) {
+                latitude = ((Number) request.get("latitude")).doubleValue();
+            }
+            if (request.get("longitude") instanceof Number) {
+                longitude = ((Number) request.get("longitude")).doubleValue();
+            }
+            if (request.get("radius") instanceof Number) {
+                radius = ((Number) request.get("radius")).doubleValue();
+            }
+
+            // 確保參數不為空
+            if (latitude == null || longitude == null || radius == null) {
+                throw new IllegalArgumentException("Missing or invalid latitude, longitude, or radius");
+            }
+
+            // 呼叫 service 查找附近的停車場
             List<Map<String, Object>> nearbyParking = parkingService.findNearbyParking(latitude, longitude, radius);
             return new ResponseEntity<>(nearbyParking, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("Error finding nearby parking: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
 
 
     // 用關鍵字查找停車場

@@ -19,6 +19,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
 
@@ -45,39 +46,33 @@ public class AuthRequestFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
 
-            // 從請求的 cookie 中找出名為 "jwtToken" 的 cookie
-           // Cookie[] cookies = request.getCookies();
+        String jwtHeader = request.getHeader("Authorization");
 
+        if (jwtHeader == null || !jwtHeader.startsWith("Bearer ")) {
+            chain.doFilter(request, response);
+            return;
+        }
 
-            String jwtHeader = request.getHeader("Authorization");
+        String jwt = jwtHeader.split(" ")[1];
 
-            //檢查jwtHeader是否為Null
-            if (jwtHeader == null || !jwtHeader.startsWith("Bearer ")) {
-                // 當 JWT 標頭為 null 或者不包含 Bearer 前綴時，直接放行請求
-                chain.doFilter(request, response);
-                return;
+        if (!(jwt.isEmpty() || jwt.isBlank())) {
+            String userId = jwtUtil.extractUsername(jwt);
+            if (userId != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+
+                HttpSession session = request.getSession();
+                session.setAttribute("loginUserId", userId);
+//                UserDetails userDetails = this.userDetailsService.loadUserByUsername(userId);
+//                if (jwtUtil.validateToken(jwt, userDetails)) {
+//                    UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+//                            userDetails, null, userDetails.getAuthorities());
+//                    authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+//                    SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+//
+//                }
             }
-
-            if(!jwtHeader.contains("Bearer"))
-                throw new BadCredentialsException("Invalid JWT token");
-
-            String jwt = jwtHeader.split(" ")[1];
-
-            // 如果找到了 JWT，則進行驗證
-            if (!(jwt.isEmpty() || jwt.isBlank())) {
-                String username = jwtUtil.extractUsername(jwt);
-                if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                    UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
-                    if (jwtUtil.validateToken(jwt, userDetails)) {
-                        // 如果驗證成功，設置 Spring Security 上下文
-                        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-                                userDetails, null, userDetails.getAuthorities());
-                        authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-                    }
-                }
-            }
+        }
 
         chain.doFilter(request, response);
     }
+
 }

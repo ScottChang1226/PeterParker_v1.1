@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <!-- 引入 Font Awesome 圖標庫 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f5f7fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+            max-width: 1200px;
+            height: 100%;
+            align-items: stretch;
+        }
+
+        /* 左側登入區域 */
+        .login-section {
+            width: 50%;
+            /* 左側部分寬度設置為50% */
+            padding: 60px;
+            background-color: #f5f7fa;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .login-section h2 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .login-section h2::after {
+            content: " 👋";
+            font-size: 28px;
+            /* 根據需要調整大小 */
+        }
+
+        .login-section p {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        label {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            background-color: #fff;
+            margin-top: 8px;
+            padding-right: 40px;
+            /* 增加右側間距，避免與圖標重疊 */
+        }
+
+        .form-group i {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            /* 保持垂直置中 */
+            transform: translateY(50%);
+            color: #888;
+            cursor: pointer;
+            font-size: 18px;
+            line-height: 0.9;
+            /* 確保圖標的內部行高不會影響位置 */
+        }
+
+        .remember-me {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .remember-me input {
+            margin-right: 10px;
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 15px;
+            background-color: #003366;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-button:hover {
+            background-color: #002244;
+        }
+
+        /* 右側圖片區域 */
+        .image-section {
+            width: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+        }
+
+        .image-section img {
+            max-width: 80%;
+            height: auto;
+            object-fit: contain;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                height: auto;
+            }
+
+            .login-section,
+            .image-section {
+                width: 100%;
+            }
+
+            .login-section {
+                padding: 40px;
+            }
+        }
+
+        input[type="password"] {
+            letter-spacing: 8px;
+        }
+
+        input[type="password"]::placeholder {
+            letter-spacing: 0px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap">
+
+    <div class="container">
+        <!-- 左側的登入區域 -->
+        <div class="login-section">
+
+            <h2>歡迎光臨</h2>
+            <p>請於下方輸入您的登入資訊</p>
+            <div id="errorMessage" style="color: red; display: none;"></div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="輸入您的帳號" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="輸入您的密碼" required>
+                    <i class="fas fa-eye" id="togglePassword"></i>
+                </div>
+                <button type="submit" class="login-button">登入</button>
+            </form>
+        </div>
+
+        <!-- 右側的圖片區域 -->
+        <div class="image-section">
+            <img src="/images/car-park.png" alt="Login Illustration">
+        </div>
+    </div>
+
+    <script>
+
+        // 自動填入保存的用戶名和密碼
+        window.onload = function () {
+            const savedUsername = localStorage.getItem('username');
+            const savedPassword = localStorage.getItem('password');
+            if (savedUsername && savedPassword) {
+                document.getElementById('username').value = savedUsername;
+                document.getElementById('password').value = savedPassword;
+                document.getElementById('rememberMe').checked = true;
+            }
+        };
+
+        // 顯示/隱藏密碼功能
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordField = document.getElementById('password');
+
+        togglePassword.addEventListener('click', function () {
+            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordField.setAttribute('type', type);
+            this.classList.toggle('fa-eye-slash'); // 切換圖標
+        });
+
+        // 登入表單提交
+        document.getElementById('loginForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // 防止表單自動提交
+
+            let errorMessage = document.getElementById('errorMessage');
+            let userAccount = document.getElementById('username');
+            let userPassword = document.getElementById('password');
+            let isValid = true;
+
+            errorMessage.style.display = "none";
+
+            // 驗證輸入
+            if (userAccount.value.trim() === "") {
+                errorMessage.style.display = "block";
+                errorMessage.innerText = "請輸入您的郵件信箱。";
+                isValid = false;
+            } else if (userPassword.value.trim() === "") {
+                errorMessage.style.display = "block";
+                errorMessage.innerText = "請輸入您的帳號密碼。";
+                isValid = false;
+            }
+
+            if (isValid) {
+                const loginData = {
+                    username: userAccount.value,
+                    password: userPassword.value
+                };
+
+                // 使用 fetch API 發送登入請求
+                fetch('http://localhost:8081/api/admin/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(loginData)
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            return response.json(); // 解析相應的JSON
+                        } else {
+                            throw new Error("登入失敗，請檢查帳號或密碼。");
+                        }
+                    })
+                    .then(data => {
+                        // 儲存 token 和 adminId 到 localStorage
+                        localStorage.setItem('token', data.token);
+                        localStorage.setItem('adminId', data.adminId); // 儲存 adminId
+                        window.location.href = 'dashboard-main.html'; // 重定向到儀表板頁面
+                    })
+                    .catch(error => {
+                        errorMessage.style.display = "block";
+                        errorMessage.innerText = error.message;
+                    });
+            }
+        });
+
+
+    </script>
+
+    </script>
+
+</body>
+
+</html>

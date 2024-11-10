@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+
+<head>
+
+	<!-- Basic Page Needs
+================================================== -->
+	<title>PeterParker-OwnersEdit</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+================================================== -->
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/main-color.css" id="colors">
+
+	<style>
+		body {
+			font-family: 'Roboto', sans-serif;
+			background-color: #f7f9fc;
+			color: #333;
+		}
+
+		input.non-editable-input {
+			background-color: #ccc;
+		}
+	</style>
+
+</head>
+
+<body>
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Header Container
+================================================== -->
+		<header id="header-container" class="fixed fullwidth dashboard">
+
+			<!-- Header -->
+			<div id="header" class="not-sticky">
+				<div class="container">
+
+					<!-- Left Side Content -->
+					<div class="left-side">
+
+						<!-- Logo -->
+						<div id="logo">
+							<a href="dashboard-main.html"><img src="images/PeterParker_Logo2.png" alt=""></a>
+							<a href="dashboard-main.html" class="dashboard-logo"><img src="images/PeterParker_Logo.png"
+									alt=""></a>
+						</div>
+
+						<!-- Mobile Navigation -->
+						<div class="mmenu-trigger">
+							<button class="hamburger hamburger--collapse" type="button">
+								<span class="hamburger-box">
+									<span class="hamburger-inner"></span>
+								</span>
+							</button>
+						</div>
+
+						<!-- Main Navigation -->
+						<!-- <nav id="navigation" class="style-1">
+					<ul id="responsive">
+
+						<li><a href="#">首頁</a></li>
+
+					</ul>
+				</nav>
+				<div class="clearfix"></div> -->
+						<!-- Main Navigation / End -->
+
+					</div>
+					<!-- Left Side Content / End -->
+
+					<!-- Right Side Content / End -->
+					<div class="right-side">
+						<!-- Header Widget -->
+						<div class="header-widget">
+
+							<!-- User Menu -->
+							<div class="user-menu">
+								<div class="user-name">
+									<span>
+										<img id="profile-avatar" src="images/dashboard-avatar.jpg" />
+									</span>
+									帳號中心
+								</div>
+								<ul>
+									<li><a href="javascript:void(0)" id="my-account-link"><i class="sl sl-icon-user"></i> 我的帳號</a></li>
+									<li><a href="#" onclick="logout()"><i class="sl sl-icon-power"></i> 登出</a></li>
+								</ul>
+							</div>
+
+						</div>
+						<!-- Header Widget / End -->
+					</div>
+					<!-- Right Side Content / End -->
+
+				</div>
+			</div>
+			<!-- Header / End -->
+
+		</header>
+		<div class="clearfix"></div>
+		<!-- Header Container / End -->
+
+
+		<!-- Dashboard -->
+		<div id="dashboard">
+
+			<!-- Navigation
+	================================================== -->
+
+			<!-- Responsive Navigation Trigger -->
+			<a href="#" class="dashboard-responsive-nav-trigger"><i class="fa fa-reorder"></i> 儀表板欄位</a>
+
+			<div class="dashboard-nav">
+				<div class="dashboard-nav-inner">
+
+					<ul data-submenu-title="主要">
+						<li><a href="dashboard-main.html"><i class="sl sl-icon-settings"></i> 儀表板</a></li>
+						<!-- <li><a><i class="sl sl-icon-envelope-open"></i> 訊息</a></li> -->
+						<!-- <li><a><i class="sl sl-icon-note"></i> 資料審核</a>
+							<ul>
+								<li><a href="dashboard-approve1.html"> 審核一般會員資料 </a></li>
+								<li><a href="dashboard-approve2.html"> 審核業主資料 </a></li>
+							</ul>
+						</li> -->
+						<!-- <li><a><i class="im im-icon-Newspaper"></i> 最新消息</a></li> -->
+					</ul>
+
+					<ul data-submenu-title="資料查詢">
+						<li><a><i class="sl sl-icon-layers"></i> 會員資料</a>
+							<ul>
+								<li><a href="dashboard-users.html"> 一般會員 </a></li>
+								<li><a> 業主 </a></li>
+							</ul>
+						</li>
+						<li><a href="dashboard-order.html"><i class="sl sl-icon-star"></i> 訂單查詢</a></li>
+						<!-- <li><a><i class="sl sl-icon-wallet"></i> 財務進帳</a></li> -->
+					</ul>
+
+					<ul data-submenu-title="帳號">
+						<li><a href="dashboard-admin.html"><i class="sl sl-icon-user"></i> 管理員總覽</a></li>
+						<li><a href="dashboard-login.html"><i class="sl sl-icon-power"></i> 登出</a></li>
+					</ul>
+
+				</div>
+			</div>
+			<!-- Navigation / End -->
+
+			<!-- Content
+	================================================== -->
+			<div class="dashboard-content">
+
+				<!-- Titlebar -->
+				<div id="titlebar">
+					<div class="row">
+						<div class="col-md-12">
+							<h2>業主-編輯</h2>
+							<!-- Breadcrumbs -->
+							<nav id="breadcrumbs">
+								<ul>
+									<li><a href="#">儀表板</a></li>
+									<li><a href="#">業主資料</a></li>
+									<!-- <li>My Profile</li> -->
+								</ul>
+							</nav>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+
+					<!-- 左側 Form -->
+					<form id="ownerFormLeft" class="col-lg-6 col-md-12">
+						<div class="dashboard-list-box margin-top-0">
+							<h4 class="gray">編輯業主資料</h4>
+							<div class="dashboard-list-box-static">
+								<div class="my-profile">
+									<label class="margin-top-0">姓名</label>
+									<input name="ownerName" type="text" value="">
+
+									<label>電話</label>
+									<input name="ownerPhone" type="text" value="">
+
+									<label class="margin-top-0">帳號</label>
+									<input name="ownerAccount" type="text" readonly class="non-editable-input">
+
+									<label>密碼</label>
+									<input name="ownerPassword" type="text" autocomplete="current-password">
+
+									<button type="submit" class="button margin-top-15">儲存</button>
+									<button type="button" class="button margin-right-5" id="backButtonLeft">返回</button>
+								</div>
+							</div>
+						</div>
+					</form>
+
+					<!-- 右側 Form - 停車場資料 -->
+					<!-- <form id="parkingFormRight" class="col-lg-6 col-md-12">
+						<div class="dashboard-list-box margin-top-0">
+							<h4 class="gray">編輯停車場資料</h4>
+							<div class="dashboard-list-box-static">
+								<div class="my-profile">
+									<label class="margin-top-0">停車場名稱</label>
+									<input name="parkingName" type="text" value="">
+
+									<label>容量</label>
+									<input name="capacity" type="number" value="">
+
+									<label>區域</label>
+									<input name="parkingRegion" type="text" value="">
+
+									<label>地址</label>
+									<input name="parkingLocation" type="text" value="">
+
+									<label>假日時薪</label>
+									<input name="holidayHourlyRate" type="number" value="">
+
+									<label>平日時薪</label>
+									<input name="workdayHourlyRate" type="number" value="">
+
+									<button type="submit" class="button margin-top-15">儲存</button>
+									<button type="button" class="button margin-right-5" id="backButtonRight">返回</button>
+								</div>
+							</div>
+						</div>
+					</form> -->
+
+					<!-- Copyrights -->
+					<div class="col-md-12">
+						<div class="copyrights">© 2024 PeterParker. All Rights Reserved.</div>
+					</div>
+
+				</div>
+
+			</div>
+			<!-- Content / End -->
+
+
+		</div>
+		<!-- Dashboard / End -->
+
+
+	</div>
+	<!-- Wrapper / End -->
+
+
+	<!-- Scripts
+================================================== -->
+	<script type="text/javascript" src="scripts/jquery-3.6.0.min.js"></script>
+	<script type="text/javascript" src="scripts/jquery-migrate-3.3.2.min.js"></script>
+	<script type="text/javascript" src="scripts/mmenu.min.js"></script>
+	<script type="text/javascript" src="scripts/chosen.min.js"></script>
+	<script type="text/javascript" src="scripts/slick.min.js"></script>
+	<script type="text/javascript" src="scripts/rangeslider.min.js"></script>
+	<script type="text/javascript" src="scripts/magnific-popup.min.js"></script>
+	<script type="text/javascript" src="scripts/waypoints.min.js"></script>
+	<script type="text/javascript" src="scripts/counterup.min.js"></script>
+	<script type="text/javascript" src="scripts/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="scripts/tooltips.min.js"></script>
+	<script type="text/javascript" src="scripts/custom.js"></script>
+	<script type="text/javascript" src="scripts/loadProfileAvatar.js"></script>
+	<script src="scripts/setMyAccountLink.js"></script>
+
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			// 獲取 URL 中的 ownerNo 和 parkingId
+			const params = new URLSearchParams(window.location.search);
+			const ownerNo = params.get('ownerNo');
+			const parkingId = params.get('parkingId');
+
+			console.log("OwnerNo:", ownerNo);
+			console.log("ParkingId:", parkingId);
+
+			// 檢查 ownerNo 是否存在
+			if (!ownerNo) {
+				alert('無法找到 ownerNo');
+				return;
+			}
+
+			// 定義 API URL
+			const ownerApiUrl = `http://localhost:8081/api/owner/${ownerNo}`;
+			const parkingApiUrl = `http://localhost:8081/api/parking/${parkingId}`;
+
+			// 調試輸出 API 路徑，確認路徑正確
+			console.log("Owner API URL:", ownerApiUrl);
+			if (parkingApiUrl) {
+				console.log("Parking API URL:", parkingApiUrl);
+			} else {
+				console.warn("無法找到 parkingId，將不抓取停車場資料");
+			}
+
+			// 獲取業主資料並填入左側表單
+			fetch(ownerApiUrl)
+				.then(response => {
+					if (!response.ok) throw new Error('無法獲取業主資料');
+					return response.json();
+				})
+				.then(owner => {
+					document.querySelector('#ownerFormLeft input[name="ownerName"]').value = owner.ownerName;
+					document.querySelector('#ownerFormLeft input[name="ownerPhone"]').value = owner.ownerPhone;
+					document.querySelector('#ownerFormLeft input[name="ownerAccount"]').value = owner.ownerAccount;
+					document.querySelector('#ownerFormLeft input[name="ownerPassword"]').value = owner.ownerPassword;
+				})
+				.catch(error => {
+					console.error('無法獲取業主資料:', error);
+					alert('無法獲取業主資料，請檢查 API 是否正常工作');
+				});
+
+			// 如果 parkingId 存在，則獲取停車場資料
+			// if (parkingApiUrl) {
+			// 	fetch(parkingApiUrl)
+			// 		.then(response => {
+			// 			if (!response.ok) throw new Error('無法獲取停車場資料');
+			// 			return response.json();
+			// 		})
+			// 		.then(parking => {
+			// 			console.log('停車場資料:', parking); // 確認資料已成功獲取
+			// 			document.querySelector('#parkingFormRight input[name="parkingName"]').value = parking.parkingName;
+			// 			document.querySelector('#parkingFormRight input[name="capacity"]').value = parking.capacity;
+			// 			document.querySelector('#parkingFormRight input[name="parkingRegion"]').value = parking.parkingRegion;
+			// 			document.querySelector('#parkingFormRight input[name="parkingLocation"]').value = parking.parkingLocation;
+			// 			document.querySelector('#parkingFormRight input[name="holidayHourlyRate"]').value = parking.holidayHourlyRate;
+			// 			document.querySelector('#parkingFormRight input[name="workdayHourlyRate"]').value = parking.workdayHourlyRate;
+			// 		})
+			// 		.catch(error => {
+			// 			console.error('無法獲取停車場資料:', error);
+			// 			alert('無法獲取停車場資料，請檢查 API 是否正常工作');
+			// 		});
+			// }
+
+			// 左側表單提交處理
+			document.querySelector('#ownerFormLeft').onsubmit = function (e) {
+				e.preventDefault();
+				const updatedOwner = {
+					ownerNo: ownerNo,
+					ownerName: document.querySelector('#ownerFormLeft input[name="ownerName"]').value,
+					ownerPhone: document.querySelector('#ownerFormLeft input[name="ownerPhone"]').value,
+					ownerAccount: document.querySelector('#ownerFormLeft input[name="ownerAccount"]').value,
+					ownerPassword: document.querySelector('#ownerFormLeft input[name="ownerPassword"]').value
+				};
+				fetch(ownerApiUrl, {
+					method: 'PUT',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify(updatedOwner)
+				})
+					.then(response => {
+						if (!response.ok) throw new Error('業主資料更新失敗');
+						return response.json();
+					})
+					.then(() => {
+						alert('業主資料更新成功');
+						window.location.href = 'dashboard-owners.html';
+					})
+					.catch(error => {
+						console.error('更新失敗:', error);
+						alert('業主資料更新失敗');
+					});
+			};
+
+			// 右側表單提交處理
+			// document.querySelector('#parkingFormRight').onsubmit = function (e) {
+			// 	e.preventDefault();
+			// 	const updatedParking = {
+			// 		parkingId: parkingId,
+			// 		parkingName: document.querySelector('#parkingFormRight input[name="parkingName"]').value,
+			// 		capacity: document.querySelector('#parkingFormRight input[name="capacity"]').value,
+			// 		parkingRegion: document.querySelector('#parkingFormRight input[name="parkingRegion"]').value,
+			// 		parkingLocation: document.querySelector('#parkingFormRight input[name="parkingLocation"]').value,
+			// 		holidayHourlyRate: document.querySelector('#parkingFormRight input[name="holidayHourlyRate"]').value,
+			// 		workdayHourlyRate: document.querySelector('#parkingFormRight input[name="workdayHourlyRate"]').value,
+			// 	};
+			// 	fetch(parkingApiUrl, {
+			// 		method: 'PUT',
+			// 		headers: { 'Content-Type': 'application/json' },
+			// 		body: JSON.stringify(updatedParking)
+			// 	})
+			// 		.then(response => {
+			// 			if (!response.ok) throw new Error('停車場資料更新失敗');
+			// 			return response.json();
+			// 		})
+			// 		.then(() => {
+			// 			alert('停車場資料更新成功');
+			// 			window.location.href = 'dashboard-owners.html';
+			// 		})
+			// 		.catch(error => {
+			// 			console.error('更新失敗:', error);
+			// 			alert('停車場資料更新失敗');
+			// 		});
+			// };
+
+			document.getElementById('backButtonLeft').onclick = function () {
+				window.history.back();
+			};
+			document.getElementById('backButtonRight').onclick = function () {
+				window.history.back();
+			};
+		});
+
+	</script>
+
+</body>
+
+</html>

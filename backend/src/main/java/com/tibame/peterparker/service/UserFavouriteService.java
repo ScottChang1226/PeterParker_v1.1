@@ -67,6 +67,14 @@ public class UserFavouriteService {
         return dtos;
     }
 
+    public boolean findExistingFavouriteId (Integer userId, Integer parkingId){
+        Integer favouriteId = userFavouriteRepository.findByUserIdAndParkingId(userId, parkingId);
+        if (favouriteId == null){
+            return false;
+        }
+        return true;
+    }
+
 
 
 

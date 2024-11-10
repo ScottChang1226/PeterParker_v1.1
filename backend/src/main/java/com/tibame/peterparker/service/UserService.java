@@ -144,4 +144,9 @@ public class UserService {
        return orderRepository.updateOrderStatus(orderId,statusId);
     }
 
+    // 更改訂單用戶評價
+    public int updateUserComment(String userComment, Integer orderId){
+        return userRepository.updateOrderComment(userComment,orderId);
+    }
+
 }

@@ -67,6 +67,16 @@ public class UserBlacklistService {
         return dtos;
     }
 
+    public boolean findBlacklistByUserIdAndParkingId(Integer userId, Integer parkingId) {
+        var isBlacklist = userBlacklistRepository.findByUserIdAndParkingId(userId, parkingId);
+
+        if(isBlacklist == null){
+            return false;
+        }
+
+        return true;
+    }
+
 
 
 

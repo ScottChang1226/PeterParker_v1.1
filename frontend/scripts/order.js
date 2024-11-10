@@ -12,24 +12,25 @@ document.addEventListener("DOMContentLoaded", function () {
         const ownerTitleElement = document.querySelector('.hosted-by-title h4 a');
         const ownerEmailElement = document.querySelector('.listing-details-sidebar li i.fa-envelope-o').nextElementSibling;
 
+        // 填充停車場資訊到對應的元素
         if (parkingNameElement) {
             parkingNameElement.textContent = selectedParking.parkingName;
         }
 
         if (parkingAddressElement) {
-            parkingAddressElement.textContent = selectedParking.parkingLocation;
+            parkingAddressElement.textContent = selectedParking.parkingAddress;
         }
 
         if (parkingInfoElement) {
-            parkingInfoElement.textContent = `(容量: ${selectedParking.capacity} 車位, 費率: 假日 ${selectedParking.holidayHourlyRate} 元 / 平日 ${selectedParking.workdayHourlyRate} 元)`;
+            parkingInfoElement.textContent = `(容量: ${selectedParking.capacity} 車位)`;
         }
 
         if (ownerTitleElement) {
-            ownerTitleElement.textContent = selectedParking.ownerName;
+            ownerTitleElement.textContent = selectedParking.ownerName || '未知業主';
         }
 
         if (ownerEmailElement) {
-            ownerEmailElement.textContent = selectedParking.ownerEmail;
+            ownerEmailElement.textContent = selectedParking.ownerEmail || '未知';
         }
 
         // 填充業主名稱至對話框中的佔位符
@@ -71,14 +72,21 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function goToNextPage() {
-    const parkingId = new URLSearchParams(window.location.search).get("parkingId");
+    const selectedParking = JSON.parse(localStorage.getItem("selectedParking"));
     const date = document.getElementById('date-picker').value;
     const startTime = document.getElementById('start-time').value;
     const endTime = document.getElementById('end-time').value;
 
-    if (date && startTime && endTime) {
-        // 暫存選擇的資料
-        sessionStorage.setItem('parkingId', parkingId);
+    if (selectedParking && date && startTime && endTime) {
+        // 暫存選擇的資料，包括 parkingId
+        if (selectedParking.parkingId) {
+            sessionStorage.setItem('parkingId', selectedParking.parkingId);
+        } else {
+            console.error('選擇的停車場資訊中沒有找到 parkingId');
+            alert('系統錯誤，請重試');
+            return;
+        }
+        
         sessionStorage.setItem('date', date);
         sessionStorage.setItem('startTime', startTime);
         sessionStorage.setItem('endTime', endTime);
@@ -89,6 +97,7 @@ function goToNextPage() {
         alert('請選擇日期和時間段');
     }
 }
+
 
 // 透過連絡業主按鈕發送消息給業主
 document.getElementById('contact-owner-button').addEventListener('click', function () {
@@ -103,18 +112,32 @@ document.getElementById('contact-owner-button').addEventListener('click', functi
     const selectedParking = JSON.parse(localStorage.getItem("selectedParking"));
 
     if (selectedParking) {
+        // 獲取 JWT token
+        const peterParkerToken = localStorage.getItem('peterParkerToken');
+        if (!peterParkerToken) {
+            console.error('JWT token not found, redirecting to login');
+            window.location.href = 'index.html'; // 重定向到登入頁面
+            return;
+        }
+
         // 傳送消息至後端
         fetch('http://localhost:8081/contactOwner', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${peterParkerToken}`,
             },
             body: JSON.stringify({
                 parkingId: selectedParking.parkingId,
                 message: message,
             })
         })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
             .then(data => {
                 alert('訊息已發送成功！');
             })

@@ -1,15 +1,9 @@
 package com.tibame.peterparker.service;
 
-import com.tibame.peterparker.dao.OrderRepository;
-import com.tibame.peterparker.dao.ParkingRepository;
-import com.tibame.peterparker.dao.SpaceRepository;
-import com.tibame.peterparker.dao.UserRepository;
+import com.tibame.peterparker.dao.*;
 import com.tibame.peterparker.dto.OrderDTO;
 import com.tibame.peterparker.dto.ParkingDTO;
-import com.tibame.peterparker.entity.OrderVO;
-import com.tibame.peterparker.entity.ParkingVO;
-import com.tibame.peterparker.entity.Space;
-import com.tibame.peterparker.entity.UserVO;
+import com.tibame.peterparker.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +16,7 @@ import java.util.Optional;
 
 import java.time.LocalDate;
 import java.time.DayOfWeek;
+import java.sql.Date;
 
 @Service
 public class OrderService {
@@ -40,6 +35,9 @@ public class OrderService {
 
     @Autowired
     private OrderMailService orderMailService;
+
+    @Autowired
+    private SpaceStatusRepository spaceStatusRepository;
 
     // 查找附近的停車場
     public List<ParkingVO> findNearbyParking(Double lat, Double lng, Double radius) {
@@ -73,44 +71,90 @@ public class OrderService {
 
     // 創建訂單
     public Integer createOrder(OrderDTO orderDTO) {
-        // 先檢查該車位在指定時段是否可用
-        List<OrderVO> conflictingOrders = orderRepository.findConflictingOrders(orderDTO.getSpaceId(), orderDTO.getOrderStartTime(), orderDTO.getOrderEndTime());
-        if (conflictingOrders.isEmpty()) {
-            OrderVO order = new OrderVO();
+        // 根據 parkingId 查找該停車場下的所有 space
+        List<Space> spaces = spaceRepository.findByParkingInfoParkingId(orderDTO.getParkingId());
 
-            // 查找 UserVO
-            UserVO user = userRepository.findByUserId(orderDTO.getUserId());
-            if (user == null) {
-                throw new EntityNotFoundException("User not found");
-            }
-            order.setUser(user);  // 設置 UserVO
-
-            // 查找 Space
-            Space space = spaceRepository.findById(orderDTO.getSpaceId())
-                    .orElseThrow(() -> new EntityNotFoundException("Space not found"));
-            order.setSpace(space);  // 設置 Space
-
-            //設置訂單相關訊息
-            order.setStatusId(orderDTO.getStatusId());
-            order.setUserComment(orderDTO.getUserComment());
-            order.setOrderStartTime(orderDTO.getOrderStartTime());
-            order.setOrderEndTime(orderDTO.getOrderEndTime());
-            order.setOrderTotalIncome(orderDTO.getOrderTotalIncome());
-            order.setOrderModified(new Timestamp(System.currentTimeMillis()));
-
-            //保存訂單
-            OrderVO savedOrder = orderRepository.save(order);
-
-            //發送郵件通知
-            String userAccount = user.getUserAccount(); // 獲取 userAccount
-            String mailText = generateMailText(savedOrder); // 根據訂單生成郵件內容
-            orderMailService.sendMail(userAccount, mailText); // 調用郵件服務發送通知
-
-            return savedOrder.getOrderId();
-        } else {
-            throw new IllegalStateException("The selected space is not available for the chosen time period.");
+        if (spaces.isEmpty()) {
+            throw new EntityNotFoundException("No spaces available under the specified parking ID");
         }
+
+        // 找到沒有時間衝突的 space
+        Space availableSpace = null;
+        for (Space space : spaces) {
+            List<SpaceStatus> conflictingStatuses = spaceStatusRepository.findBySpaceIdAndOrderStartTimeLessThanAndOrderEndTimeGreaterThan(
+                    space.getSpaceId(), orderDTO.getOrderEndTime(), orderDTO.getOrderStartTime());
+
+            if (conflictingStatuses.isEmpty()) {
+                availableSpace = space;
+                break;
+            }
+        }
+
+        // 如果找不到可用的 space，則拋出異常
+        if (availableSpace == null) {
+            throw new IllegalStateException("No available space for the chosen time period.");
+        }
+
+        OrderVO order = new OrderVO();
+
+        // 查找 UserVO
+        UserVO user = userRepository.findByUserId(orderDTO.getUserId());
+        if (user == null) {
+            throw new EntityNotFoundException("User not found");
+        }
+        order.setUser(user);  // 設置 UserVO
+
+        // 設置找到的可用 space
+        order.setSpace(availableSpace);
+
+        // 設置訂單相關訊息
+        order.setStatusId(orderDTO.getStatusId());
+        order.setUserComment(orderDTO.getUserComment());
+        order.setOrderStartTime(orderDTO.getOrderStartTime());
+        order.setOrderEndTime(orderDTO.getOrderEndTime());
+
+        // 設置訂單創建日期
+        order.setOrderDate(new Date(System.currentTimeMillis()));
+
+        // 創建 ParkingDTO 以便計算總金額
+        ParkingDTO parkingInfo = new ParkingDTO();
+        parkingInfo.setParkingId(orderDTO.getParkingId());
+        parkingInfo.setWorkdayHourlyRate(availableSpace.getParkingInfo().getWorkdayHourlyRate());
+        parkingInfo.setHolidayHourlyRate(availableSpace.getParkingInfo().getHolidayHourlyRate());
+
+        // 計算總金額
+        Integer totalIncome = calculateTotalPrice(parkingInfo, orderDTO.getOrderStartTime(), orderDTO.getOrderEndTime());
+        order.setOrderTotalIncome(totalIncome); // 設置訂單總金額
+
+        // 設置訂單修改時間
+        order.setOrderModified(new Timestamp(System.currentTimeMillis()));
+
+        // 保存訂單
+        OrderVO savedOrder = orderRepository.save(order);
+
+        // 保存空間狀態
+        SpaceStatus spaceStatus = new SpaceStatus(
+                savedOrder.getOrderId(),
+                orderDTO.getParkingId(),
+                availableSpace.getSpaceId(),
+                new Date(System.currentTimeMillis()),
+                orderDTO.getOrderStartTime(),
+                orderDTO.getOrderEndTime()
+        );
+        spaceStatusRepository.save(spaceStatus);
+
+        // 發送郵件通知
+        String userAccount = user.getUserAccount(); // 獲取 userAccount
+        String mailText = generateMailText(savedOrder); // 根據訂單生成郵件內容
+        orderMailService.sendMail(userAccount, mailText); // 調用郵件服務發送通知
+
+        return savedOrder.getOrderId();
     }
+
+
+
+
+
 
     //訂單完成通知內容
     private String generateMailText(OrderVO order) {

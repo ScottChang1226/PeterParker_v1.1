@@ -85,7 +85,8 @@
 						<div class="user-name"><span><img id="avatar-preview" src="images/dashboard-avatar.jpg" alt=""></span><p style="display:inline "id="username2"></p></div>
 						<ul>
 							<li><a href="user_center.html"><i class="sl sl-icon-settings"></i>會員中心</a></li>
-							<li><a href="user_profile.html"><i class="sl sl-icon-user"></i>會員個人資料</a></li>
+							<li><a href="user_profile.html"><i class="sl sl-icon-user"></i>個人資料</a></li>
+							<li><a href="parking_map.html"><i class="sl sl-icon-control-play"></i>開始預約</a></li>
 						</ul>
 					</div>
 					<a href="index.html" id="logout_btn" class="button border with-icon" onclick="localStorage.removeItem('peterParkerToken'); localStorage.removeItem('userId');"></i>會員登出</a>
@@ -119,16 +120,17 @@
 
 			<ul>
 				<li><a href="user_center.html"><i class="sl sl-icon-settings"></i>會員中心</a></li>
-				<li class="active"><a href="user_profile.html"><i class="sl sl-icon-user"></i>會員個人資料</a></li>
+				<li class="active"><a href="user_profile.html"><i class="sl sl-icon-user"></i>個人資料</a></li>
+				<li><a href="parking_map.html"><i class="sl sl-icon-control-play"></i>開始預約</a></li>
 				<li><a><i class="sl sl-icon-layers"></i>我的訂單</a>
 					<ul>
 						<li><a href="user_ongoing_reservation.html">未完成訂單</a></li>
-						<li><a href="dashboard-my-listings.html">已完成訂單</a></li>
+						<li><a href="user_completed_reservation.html">已完成訂單</a></li>
 						<li>
 					</ul>	
 				</li>
-				<li><a href="user_my_favourites.html"><i class="sl sl-icon-heart"></i> 我的最愛</a></li>
-				<li><a href="user_my_blacklist.html"><i class="sl sl-icon-ban"></i> 我的黑名單</a></li>
+				<li><a href="user_my_favourites.html"><i class="sl sl-icon-heart"></i>我的最愛</a></li>
+				<li><a href="user_my_blacklist.html"><i class="sl sl-icon-ban"></i>我的黑名單</a></li>
 			</ul>	
 
 	</div>
@@ -144,7 +146,7 @@
 		<div id="titlebar">
 			<div class="row">
 				<div class="col-md-12 headline centered margin-top-0">
-					<h2>會員個人資料</h2>
+					<h2>個人資料</h2>
 				</div>
 			</div>
 		</div>

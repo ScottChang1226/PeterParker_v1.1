@@ -11,8 +11,8 @@
         ================================================== -->
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/main-color.css" id="colors">
-	<!--	<script type="module" src="scripts/userinfo.js"></script>-->
-	<!--	<script type="module" src="scripts/get_photo.js"></script>-->
+		<script type="module" src="scripts/userinfo.js"></script>
+<!--		<script type="module" src="scripts/get_photo.js"></script>-->
 
 </head>
 
@@ -349,7 +349,7 @@
 		<!-- Copyright -->
 		<div class="row">
 			<div class="col-md-12">
-				<div class="copyrights">© 2021 Peter.Parker. All Rights Reserved.</div>
+				<div class="copyrights">© 2024 Peter.Parker. All Rights Reserved.</div>
 			</div>
 		</div>
 
@@ -400,18 +400,46 @@
 <script type="text/javascript" src="scripts/test.js"></script>
 <script src="scripts/order.js"></script>
 
+
+
 <!-- Google Autocomplete -->
-<script src="scripts/parkingorder.js"></script>
+
 <script async defer
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDm8zpLXPf2UtxecZZmABNScrbKfa31AIQ&libraries=places,marker&callback=initMap">
 </script>
 
+<script>
+	function initMap() {
+	  // Google Maps 初始化代碼
+	  loadAdditionalScripts();
+	}
+  
+	function loadAdditionalScripts() {
+	  // 動態加載 infobox.min.js 和 markerclusterer.js
+	  var scripts = [
+		'scripts/parkingorder_1.js',
+		'scripts/infobox.min.js',
+		'scripts/markerclusterer.js',
+		'scripts/maps.js',
+	  ];
+	  scripts.forEach(function(src) {
+		var script = document.createElement('script');
+		script.src = src;
+		script.async = false; // 保證按順序加載
+		document.body.appendChild(script);
+	  });
+	}
+  </script>
+
 
 <!-- Maps -->
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&amp;language=en"></script>
+<!-- <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&amp;language=en"></script> -->
+<!-- <script src="scripts/parkingorder_1.js"></script>	
 <script type="text/javascript" src="scripts/infobox.min.js"></script>
 <script type="text/javascript" src="scripts/markerclusterer.js"></script>
-<script type="text/javascript" src="scripts/maps.js"></script>	
+<script type="text/javascript" src="scripts/maps.js"></script> -->
+
+
 
 <!-- Booking Widget - Quantity Buttons -->
 <script src="scripts/quantityButtons.js"></script>

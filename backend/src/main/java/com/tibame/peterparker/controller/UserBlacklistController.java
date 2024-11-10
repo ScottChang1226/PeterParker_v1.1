@@ -5,13 +5,16 @@ import com.tibame.peterparker.dto.UserBlacklistParkingDTO;
 import com.tibame.peterparker.service.UserBlacklistService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import okhttp3.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -21,7 +24,7 @@ public class UserBlacklistController {
     @Autowired
     private UserBlacklistService userBlacklistService;
 
-    @GetMapping("/addBlacklist")
+    @PostMapping("/addBlacklist")
     public ResponseEntity<?> addBlacklist(@Valid @RequestBody UserBlacklistDTO userBlacklistDTO) {
         Integer userId = userBlacklistDTO.getUserId();
         Integer parkingId = userBlacklistDTO.getParkingId();
@@ -72,4 +75,18 @@ public class UserBlacklistController {
 
         return ResponseEntity.ok(favourites);
     }
+
+    @GetMapping("/ifBlacklistedAlready/{userId}/{parkingId}")
+    public ResponseEntity<Map<String, Object>> isBlacklisted(@PathVariable Integer userId, @PathVariable Integer parkingId) {
+        boolean isBlacklist = userBlacklistService.findBlacklistByUserIdAndParkingId(userId, parkingId);
+        Map response = new HashMap();
+        String isBlacklistedString = String.valueOf(isBlacklist);
+        response.put("isBlacklisted", isBlacklistedString);
+        response.put("BlacklistButton", "addingSection"+parkingId);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+
+
 }

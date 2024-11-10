@@ -1,4 +1,4 @@
-<!-- Google Autocomplete -->
+
 var googleMap;
 var markers = [];
 var infoWindow;
@@ -69,7 +69,7 @@ function fetchAndDisplayParking() {
     var sw = bounds.getSouthWest();
 
     //暫時設定連接位址
-    fetch('http://localhot:8081/order/getParkingListings', {
+    fetch('http://localhost:8081/order/getParkingListings', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

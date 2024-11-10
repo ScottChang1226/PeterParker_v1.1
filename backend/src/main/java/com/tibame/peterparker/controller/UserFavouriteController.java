@@ -11,7 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -21,7 +23,7 @@ public class UserFavouriteController {
     @Autowired
     private UserFavouriteService userFavouriteService;
 
-    @GetMapping("/addFavourite")
+    @PostMapping("/addFavourite")
     public ResponseEntity<?> addFavourite(@Valid @RequestBody UserFavouriteDTO userFavouriteDTO) {
         Integer userId = userFavouriteDTO.getUserId();
         Integer parkingId = userFavouriteDTO.getParkingId();
@@ -66,4 +68,15 @@ public class UserFavouriteController {
         }
         return ResponseEntity.ok(favourites);
     }
+
+    @GetMapping("/ifFavouritedAlready/{userId}/{parkingId}")
+    public ResponseEntity<Map<String, String>> isFavourited(@PathVariable Integer userId, @PathVariable Integer parkingId) {
+         boolean isFavourited = userFavouriteService.findExistingFavouriteId(userId, parkingId);
+         Map response = new HashMap();
+         String isFavouritedString = String.valueOf(isFavourited);
+         response.put("isFavourited", isFavouritedString);
+         response.put("FavouriteButton", "addingSection"+parkingId);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
 }

@@ -1,9 +1,16 @@
 import { config } from './config.js';
 
+let isMapInitialized = false; // 全域變量標示地圖是否初始化完成
+
 $(document).ready(function () {
 
+    // 初始化地圖完成後更新標誌
+    window.initMap = function () {
+        isMapInitialized = true;
+    };
+
     // 搜尋功能 AJAX 請求
-    $('#autocomplete-input').on('change', function () {
+    $('#search-parking').on('change', function () {
         let keyword = $(this).val();
         if (keyword) {
             $.ajax({
@@ -25,10 +32,10 @@ $(document).ready(function () {
     // 搜索按鈕的 AJAX 請求
     $('#search-button').on('click', function (e) {
         e.preventDefault(); // 阻止默認行為
-        let keyword = $('#autocomplete-input').val();
+        let keyword = $('#search-parking').val();
         if (keyword) {
             $.ajax({
-                url: `:http://${config}/order/searchParking`,
+                url: `http://${config}/order/searchParking`,
                 type: 'GET',
                 data: { keyword: keyword },
                 success: function (data) {
@@ -46,27 +53,32 @@ $(document).ready(function () {
     // 篩選功能 AJAX 請求
     $('.distance-radius').on('input', function () {
         let radius = $(this).val();
-        // 使用地圖的當前中心經緯度作為篩選條件
-        let center = googleMap.getCenter();
-        let latitude = center.lat();
-        let longitude = center.lng();
 
-        $.ajax({
-            url: `http://${config}/order/nearbyParking`,
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify({
-                latitude: latitude,
-                longitude: longitude,
-                radius: radius
-            }),
-            success: function (data) {
-                renderParkingList(data);
-            },
-            error: function (err) {
-                console.error('Error finding nearby parking:', err);
-            }
-        });
+        // 確認 googleMap 已初始化
+        if (isMapInitialized && googleMap && typeof googleMap.getCenter === 'function') {
+            let center = googleMap.getCenter();
+            let latitude = center.lat();
+            let longitude = center.lng();
+
+            $.ajax({
+                url: `http://${config}/order/nearbyParking`,
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    latitude: latitude,
+                    longitude: longitude,
+                    radius: radius
+                }),
+                success: function (data) {
+                    renderParkingList(data);
+                },
+                error: function (err) {
+                    console.error('Error finding nearby parking:', err);
+                }
+            });
+        } else {
+            console.error('Google Map is not initialized properly.');
+        }
     });
 
     // 篩選按鈕點擊事件
@@ -77,16 +89,17 @@ $(document).ready(function () {
         });
 
         let distance = $('.distance-radius').val();
-
         fetchFilteredParkingListings(selectedTypes, distance);
     });
 
     // 向後端發送篩選條件並獲取停車場列表
     function fetchFilteredParkingListings(types, distance) {
+        const peterParkerToken = localStorage.getItem('peterParkerToken');
         fetch(`${config}/order/filteredParkingListings`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${peterParkerToken}`,
             },
             body: JSON.stringify({
                 types: types,
@@ -118,11 +131,13 @@ $(document).ready(function () {
             parkingData.forEach(function (parking, index) {
                 let position = { lat: parking.parkingLat, lng: parking.parkingLong };
 
-                new google.maps.Marker({
-                    map: googleMap,
-                    position: position,
-                    title: parking.parkingName,
-                });
+                if (googleMap) {
+                    new google.maps.Marker({
+                        map: googleMap,
+                        position: position,
+                        title: parking.parkingName,
+                    });
+                }
 
                 let listingItem = `
                     <div class="col-lg-12 col-md-12">
@@ -148,7 +163,7 @@ $(document).ready(function () {
                 listingResults.append(listingItem);
             });
 
-            // 保存所有停車場資料，方便用戶點擊後存入localStorage
+            // 保存所有停車場資料，方便用戶點擊後存入 localStorage
             window.parkingList = parkingData;
         }
 

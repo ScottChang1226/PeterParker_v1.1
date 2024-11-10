@@ -17,6 +17,9 @@
 </head>
 
 <body>
+<div id="loadingOverlay" class="overlay">
+	<div class="spinner"></div>
+	</div>
 
 <!-- Wrapper -->
 <div id="wrapper">
@@ -87,7 +90,8 @@
 						<div class="user-name"><span><img id="avatar-preview" src="images/dashboard-avatar.jpg" alt=""></span><p style="display:inline "id="username2"></p></div>
 						<ul>
 							<li><a href="user_center.html"><i class="sl sl-icon-settings"></i>會員中心</a></li>
-							<li><a href="user_profile.html"><i class="sl sl-icon-user"></i>會員個人資料</a></li>
+							<li><a href="user_profile.html"><i class="sl sl-icon-user"></i>個人資料</a></li>
+							<li><a href="parking_map.html"><i class="sl sl-icon-control-play"></i>開始預約</a></li>
 						</ul>
 					</div>
 					<a href="index.html" id="logout_btn" class="button border with-icon" onclick="localStorage.removeItem('peterParkerToken'); localStorage.removeItem('userId');"></i>會員登出</a>
@@ -120,7 +124,8 @@
 
 			<ul>
 				<li><a href="user_center.html"><i class="sl sl-icon-settings"></i>會員中心</a></li>
-				<li><a href="user_profile.html"><i class="sl sl-icon-user"></i>會員個人資料</a></li>
+				<li><a href="user_profile.html"><i class="sl sl-icon-user"></i>個人資料</a></li>
+				<li><a href="parking_map.html"><i class="sl sl-icon-control-play"></i>開始預約</a></li>
 				<li class="active"><a><i class="sl sl-icon-layers"></i>我的訂單</a>
 					<ul>
 						<li><a href="user_ongoing_reservation.html">未完成訂單</a></li>
@@ -128,8 +133,8 @@
 						<li>
 					</ul>	
 				</li>
-				<li><a href="user_my_favourites.html"><i class="sl sl-icon-heart"></i> 我的最愛</a></li>
-				<li><a href="user_my_blacklist.html"><i class="sl sl-icon-ban"></i> 我的黑名單</a></li>
+				<li><a href="user_my_favourites.html"><i class="sl sl-icon-heart"></i>我的最愛</a></li>
+				<li><a href="user_my_blacklist.html"><i class="sl sl-icon-ban"></i>我的黑名單</a></li>
 			</ul>
 	</div>
 	</div>
@@ -247,109 +252,128 @@ $('#booking-date-range').on('hide.daterangepicker', function(ev, picker) {
 
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-    const userId = localStorage.getItem('userId');
-    fetch(`http://localhost:8081/user/使用中/${userId}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        }
-    })
-    .then(response => {
-        if (response.status === 204) {
-            console.log("No orders found for this user.");
-            return []; // Return empty array if no content
-        } else if (response.ok) {
-            return response.json();
-        } else {
-            throw new Error('Failed to fetch user orders');
-        }
-    })
-    .then(data => {
-        if (data && data.length > 0) {
-			console.log(data);
-            const orderList = document.getElementById('orderlist');
-            orderList.innerHTML = ""; // Clear existing orders if any
-            data.forEach(order => {
-                let orders = document.createElement('li');
-				orders.classList.add('pending-booking');
-                orders.innerHTML = `
-                    <div class="list-box-listing bookings"">
-						<div style="width:300px;height: 169px;border-radius:20px; overflow:hidden;">
-                         <img style="object-fit: cover; width: 100%; height: 100%" src="http://localhost:8081/user/image/${order.parkingId}" alt="Parking Image"/></div>
-                        <div class="list-box-listing-content">
-                            <div class="inner">
-                                <h3>${order.parkingName}<span class="booking-status">${order.statusId}</span></h3>
-                                <div class="inner-booking-list">
-                                    <h5>開始時間：</h5>
-                                    <ul class="booking-list">
-                                        <li class="highlighted">${order.orderStartTime}</li>
-                                    </ul>
-                                </div>
-                                <div class="inner-booking-list">
-                                    <h5>結束時間：</h5>
-                                    <ul class="booking-list">
-                                        <li class="highlighted">${order.orderEndTime}</li>
-                                    </ul>
-                                </div>    
-                                <div class="inner-booking-list">
-                                    <h5>總共金額：</h5>
-                                    <ul class="booking-list">
-                                        <li class="highlighted">$${order.orderTotalIncome}</li>
-                                    </ul>
-                                </div>        
-                                <div class="inner-booking-list">
-                                    <h5>訂單編號：</h5>
-                                    <ul class="booking-list">
-                                        <li>${order.orderId}</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="buttons-to-right">
+	document.addEventListener("DOMContentLoaded", reloadOrder());
+	
+	
+		
+		
+	function reloadOrder(){
+		const userId = localStorage.getItem('userId');
+		
+
+
+		fetch(`http://localhost:8081/user/使用中/${userId}`, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+			}
+		})
+		.then(response => {
+			if (response.status === 204) {
+				console.log("No orders found for this user.");
+				return []; // Return empty array if no content
+			} else if (response.ok) {
+				return response.json();
+			} else {
+				throw new Error('Failed to fetch user orders');
+			}
+		})
+		.then(data => {
+			if (data && data.length > 0) {
+				console.log(data);
+				const orderList = document.getElementById('orderlist');
+				orderList.innerHTML = ""; // Clear existing orders if any
+				data.forEach(order => {
+					let orders = document.createElement('li');
+					orders.classList.add('pending-booking');
+					orders.innerHTML = `
+						<div class="list-box-listing bookings"">
+							<div style="width:300px;height: 169px;border-radius:20px; overflow:hidden;">
+							 <img style="object-fit: cover; height: 100%; width: 100%" src="http://localhost:8081/user/image/${order.parkingId}" alt="Parking Image"/></div>
+							<div class="list-box-listing-content">
+								<div class="inner">
+									<h3>${order.parkingName}<span class="booking-status">${order.statusId}</span></h3>
+									<div class="inner-booking-list">
+										<h5>開始時間：</h5>
+										<ul class="booking-list">
+											<li class="highlighted">${order.orderStartTime}</li>
+										</ul>
+									</div>
+									<div class="inner-booking-list">
+										<h5>結束時間：</h5>
+										<ul class="booking-list">
+											<li class="highlighted">${order.orderEndTime}</li>
+										</ul>
+									</div>    
+									<div class="inner-booking-list">
+										<h5>總共金額：</h5>
+										<ul class="booking-list">
+											<li class="highlighted">$${order.orderTotalIncome}</li>
+										</ul>
+									</div>        
+									<div class="inner-booking-list">
+										<h5>訂單編號：</h5>
+										<ul class="booking-list">
+											<li>${order.orderId}</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						<div class="buttons-to-right">
 						<a href="#" class="button gray" onclick="cancelExistingOrder(${order.orderId})"><i class="sl sl-icon-close"></i>取消訂單</a>
 						</div>
-                    </div>`;
-                orderList.appendChild(orders);
-            });
-        } else {
-            console.log("No orders available.");
-        }
-    })
-    .catch(error => {
-        console.error("Error:", error);
-    });
-});
+						</div>`;
+					orderList.appendChild(orders);
+				});
+			} else {
+				console.log("No orders available.");
+			}
+		})
+		.catch(error => {
+			console.error("Error:", error);
+		});
+	
+	}
+		
+	
+	
+	
+	
+	
+	function cancelExistingOrder(orderId) {
+		const overlay = document.getElementById('loadingOverlay');
+   		overlay.style.display = 'block';
+		fetch(`http://localhost:8081/user/updateOrderStatus/${orderId}/已取消`, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+			}
+		})
+				.then(response => {
+					if (response.ok) {
+						console.log('sucess');
+					} else {
+						console.log(response);
+					}
+				})
+				.then(data => {
+					console.log(data);
+				})
+				.catch(error => {
+					console.error("Error:", error);
+				})
+				.finally(()=>{
+					const orderList = document.getElementById('orderlist');
+					reloadOrder();
+					overlay.style.display = "none";
 
-
-function cancelExistingOrder(orderId) {
-	fetch(`http://localhost:8081/user/${orderId}/已取消`, {
-		method: 'GET',
-		headers: {
-			'Content-Type': 'application/json',
-		}
-	})
-			.then(response => {
-				if (response.status === 204) {
-					console.log("No orders found for this user.");
-					return []; // Return empty array if no content
-				} else if (response.status === 200) {  // Corrected condition
-					return response.json();
-				} else {
-					throw new Error('Failed to fetch user orders');
-				}
-			})
-			.then(data => {
-				// Handle the data here if needed
-				console.log(data);
-			})
-			.catch(error => {
-				console.error("Error:", error);
-			});
-}
-
-
-</script>
+				});
+	}
+	
+	
+	
+	
+	</script>
 
 
 </body>

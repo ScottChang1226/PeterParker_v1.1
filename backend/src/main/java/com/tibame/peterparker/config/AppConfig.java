@@ -9,10 +9,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class AppConfig {
 
-    @Bean
-    public AdminUserDetailsService adminUserDetailsService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-        return new AdminUserDetailsService(userRepository, passwordEncoder);
-    }
 
 
 }

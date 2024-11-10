@@ -16,7 +16,11 @@
 
 </head>
 
+
 <body>
+<div id="loadingOverlay" class="overlay">
+	<div class="spinner"></div>
+	</div>
 
 <!-- Wrapper -->
 <div id="wrapper">
@@ -62,18 +66,6 @@
 						</li>
 
 						<li><a>最新消息</a>
-							<ul>
-								<li><a href="dashboard.html">Dashboard</a></li>
-								<li><a href="dashboard-messages.html">Messages</a></li>
-								<li><a href="dashboard-bookings.html">Bookings</a></li>
-								<li><a href="dashboard-wallet.html">Wallet</a></li>
-								<li><a href="dashboard-my-listings.html">My Listings</a></li>
-								<li><a href="dashboard-reviews.html">Reviews</a></li>
-								<li><a href="dashboard-bookmarks.html">Bookmarks</a></li>
-								<li><a href="dashboard-add-listing.html">Add Listing</a></li>
-								<li><a href="dashboard-my-profile.html">My Profile</a></li>
-								<li><a href="dashboard-invoice.html">Invoice</a></li>
-							</ul>
 						</li>
 
 						<li><a href="#">聯絡我們</a></li>
@@ -99,7 +91,8 @@
 						<div class="user-name"><span><img id="avatar-preview" src="images/dashboard-avatar.jpg" alt=""></span><p style="display:inline "id="username2"></p></div>
 						<ul>
 							<li><a href="user_center.html"><i class="sl sl-icon-settings"></i>會員中心</a></li>
-							<li><a href="user_profile.html"><i class="sl sl-icon-user"></i>會員個人資料</a></li>
+							<li><a href="user_profile.html"><i class="sl sl-icon-user"></i>個人資料</a></li>
+							<li><a href="parking_map.html"><i class="sl sl-icon-control-play"></i>開始預約</a></li>
 						</ul>
 					</div>
 					<a href="index.html" id="logout_btn" class="button border with-icon" onclick="localStorage.removeItem('peterParkerToken'); localStorage.removeItem('userId');"></i>會員登出</a>
@@ -132,7 +125,8 @@
 
 			<ul>
 				<li><a href="user_center.html"><i class="sl sl-icon-settings"></i>會員中心</a></li>
-				<li><a href="user_profile.html"><i class="sl sl-icon-user"></i>會員個人資料</a></li>
+				<li><a href="user_profile.html"><i class="sl sl-icon-user"></i>個人資料</a></li>
+				<li><a href="parking_map.html"><i class="sl sl-icon-control-play"></i>開始預約</a></li>
 				<li class="active"><a><i class="sl sl-icon-layers"></i>我的訂單</a>
 					<ul>
 						<li><a href="user_ongoing_reservation.html">未完成訂單</a></li>
@@ -140,8 +134,8 @@
 						<li>
 					</ul>	
 				</li>
-				<li><a href="user_my_favourites.html"><i class="sl sl-icon-heart"></i> 我的最愛</a></li>
-				<li><a href="user_my_blacklist.html"><i class="sl sl-icon-ban"></i> 我的黑名單</a></li>
+				<li><a href="user_my_favourites.html"><i class="sl sl-icon-heart"></i>我的最愛</a></li>
+				<li><a href="user_my_blacklist.html"><i class="sl sl-icon-ban"></i>我的黑名單</a></li>
 			</ul>	
 
 	</div>
@@ -264,7 +258,10 @@ $('#booking-date-range').on('hide.daterangepicker', function(ev, picker) {
 
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", listeditAll());
+
+
+function listeditAll () {
     const userId = localStorage.getItem('userId');
     fetch(`http://localhost:8081/user/已完成/${userId}`, {
         method: 'GET',
@@ -330,13 +327,25 @@ document.addEventListener("DOMContentLoaded", function () {
                                 <div class="inner-booking-list">
                                     <h5>您的評價：</h5>
                                     <ul class="booking-list">
-                                        <li><h3>"${order.userComment}"</h3></li>
+                                        <li><h3 id="text-display-${order.orderId}">${order.userComment}</h3></li>
                                     </ul>
+									<input type="text" id="text-input-${order.orderId}" style="display:none">
+									<button id="comment-submit-button-${order.orderId}" style="display:none;" class="button gray" onclick="changeComment(${order.orderId})">確認更改</button>
                                 </div>
+								
                             </div>
                         </div>
+						<div class="buttons-to-right" id="section${order.orderId}">
+						<span id="addingSection${order.parkingId}">
+						<a href="#" class="button gray" onclick="addFavourite(${order.parkingId})"><i class="sl sl-icon-heart"></i></a>
+						<a href="#" class="button gray" onclick="addBlacklist(${order.parkingId})"><i class="sl sl-icon-ban"></i></a>
+						</span>
+						<a href="#" class="button gray" id="edit-btn-${order.orderId}" onclick="toggleEdit(${order.orderId})"><i class="sl sl-icon-pencil"></i> 更改評價</a>
+						</div>
                     </div>`;
                 orderList.appendChild(orders);
+				checkFavourite(order.parkingId);
+				checkBlacklist(order.parkingId);
             });
         } else {
             console.log("No orders available.");
@@ -345,9 +354,207 @@ document.addEventListener("DOMContentLoaded", function () {
     .catch(error => {
         console.error("Error:", error);
     });
-});
+
+
+	function checkBlacklist(parkingId){
+		const userId = localStorage.getItem('userId');
+	// Correct the URL and fetch syntax
+	fetch(`http://localhost:8081/user/ifBlacklistedAlready/${userId}/${parkingId}`, {
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json',
+		}
+	})
+	.then(response => {
+		if (response.ok) {
+			return response.json(); // Parse JSON if response is successful
+		} else {
+			console.log("Response from checkFav (Error):", response);
+			throw new Error("Failed to check favourite status.");
+		}
+	})
+	.then(data => {
+		if(data.isBlacklisted == "true" ){
+			let addingSection = document.getElementById(data.BlacklistButton);
+			addingSection.style.display="none";
+			return;
+		}
+	})
+	.catch(error => {
+		console.error("Error:", error);
+	});
+	}
+	
+
+	function checkFavourite(parkingId) {
+	const userId = localStorage.getItem('userId');
+	// Correct the URL and fetch syntax
+	fetch(`http://localhost:8081/user/ifFavouritedAlready/${userId}/${parkingId}`, {
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json',
+		}
+	})
+	.then(response => {
+		
+		if (response.ok) {
+			return response.json(); // Parse JSON if response is successful
+		} else {
+			console.log("Response from checkFav (Error):", response);
+			throw new Error("Failed to check favourite status.");
+		}
+	})
+	.then(data => {
+		if(data.isFavourited == "true" ){
+			let addingSection = document.getElementById(data.FavouriteButton);
+			addingSection.style.display="none";
+			return;
+		}
+	})
+	.catch(error => {
+		console.error("Error:", error);
+	});
+}
+}
+;
+
+
+
+
+function addFavourite(parkingId) {
+	const userId = localStorage.getItem('userId');
+	const overlay = document.getElementById('loadingOverlay');
+   	overlay.style.display = 'block';
+	let jsonDataUpdate = {
+		userId: userId,
+		parkingId: parkingId
+	}
+
+	fetch(`http://localhost:8081/user/addFavourite`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(jsonDataUpdate)
+	})
+			.then(response => {
+				if (response.ok) {
+					listeditAll();
+				} else {
+					console.log(response);
+				}
+			})
+			.then(data => {
+			})
+			.catch(error => {
+				console.error("Error:", error);
+			})
+			.finally(()=>{c
+				
+			});
+}
+
+
+function addBlacklist(parkingId) {
+	const userId = localStorage.getItem('userId');
+	const overlay = document.getElementById('loadingOverlay');
+   	overlay.style.display = 'block';
+	let jsonDataUpdate = {
+		userId: userId,
+		parkingId: parkingId
+
+	}
+
+	fetch(`http://localhost:8081/user/addBlacklist`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(jsonDataUpdate)
+	})
+			.then(response => {
+				if (response.ok) {
+					listeditAll();
+				} else {
+					console.log(response);
+				}
+			})
+			.then(data => {
+			})
+			.catch(error => {
+				console.error("Error:", error);
+			})
+			.finally(()=>{c
+				
+			});
+}
+
+function toggleEdit(order) {
+            const textDisplay = document.getElementById(`text-display-${order}`);
+            const textInput = document.getElementById(`text-input-${order}`);
+            const editBtn = document.getElementById(`edit-btn-${order}`);
+			const commentButton = document.getElementById(`comment-submit-button-${order}`);
+			const section = document.getElementById(`section${order}`);
+
+			textInput.value = textDisplay.textContent;
+            textDisplay.style.display = 'none';
+			section.style.display="none";
+            textInput.style.display = 'inline';
+            editBtn.style.display = 'none';
+			commentButton.style.display="inline";
+
+
+            // if (editBtn.textContent === '開始修改') {
+            //     // Switch to edit mode
+            //     textInput.value = textDisplay.textContent;
+            //     textDisplay.style.display = 'none';
+            //     textInput.style.display = 'inline';
+            //     editBtn.textContent = '確認';
+            // } else {
+            //     // Switch to view mode
+            //     textDisplay.textContent = textInput.value;
+            //     textDisplay.style.display = 'inline';
+            //     textInput.style.display = 'none';
+            //     editBtn.textContent = '開始修改';
+            // }
+        }
+
+function changeComment(order){
+	const textInput = document.getElementById(`text-input-${order}`);
+
+	let newComment = textInput.value;
+
+	let jsonData = {
+		orderId: order,
+		userComment: newComment
+	}
+
+	fetch("http://localhost:8081/user/updateUserComment",{
+		method: 'POST',
+		headers: {
+			'Content-Type':'application/json',
+		},
+		body: JSON.stringify(jsonData)
+	})
+	.then(response=>{
+		if(response.ok){
+			listeditAll();
+			return response.json();
+		} else {
+			return console.log("error");
+		}
+	})
+	.catch(error=>{
+		console.log("error");
+		return;
+	})
+
+}
 
 </script>
+
+
+
 
 
 </body>
