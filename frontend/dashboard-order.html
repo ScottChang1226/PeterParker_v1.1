@@ -211,6 +211,11 @@
 		.label-in-use {
 			background-color: #ffc107;
 		}
+
+		/* 預約中標籤 */
+		.label-in-order {
+			background-color: rgb(68, 68, 255);
+		}
 	</style>
 
 
@@ -501,6 +506,7 @@
 					if (order.statusId === '已完成') statusClass = 'label-complete';
 					else if (order.statusId === '已取消') statusClass = 'label-cancelled';
 					else if (order.statusId === '使用中') statusClass = 'label-in-use';
+					else if (order.statusId === '預約中') statusClass = 'label-in-order';
 
 					row.innerHTML = `
 						<td>${order.orderId}</td>
